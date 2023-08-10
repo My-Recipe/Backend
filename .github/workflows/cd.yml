@@ -1,0 +1,63 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          
+      - name: Gradle Caching
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+          
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Make application-prod.yml
+        run: |
+          cd ./src/main/resources
+          touch ./application-prod.yml
+          echo "${{ secrets.APPLICATION_PROD }}" > ./application-prod.yml
+        shell: bash
+
+      - name: Build With Gradle
+        run: ./gradlew build -x test
+        
+      - name: Docker build & Push
+        env:
+          DOCKER_PATH : .deploy/Dockerfile
+        run: |
+          docker login -u ${{ secrets.DOCKER_ID }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker build -f $DOCKER_PATH -t ${{ secrets.DOCKER_ID }}/${{ secrets.DOCKER_REPO }} .
+          docker push ${{ secrets.DOCKER_ID }}/${{ secrets.DOCKER_REPO }}
+
+      - name: Deploy to Prob
+        uses: appleboy/ssh-action@master
+        id: deploy-prob
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          envs: GITHUB_SHA
+          script: |
+           sudo docker rm -f $(docker ps -qa)
+           sudo docker pull ${{ secrets.DOCKER_REPO }}/my_recipe
+           docker-compose up -d
+           docker image prune -f
