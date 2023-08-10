@@ -1,0 +1,9 @@
+version: '3'
+services:
+  spring:
+    container_name: my_recipe
+    image: kimseoyoung/my_recipe
+    expose:
+      - 8080
+    ports:
+      - 80:8080
