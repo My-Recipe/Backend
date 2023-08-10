@@ -36,6 +36,9 @@ jobs:
           touch ./application-prod.yml
           echo "${{ secrets.APPLICATION_PROD }}" > ./application-prod.yml
         shell: bash
+        
+      - name: Grant Execute Permission For Gradlew
+        run: chmod +x gradlew
 
       - name: Build With Gradle
         run: ./gradlew build -x test
