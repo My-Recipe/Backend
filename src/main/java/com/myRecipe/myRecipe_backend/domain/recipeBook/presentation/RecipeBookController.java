@@ -4,6 +4,7 @@ import com.myRecipe.myRecipe_backend.domain.recipeBook.application.dto.request.R
 import com.myRecipe.myRecipe_backend.domain.recipeBook.application.service.RecipeBookCreateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -13,8 +14,7 @@ public class RecipeBookController {
     private final RecipeBookCreateService recipeBookCreateService;
 
     @PostMapping("/recipeBook")
-    public void createRecipeBook(RecipeBookRequest.RecipeBookCreateRequest recipeBookCreateRequest) {
+    public void createRecipeBook(@RequestBody RecipeBookRequest.RecipeBookCreateRequest recipeBookCreateRequest) {
         recipeBookCreateService.createRecipeBook(recipeBookCreateRequest);
-
     }
 }
