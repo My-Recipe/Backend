@@ -15,12 +15,12 @@ public class Recipe {
     @Column(name = "recipe_id")
     private Long id;
 
-    private String dishName;
+    private String recipeName;
     private boolean publicityStatus;
 
     @Builder
-    public Recipe(String dishName, boolean publicityStatus) {
-        this.dishName = dishName;
+    public Recipe(String recipeName, boolean publicityStatus) {
+        this.recipeName = recipeName;
         this.publicityStatus = publicityStatus;
     }
 }

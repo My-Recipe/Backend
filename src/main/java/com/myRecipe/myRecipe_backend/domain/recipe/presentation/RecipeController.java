@@ -14,7 +14,7 @@ public class RecipeController {
 
     private final RecipeCreateService recipeCreateService;
 
-    @PostMapping("/createRecipe")
+    @PostMapping("/recipe")
     public void createRecipe(@RequestBody RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
         recipeCreateService.createRecipe(recipeCreateRequest);
     }
