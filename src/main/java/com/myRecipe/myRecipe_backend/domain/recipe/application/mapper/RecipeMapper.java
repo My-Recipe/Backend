@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RecipeMapper {
 
-    public static Recipe mapToRecipe(String dishName, Boolean publicityStatus) {
+    public static Recipe mapToRecipe(String recipeName, Boolean publicityStatus) {
         return Recipe.builder()
-                .dishName(dishName)
+                .recipeName(recipeName)
                 .publicityStatus(publicityStatus)
                 .build();
     }
