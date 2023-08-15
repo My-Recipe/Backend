@@ -7,11 +7,11 @@ public class RecipeResponse {
 
     @Getter
     public static class RecipeInfoResponse{
-        private String dishName;
+        private String recipeName;
 
         @Builder
-        public RecipeInfoResponse(String dishName) {
-            this.dishName = dishName;
+        public RecipeInfoResponse(String recipeName) {
+            this.recipeName = recipeName;
         }
     }
 }

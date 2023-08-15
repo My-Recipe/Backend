@@ -14,7 +14,7 @@ public class RecipeCreateService {
     private final RecipeSaveService recipeSaveService;
 
     public void createRecipe(RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
-        String dishName = recipeCreateRequest.getDishName();
+        String dishName = recipeCreateRequest.getRecipeName();
         boolean publicityStatus = recipeCreateRequest.isPublicityStatus();
         Recipe recipe = RecipeMapper.mapToRecipe(dishName, publicityStatus);
 

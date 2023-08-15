@@ -9,12 +9,12 @@ public class RecipeRequest {
     @NoArgsConstructor
     public static class RecipeCreateRequest {
 
-        private String dishName;
+        private String recipeName;
         private boolean publicityStatus;
 
         @Builder
-        public RecipeCreateRequest(String dishName, boolean publicityStatus) {
-            this.dishName = dishName;
+        public RecipeCreateRequest(String recipeName, boolean publicityStatus) {
+            this.recipeName = recipeName;
             this.publicityStatus = publicityStatus;
         }
     }
