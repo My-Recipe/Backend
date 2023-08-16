@@ -11,12 +11,14 @@ public class UserRequest {
         private String name;
         private String email;
         private String profileUrl;
+        private Long recipeBookId;
 
         @Builder
-        public UserCreateRequest(String name, String email, String profileUrl) {
+        public UserCreateRequest(String name, String email, String profileUrl, Long recipeBookId) {
             this.name = name;
             this.email = email;
             this.profileUrl = profileUrl;
+            this.recipeBookId = recipeBookId;
         }
     }
 }
