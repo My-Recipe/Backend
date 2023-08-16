@@ -11,7 +11,6 @@ public class UserRequest {
         private String name;
         private String email;
         private String profileUrl;
-
         @Builder
         public UserCreateRequest(String name, String email, String profileUrl) {
             this.name = name;

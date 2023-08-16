@@ -1,5 +1,6 @@
 package com.friedNote.friedNote_backend.domain.recipeBook.domain.entity;
 
+import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -17,10 +18,14 @@ public class RecipeBook {
 
     private String title;
     private String subtitle;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Builder
-    public RecipeBook(String title, String subtitle) {
+    public RecipeBook(String title, String subtitle, User user) {
         this.title = title;
         this.subtitle = subtitle;
+        this.user = user;
     }
 }

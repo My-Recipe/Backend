@@ -11,11 +11,15 @@ public class RecipeRequest {
 
         private String recipeName;
         private boolean publicityStatus;
+        private Long recipeBookId;
+        private Long userId;
 
         @Builder
-        public RecipeCreateRequest(String recipeName, boolean publicityStatus) {
+        public RecipeCreateRequest(String recipeName, boolean publicityStatus, Long recipeBookId, Long userId) {
             this.recipeName = recipeName;
             this.publicityStatus = publicityStatus;
+            this.recipeBookId = recipeBookId;
+            this.userId = userId;
         }
     }
 }
