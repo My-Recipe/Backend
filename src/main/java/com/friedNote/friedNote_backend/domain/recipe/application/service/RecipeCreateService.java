@@ -1,5 +1,8 @@
 package com.friedNote.friedNote_backend.domain.recipe.application.service;
 
+import com.friedNote.friedNote_backend.domain.cookingProcess.application.mapper.CookingProcessMapper;
+import com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity.CookingProcess;
+import com.friedNote.friedNote_backend.domain.cookingProcess.domain.service.CookingProcessSaveService;
 import com.friedNote.friedNote_backend.domain.recipe.application.dto.request.RecipeRequest;
 import com.friedNote.friedNote_backend.domain.recipe.application.mapper.RecipeMapper;
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
@@ -16,25 +19,25 @@ import org.springframework.stereotype.Service;
 public class RecipeCreateService {
 
     private final RecipeSaveService recipeSaveService;
-
     private final RecipeBookQueryService recipeBookQueryService;
-
     private final UserQueryService userQueryService;
+    private final CookingProcessSaveService cookingProcessSaveService;
 
     public void createRecipe(RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
-        String dishName = recipeCreateRequest.getRecipeName();
-        boolean publicityStatus = recipeCreateRequest.isPublicityStatus();
-
         Long recipeBookId = recipeCreateRequest.getRecipeBookId();
         RecipeBook recipeBook = recipeBookQueryService.findById(recipeBookId);
 
         Long userId = recipeCreateRequest.getUserId();
         User user = userQueryService.findById(userId);
 
-        Recipe recipe = RecipeMapper.mapToRecipe(dishName, publicityStatus, recipeBook, user);
-
+        Recipe recipe = RecipeMapper.mapToRecipe(recipeCreateRequest, recipeBook, user);
         recipeSaveService.saveRecipe(recipe);
-    }
 
+        recipeCreateRequest.getCookingProcessCreateRequestList().forEach(cookingProcessCreateRequest -> {
+            CookingProcess cookingProcess = CookingProcessMapper.mapToCookingProcess(cookingProcessCreateRequest, recipe);
+            cookingProcessSaveService.saveCookingProcess(cookingProcess);
+            }
+        );
+    }
 }
 

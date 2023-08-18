@@ -1,8 +1,11 @@
 package com.friedNote.friedNote_backend.domain.recipe.application.dto.request;
 
+import com.friedNote.friedNote_backend.domain.cookingProcess.application.dto.request.CookingProcessRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 public class RecipeRequest {
     @Getter
@@ -13,13 +16,16 @@ public class RecipeRequest {
         private boolean publicityStatus;
         private Long recipeBookId;
         private Long userId;
+        private List<CookingProcessRequest.CookingProcessCreateRequest> cookingProcessCreateRequestList;
 
         @Builder
-        public RecipeCreateRequest(String recipeName, boolean publicityStatus, Long recipeBookId, Long userId) {
+        public RecipeCreateRequest(String recipeName, boolean publicityStatus, Long recipeBookId, Long userId,
+                                   List<CookingProcessRequest.CookingProcessCreateRequest> cookingProcessCreateRequestList) {
             this.recipeName = recipeName;
             this.publicityStatus = publicityStatus;
             this.recipeBookId = recipeBookId;
             this.userId = userId;
+            this.cookingProcessCreateRequestList = cookingProcessCreateRequestList;
         }
     }
 }
