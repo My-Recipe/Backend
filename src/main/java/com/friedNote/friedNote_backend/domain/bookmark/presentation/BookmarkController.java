@@ -1,7 +1,7 @@
 package com.friedNote.friedNote_backend.domain.bookmark.presentation;
 
-import com.friedNote.friedNote_backend.domain.bookmark.applicatoin.dto.request.BookmarkRequest;
-import com.friedNote.friedNote_backend.domain.bookmark.applicatoin.service.BookmarkCreateService;
+import com.friedNote.friedNote_backend.domain.bookmark.application.dto.request.BookmarkRequest;
+import com.friedNote.friedNote_backend.domain.bookmark.application.service.BookmarkCreateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

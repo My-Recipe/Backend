@@ -1,4 +1,4 @@
-package com.friedNote.friedNote_backend.domain.bookmark.applicatoin.mapper;
+package com.friedNote.friedNote_backend.domain.bookmark.application.mapper;
 
 import com.friedNote.friedNote_backend.domain.bookmark.domain.entity.Bookmark;
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
