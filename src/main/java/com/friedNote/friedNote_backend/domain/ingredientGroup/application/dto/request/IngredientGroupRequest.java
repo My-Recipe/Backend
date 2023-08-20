@@ -11,11 +11,11 @@ public class IngredientGroupRequest {
     public static class IngredientGroupCreateRequest {
         private String ingredientName;
         private Long ingredientAmount;
-        private int ingredientUnit;
+        private String ingredientUnit;
         private Long recipeId;
 
         @Builder
-        public IngredientGroupCreateRequest(String ingredientName, Long ingredientAmount, int ingredientUnit, Long recipeId) {
+        public IngredientGroupCreateRequest(String ingredientName, Long ingredientAmount, String ingredientUnit, Long recipeId) {
             this.ingredientName = ingredientName;
             this.ingredientAmount = ingredientAmount;
             this.ingredientUnit = ingredientUnit;

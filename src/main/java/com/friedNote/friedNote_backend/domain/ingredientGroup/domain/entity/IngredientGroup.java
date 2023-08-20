@@ -18,14 +18,14 @@ public class IngredientGroup {
 
     private String ingredientName;
     private Long ingredientAmount;
-    private int ingredientUnit;
+    private String ingredientUnit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
     @Builder
-    public IngredientGroup(String ingredientName, Long ingredientAmount, int ingredientUnit, Recipe recipe) {
+    public IngredientGroup(String ingredientName, Long ingredientAmount, String ingredientUnit, Recipe recipe) {
         this.ingredientName = ingredientName;
         this.ingredientAmount = ingredientAmount;
         this.ingredientUnit = ingredientUnit;
