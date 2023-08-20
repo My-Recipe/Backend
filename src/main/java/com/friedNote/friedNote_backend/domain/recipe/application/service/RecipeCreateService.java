@@ -3,6 +3,9 @@ package com.friedNote.friedNote_backend.domain.recipe.application.service;
 import com.friedNote.friedNote_backend.domain.cookingProcess.application.mapper.CookingProcessMapper;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity.CookingProcess;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.service.CookingProcessSaveService;
+import com.friedNote.friedNote_backend.domain.ingredientGroup.application.mapper.IngredientGroupMapper;
+import com.friedNote.friedNote_backend.domain.ingredientGroup.domain.entity.IngredientGroup;
+import com.friedNote.friedNote_backend.domain.ingredientGroup.domain.service.IngredientGroupSaveService;
 import com.friedNote.friedNote_backend.domain.recipe.application.dto.request.RecipeRequest;
 import com.friedNote.friedNote_backend.domain.recipe.application.mapper.RecipeMapper;
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
@@ -23,6 +26,8 @@ public class RecipeCreateService {
     private final UserQueryService userQueryService;
     private final CookingProcessSaveService cookingProcessSaveService;
 
+    private final IngredientGroupSaveService ingredientGroupSaveService;
+
     public void createRecipe(RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
         Long recipeBookId = recipeCreateRequest.getRecipeBookId();
         RecipeBook recipeBook = recipeBookQueryService.findById(recipeBookId);
@@ -36,6 +41,12 @@ public class RecipeCreateService {
         recipeCreateRequest.getCookingProcessCreateRequestList().forEach(cookingProcessCreateRequest -> {
             CookingProcess cookingProcess = CookingProcessMapper.mapToCookingProcess(cookingProcessCreateRequest, recipe);
             cookingProcessSaveService.saveCookingProcess(cookingProcess);
+            }
+        );
+
+        recipeCreateRequest.getIngredientGroupCreateRequestList().forEach(ingredientCreateRequest -> {
+            IngredientGroup ingredientGroup = IngredientGroupMapper.mapToIngredientGroup(ingredientCreateRequest, recipe);
+            ingredientGroupSaveService.saveIngredientGroup(ingredientGroup);
             }
         );
     }
