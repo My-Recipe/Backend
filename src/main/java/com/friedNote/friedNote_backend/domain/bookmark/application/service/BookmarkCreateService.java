@@ -1,7 +1,7 @@
-package com.friedNote.friedNote_backend.domain.bookmark.applicatoin.service;
+package com.friedNote.friedNote_backend.domain.bookmark.application.service;
 
-import com.friedNote.friedNote_backend.domain.bookmark.applicatoin.dto.request.BookmarkRequest;
-import com.friedNote.friedNote_backend.domain.bookmark.applicatoin.mapper.BookmarkMapper;
+import com.friedNote.friedNote_backend.domain.bookmark.application.dto.request.BookmarkRequest;
+import com.friedNote.friedNote_backend.domain.bookmark.application.mapper.BookmarkMapper;
 import com.friedNote.friedNote_backend.domain.bookmark.domain.entity.Bookmark;
 import com.friedNote.friedNote_backend.domain.bookmark.domain.service.BookmarkSaveService;
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;

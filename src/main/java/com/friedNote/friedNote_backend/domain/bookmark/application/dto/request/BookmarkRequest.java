@@ -1,4 +1,4 @@
-package com.friedNote.friedNote_backend.domain.bookmark.applicatoin.dto.request;
+package com.friedNote.friedNote_backend.domain.bookmark.application.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
