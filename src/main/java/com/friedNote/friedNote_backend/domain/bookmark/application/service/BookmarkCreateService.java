@@ -3,6 +3,8 @@ package com.friedNote.friedNote_backend.domain.bookmark.application.service;
 import com.friedNote.friedNote_backend.domain.bookmark.application.dto.request.BookmarkRequest;
 import com.friedNote.friedNote_backend.domain.bookmark.application.mapper.BookmarkMapper;
 import com.friedNote.friedNote_backend.domain.bookmark.domain.entity.Bookmark;
+import com.friedNote.friedNote_backend.domain.bookmark.domain.service.BookmarkDeleteService;
+import com.friedNote.friedNote_backend.domain.bookmark.domain.service.BookmarkQueryService;
 import com.friedNote.friedNote_backend.domain.bookmark.domain.service.BookmarkSaveService;
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
 import com.friedNote.friedNote_backend.domain.recipe.domain.service.RecipeQueryService;
@@ -19,6 +21,9 @@ public class BookmarkCreateService {
     private final UserQueryService userQueryService;
     private final RecipeQueryService recipeQueryService;
 
+    private final BookmarkQueryService bookmarkQueryService;
+    private final BookmarkDeleteService bookmarkDeleteService;
+
     public void createBookmark(BookmarkRequest.BookmarkCreateRequest bookmarkCreateRequest) {
         Long userId = bookmarkCreateRequest.getUserId();
         User user = userQueryService.findById(userId);
@@ -27,6 +32,13 @@ public class BookmarkCreateService {
         Recipe recipe = recipeQueryService.findById(recipeId);
 
         Bookmark bookmark = BookmarkMapper.mapToBookmark(user, recipe);
-        bookmarkSaveService.saveBookmark(bookmark);
+
+        if(!bookmarkQueryService.existsByUserIdAndRecipeId(userId, recipeId)){
+            bookmarkSaveService.saveBookmark(bookmark);
+        } else {
+            bookmarkDeleteService.deleteBookmark(userId, recipeId);
+        }
     }
+
+
 }
