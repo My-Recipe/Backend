@@ -17,10 +17,13 @@ public class BookmarkMapper {
                 .build();
     }
 
+    /**
+     * TO DO
+     * 수정 필요
+     */
     public static BookmarkResponse.BookmarkInfoResponse mapToBookmarkInfoResponse(Bookmark bookmark) {
         return BookmarkResponse.BookmarkInfoResponse.builder()
                 .recipeId(bookmark.getRecipe().getId())
-                .userId(bookmark.getUser().getId())
                 .isBookMark(true)
                 .build();
     }
