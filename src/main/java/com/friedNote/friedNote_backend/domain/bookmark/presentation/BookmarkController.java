@@ -13,9 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookmarkController {
 
     private final BookmarkCreateService bookmarkCreateService;
+//    private final BookmarkGetService bookmarkGetService;
+
 
     @PostMapping("/bookmark")
     public void createBookmark(@RequestBody BookmarkRequest.BookmarkCreateRequest bookmarkCreateRequest) {
         bookmarkCreateService.createBookmark(bookmarkCreateRequest);
     }
+
+//    @GetMapping("/getBookmarkList")
+//    public List<BookmarkResponse.BookmarkInfoResponse> getBookmarkList(Long userId) {
+//        return bookmarkGetService.getBookmarkInfo(userId);
+//    }
+
 }
