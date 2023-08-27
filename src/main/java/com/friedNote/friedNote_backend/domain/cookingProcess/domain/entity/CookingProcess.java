@@ -1,6 +1,6 @@
 package com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity;
 
-import com.friedNote.friedNote_backend.common.BaseTimeEntity;
+import com.friedNote.friedNote_backend.common.domain.BaseTimeEntity;
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

@@ -1,6 +1,6 @@
 package com.friedNote.friedNote_backend.domain.recipeBook.application.service;
 
-import com.friedNote.friedNote_backend.common.UseCase;
+import com.friedNote.friedNote_backend.common.annotation.UseCase;
 import com.friedNote.friedNote_backend.domain.recipeBook.application.dto.request.RecipeBookRequest;
 import com.friedNote.friedNote_backend.domain.recipeBook.application.mapper.RecipeBookMapper;
 import com.friedNote.friedNote_backend.domain.recipeBook.domain.entity.RecipeBook;

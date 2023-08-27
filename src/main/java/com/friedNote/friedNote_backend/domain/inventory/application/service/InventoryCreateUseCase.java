@@ -1,6 +1,6 @@
 package com.friedNote.friedNote_backend.domain.inventory.application.service;
 
-import com.friedNote.friedNote_backend.common.UseCase;
+import com.friedNote.friedNote_backend.common.annotation.UseCase;
 import com.friedNote.friedNote_backend.domain.inventory.application.dto.request.InventoryRequest;
 import com.friedNote.friedNote_backend.domain.inventory.application.mapper.InventoryMapper;
 import com.friedNote.friedNote_backend.domain.inventory.domain.entity.Inventory;

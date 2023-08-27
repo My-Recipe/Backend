@@ -1,6 +1,6 @@
 package com.friedNote.friedNote_backend.domain.inventory.domain.entity;
 
-import com.friedNote.friedNote_backend.common.BaseTimeEntity;
+import com.friedNote.friedNote_backend.common.domain.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

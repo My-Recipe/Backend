@@ -1,6 +1,6 @@
 package com.friedNote.friedNote_backend.domain.user.domain.service;
 
-import com.friedNote.friedNote_backend.common.DomainService;
+import com.friedNote.friedNote_backend.common.annotation.DomainService;
 import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
 import com.friedNote.friedNote_backend.domain.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.friedNote.friedNote_backend.domain.recipe.application.service;
 
-import com.friedNote.friedNote_backend.common.UseCase;
+import com.friedNote.friedNote_backend.common.annotation.UseCase;
 import com.friedNote.friedNote_backend.domain.cookingProcess.application.mapper.CookingProcessMapper;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity.CookingProcess;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.service.CookingProcessSaveService;

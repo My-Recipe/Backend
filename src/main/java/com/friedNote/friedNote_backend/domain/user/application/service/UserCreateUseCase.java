@@ -1,6 +1,6 @@
 package com.friedNote.friedNote_backend.domain.user.application.service;
 
-import com.friedNote.friedNote_backend.common.UseCase;
+import com.friedNote.friedNote_backend.common.annotation.UseCase;
 import com.friedNote.friedNote_backend.domain.user.application.dto.request.UserRequest;
 import com.friedNote.friedNote_backend.domain.user.application.mapper.UserMapper;
 import com.friedNote.friedNote_backend.domain.user.domain.entity.User;

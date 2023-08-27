@@ -1,6 +1,6 @@
 package com.friedNote.friedNote_backend.domain.alarm.application.service;
 
-import com.friedNote.friedNote_backend.common.UseCase;
+import com.friedNote.friedNote_backend.common.annotation.UseCase;
 import com.friedNote.friedNote_backend.domain.alarm.application.dto.request.AlarmRequest;
 import com.friedNote.friedNote_backend.domain.alarm.application.mapper.AlarmMapper;
 import com.friedNote.friedNote_backend.domain.alarm.domain.entity.Alarm;
