@@ -1,12 +1,12 @@
 package com.friedNote.friedNote_backend.domain.cookingProcess.domain.service;
 
+import com.friedNote.friedNote_backend.common.DomainService;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity.CookingProcess;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.repository.CookingProcessRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@DomainService
 @RequiredArgsConstructor
 @Transactional
 public class CookingProcessSaveService {
