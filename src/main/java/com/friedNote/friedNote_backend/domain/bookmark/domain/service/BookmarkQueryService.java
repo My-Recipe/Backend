@@ -4,11 +4,13 @@ import com.friedNote.friedNote_backend.domain.bookmark.domain.entity.Bookmark;
 import com.friedNote.friedNote_backend.domain.bookmark.domain.repository.BookmarkRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BookmarkQueryService {
 
     private final BookmarkRepository bookmarkRepository;

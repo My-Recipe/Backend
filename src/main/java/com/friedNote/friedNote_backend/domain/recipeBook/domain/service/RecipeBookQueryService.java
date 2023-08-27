@@ -4,9 +4,11 @@ import com.friedNote.friedNote_backend.domain.recipeBook.domain.entity.RecipeBoo
 import com.friedNote.friedNote_backend.domain.recipeBook.domain.repository.RecipeBookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class RecipeBookQueryService {
     private final RecipeBookRepository recipeBookRepository;
 
