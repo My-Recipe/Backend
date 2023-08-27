@@ -1,4 +1,4 @@
-package com.friedNote.friedNote_backend.common;
+package com.friedNote.friedNote_backend.common.domain;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

@@ -1,4 +1,4 @@
-package com.friedNote.friedNote_backend.common;
+package com.friedNote.friedNote_backend.common.annotation;
 
 import org.springframework.stereotype.Service;
 
@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Service
-public @interface UseCase {
+public @interface DomainService {
 }
