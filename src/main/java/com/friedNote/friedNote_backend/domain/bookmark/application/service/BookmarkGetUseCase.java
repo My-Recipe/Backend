@@ -1,20 +1,20 @@
 package com.friedNote.friedNote_backend.domain.bookmark.application.service;
 
+import com.friedNote.friedNote_backend.common.UseCase;
 import com.friedNote.friedNote_backend.domain.bookmark.application.dto.response.BookmarkResponse;
 import com.friedNote.friedNote_backend.domain.bookmark.application.mapper.BookmarkMapper;
 import com.friedNote.friedNote_backend.domain.bookmark.domain.service.BookmarkQueryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-@Service
+@UseCase
 @RequiredArgsConstructor
 @Transactional
-public class BookmarkGetService {
+public class BookmarkGetUseCase {
 
     private final BookmarkQueryService bookmarkQueryService;
 

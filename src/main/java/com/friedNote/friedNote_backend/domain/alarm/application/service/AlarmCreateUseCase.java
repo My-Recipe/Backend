@@ -1,5 +1,6 @@
 package com.friedNote.friedNote_backend.domain.alarm.application.service;
 
+import com.friedNote.friedNote_backend.common.UseCase;
 import com.friedNote.friedNote_backend.domain.alarm.application.dto.request.AlarmRequest;
 import com.friedNote.friedNote_backend.domain.alarm.application.mapper.AlarmMapper;
 import com.friedNote.friedNote_backend.domain.alarm.domain.entity.Alarm;
@@ -7,13 +8,12 @@ import com.friedNote.friedNote_backend.domain.alarm.domain.service.AlarmSaveServ
 import com.friedNote.friedNote_backend.domain.inventory.domain.entity.Inventory;
 import com.friedNote.friedNote_backend.domain.inventory.domain.service.InventoryQueryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@UseCase
 @RequiredArgsConstructor
 @Transactional
-public class AlarmCreateService {
+public class AlarmCreateUseCase {
 
     private final InventoryQueryService inventoryQueryService;
     private final AlarmSaveService alarmSaveService;

@@ -1,5 +1,6 @@
 package com.friedNote.friedNote_backend.domain.bookmark.application.service;
 
+import com.friedNote.friedNote_backend.common.UseCase;
 import com.friedNote.friedNote_backend.domain.bookmark.application.dto.request.BookmarkRequest;
 import com.friedNote.friedNote_backend.domain.bookmark.application.mapper.BookmarkMapper;
 import com.friedNote.friedNote_backend.domain.bookmark.domain.entity.Bookmark;
@@ -11,13 +12,12 @@ import com.friedNote.friedNote_backend.domain.recipe.domain.service.RecipeQueryS
 import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
 import com.friedNote.friedNote_backend.domain.user.domain.service.UserQueryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@UseCase
 @RequiredArgsConstructor
 @Transactional
-public class BookmarkCreateService {
+public class BookmarkCreateUseCase {
 
     private final BookmarkSaveService bookmarkSaveService;
     private final UserQueryService userQueryService;
