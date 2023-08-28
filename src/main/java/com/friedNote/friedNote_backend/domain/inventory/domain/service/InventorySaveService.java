@@ -1,12 +1,14 @@
 package com.friedNote.friedNote_backend.domain.inventory.domain.service;
 
+import com.friedNote.friedNote_backend.common.annotation.DomainService;
 import com.friedNote.friedNote_backend.domain.inventory.domain.entity.Inventory;
 import com.friedNote.friedNote_backend.domain.inventory.domain.repository.InventoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@DomainService
 @RequiredArgsConstructor
+@Transactional
 public class InventorySaveService {
 
     private final InventoryRepository inventoryRepository;

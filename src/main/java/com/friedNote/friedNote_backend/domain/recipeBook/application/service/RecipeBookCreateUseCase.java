@@ -1,5 +1,6 @@
 package com.friedNote.friedNote_backend.domain.recipeBook.application.service;
 
+import com.friedNote.friedNote_backend.common.annotation.UseCase;
 import com.friedNote.friedNote_backend.domain.recipeBook.application.dto.request.RecipeBookRequest;
 import com.friedNote.friedNote_backend.domain.recipeBook.application.mapper.RecipeBookMapper;
 import com.friedNote.friedNote_backend.domain.recipeBook.domain.entity.RecipeBook;
@@ -7,14 +8,14 @@ import com.friedNote.friedNote_backend.domain.recipeBook.domain.service.RecipeBo
 import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
 import com.friedNote.friedNote_backend.domain.user.domain.service.UserQueryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@UseCase
 @RequiredArgsConstructor
-public class RecipeBookCreateService {
+@Transactional
+public class RecipeBookCreateUseCase {
 
     private final RecipeBookSaveService recipeBookSaveService;
-
     private final UserQueryService userQueryService;
 
     public void createRecipeBook(RecipeBookRequest.RecipeBookCreateRequest recipeBookCreateRequest) {

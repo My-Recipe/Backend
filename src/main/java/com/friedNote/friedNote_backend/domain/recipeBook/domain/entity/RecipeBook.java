@@ -1,5 +1,6 @@
 package com.friedNote.friedNote_backend.domain.recipeBook.domain.entity;
 
+import com.friedNote.friedNote_backend.common.domain.BaseTimeEntity;
 import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RecipeBook {
+public class RecipeBook extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipe_book_id")

@@ -1,7 +1,7 @@
 package com.friedNote.friedNote_backend.domain.inventory.presentation;
 
 import com.friedNote.friedNote_backend.domain.inventory.application.dto.request.InventoryRequest;
-import com.friedNote.friedNote_backend.domain.inventory.application.service.InventoryCreateService;
+import com.friedNote.friedNote_backend.domain.inventory.application.service.InventoryCreateUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class InventoryController {
 
-    private final InventoryCreateService inventoryCreateService;
+    private final InventoryCreateUseCase inventoryCreateUseCase;
 
     @PostMapping("/inventory")
     public void createInventory(@RequestBody InventoryRequest.InventoryCreateRequest inventoryCreateRequest) {
-        inventoryCreateService.createInventory(inventoryCreateRequest);
+        inventoryCreateUseCase.createInventory(inventoryCreateRequest);
     }
     
 }
