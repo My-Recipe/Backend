@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 public class CookingProcessMapper {
 
     public static CookingProcess mapToCookingProcess(CookingProcessRequest.CookingProcessCreateRequest
-                                                             cookingProcessCreateRequest, Recipe recipe) {
+                                                             cookingProcessCreateRequest, Recipe recipe, String imageUrl) {
         return CookingProcess.builder()
                 .description(cookingProcessCreateRequest.getDescription())
-                .imageUrl(cookingProcessCreateRequest.getImageUrl())
+                .imageUrl(imageUrl)
                 .tip(cookingProcessCreateRequest.getTip())
                 .time(cookingProcessCreateRequest.getTime())
                 .recipe(recipe)
