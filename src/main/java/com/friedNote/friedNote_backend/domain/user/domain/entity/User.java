@@ -32,4 +32,8 @@ public class User {
         this.profileUrl = profileUrl;
         this.recipeBook = recipeBook;
     }
+
+    public void updateUser(String name) {
+        this.name = name;
+    }
 }

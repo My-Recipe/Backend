@@ -14,6 +14,10 @@ public class UserQueryService {
     public User findById(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
         return user;
+    }
 
+    public User findByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        return user;
     }
 }

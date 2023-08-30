@@ -18,4 +18,16 @@ public class UserRequest {
             this.profileUrl = profileUrl;
         }
     }
+
+    @Getter
+    @NoArgsConstructor
+    public static class UserUpdateRequest{
+        private String name;
+        private Long userId;
+        @Builder
+        public UserUpdateRequest(String name, Long userId) {
+            this.name = name;
+            this.userId = userId;
+        }
+    }
 }
