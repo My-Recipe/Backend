@@ -1,17 +1,19 @@
 package com.friedNote.friedNote_backend.domain.inventory.application.service;
 
+import com.friedNote.friedNote_backend.common.annotation.UseCase;
 import com.friedNote.friedNote_backend.domain.inventory.application.dto.request.InventoryRequest;
 import com.friedNote.friedNote_backend.domain.inventory.application.mapper.InventoryMapper;
 import com.friedNote.friedNote_backend.domain.inventory.domain.entity.Inventory;
 import com.friedNote.friedNote_backend.domain.inventory.domain.service.InventorySaveService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
-@Service
+@UseCase
 @RequiredArgsConstructor
-public class InventoryCreateService {
+@Transactional
+public class InventoryCreateUseCase {
 
     private final InventorySaveService inventorySaveService;
 

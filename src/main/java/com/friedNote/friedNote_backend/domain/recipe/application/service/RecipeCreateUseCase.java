@@ -1,5 +1,6 @@
 package com.friedNote.friedNote_backend.domain.recipe.application.service;
 
+import com.friedNote.friedNote_backend.common.annotation.UseCase;
 import com.friedNote.friedNote_backend.domain.cookingProcess.application.mapper.CookingProcessMapper;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity.CookingProcess;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.service.CookingProcessSaveService;
@@ -16,12 +17,14 @@ import com.friedNote.friedNote_backend.domain.s3.S3UploadService;
 import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
 import com.friedNote.friedNote_backend.domain.user.domain.service.UserQueryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-@Service
+@UseCase
 @RequiredArgsConstructor
-public class RecipeCreateService {
+@Transactional
+public class RecipeCreateUseCase {
 
     private final RecipeSaveService recipeSaveService;
     private final RecipeBookQueryService recipeBookQueryService;
@@ -42,7 +45,6 @@ public class RecipeCreateService {
         Recipe recipe = RecipeMapper.mapToRecipe(recipeCreateRequest, recipeBook, user);
         recipeSaveService.saveRecipe(recipe);
 
-
         recipeCreateRequest.getCookingProcessCreateRequestList().forEach(cookingProcessCreateRequest -> {
                     MultipartFile image = cookingProcessCreateRequest.getImage();
                     String uploadUrl = s3UploadService.upload(image);
@@ -56,7 +58,6 @@ public class RecipeCreateService {
                     ingredientGroupSaveService.saveIngredientGroup(ingredientGroup);
                 }
         );
-
     }
 }
 

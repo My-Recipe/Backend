@@ -1,5 +1,6 @@
 package com.friedNote.friedNote_backend.domain.alarm.domain.entity;
 
+import com.friedNote.friedNote_backend.common.domain.BaseTimeEntity;
 import com.friedNote.friedNote_backend.domain.inventory.domain.entity.Inventory;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Alarm {
+public class Alarm extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "alarm_id")

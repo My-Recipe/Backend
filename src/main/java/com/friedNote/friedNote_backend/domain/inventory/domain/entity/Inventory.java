@@ -1,5 +1,6 @@
 package com.friedNote.friedNote_backend.domain.inventory.domain.entity;
 
+import com.friedNote.friedNote_backend.common.domain.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Inventory {
+public class Inventory extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "inventory_id")
