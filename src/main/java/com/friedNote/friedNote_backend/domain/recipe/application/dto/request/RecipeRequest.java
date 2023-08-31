@@ -5,11 +5,13 @@ import com.friedNote.friedNote_backend.domain.ingredientGroup.application.dto.re
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 public class RecipeRequest {
     @Getter
+    @Setter
     @NoArgsConstructor
     public static class RecipeCreateRequest {
 
@@ -18,7 +20,6 @@ public class RecipeRequest {
         private Long recipeBookId;
         private Long userId;
         private List<CookingProcessRequest.CookingProcessCreateRequest> cookingProcessCreateRequestList;
-
         private List<IngredientGroupRequest.IngredientGroupCreateRequest> ingredientGroupCreateRequestList;
 
         @Builder

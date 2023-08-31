@@ -18,4 +18,22 @@ public class UserRequest {
             this.profileUrl = profileUrl;
         }
     }
+
+    @Getter
+    @NoArgsConstructor
+    public static class UserUpdateRequest{
+        private String name;
+
+        private String email;
+        private Long userId;
+
+        private String profileUrl;
+        @Builder
+        public UserUpdateRequest(String name, String email, Long userId, String profileUrl) {
+            this.name = name;
+            this.email = email;
+            this.userId = userId;
+            this.profileUrl = profileUrl;
+        }
+    }
 }

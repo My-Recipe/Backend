@@ -7,6 +7,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
+
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -32,5 +35,21 @@ public class User extends BaseTimeEntity {
         this.email = email;
         this.profileUrl = profileUrl;
         this.recipeBook = recipeBook;
+    }
+
+    public void updateUserName(String name) {
+        if(!Objects.equals(this.name, name) && StringUtils.hasText(name)) {
+            this.name = name;
+        }
+    }
+    public void updateUserEmail(String email) {
+        if(!Objects.equals(this.email, email) && StringUtils.hasText(email)) {
+            this.email = email;
+        }
+    }
+    public void updateUserProfileUrl(String profileUrl) {
+        if(!Objects.equals(this.profileUrl, profileUrl) && StringUtils.hasText(profileUrl)) {
+            this.profileUrl = profileUrl;
+        }
     }
 }

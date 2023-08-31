@@ -3,25 +3,26 @@ package com.friedNote.friedNote_backend.domain.cookingProcess.application.dto.re
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 public class CookingProcessRequest {
 
     @Getter
+    @Setter
     @NoArgsConstructor
     public static class CookingProcessCreateRequest {
         private String description;
-        private String imageUrl;
+        private MultipartFile image;
         private String tip;
         private Long time;
-        private Long recipeId;
 
         @Builder
-        public CookingProcessCreateRequest(String description, String imageUrl, String tip, Long time, Long recipeId) {
+        public CookingProcessCreateRequest(String description, MultipartFile image, String tip, Long time) {
             this.description = description;
-            this.imageUrl = imageUrl;
+            this.image = image;
             this.tip = tip;
             this.time = time;
-            this.recipeId = recipeId;
         }
     }
 }

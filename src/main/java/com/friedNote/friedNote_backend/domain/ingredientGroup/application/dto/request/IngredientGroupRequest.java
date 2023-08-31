@@ -3,23 +3,23 @@ package com.friedNote.friedNote_backend.domain.ingredientGroup.application.dto.r
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 public class IngredientGroupRequest {
 
     @Getter
+    @Setter
     @NoArgsConstructor
     public static class IngredientGroupCreateRequest {
         private String ingredientName;
         private Long ingredientAmount;
         private String ingredientUnit;
-        private Long recipeId;
 
         @Builder
-        public IngredientGroupCreateRequest(String ingredientName, Long ingredientAmount, String ingredientUnit, Long recipeId) {
+        public IngredientGroupCreateRequest(String ingredientName, Long ingredientAmount, String ingredientUnit) {
             this.ingredientName = ingredientName;
             this.ingredientAmount = ingredientAmount;
             this.ingredientUnit = ingredientUnit;
-            this.recipeId = recipeId;
         }
     }
 }

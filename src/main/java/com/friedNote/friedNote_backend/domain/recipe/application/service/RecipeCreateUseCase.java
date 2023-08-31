@@ -13,10 +13,13 @@ import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
 import com.friedNote.friedNote_backend.domain.recipe.domain.service.RecipeSaveService;
 import com.friedNote.friedNote_backend.domain.recipeBook.domain.entity.RecipeBook;
 import com.friedNote.friedNote_backend.domain.recipeBook.domain.service.RecipeBookQueryService;
+import com.friedNote.friedNote_backend.domain.s3.S3UploadService;
 import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
 import com.friedNote.friedNote_backend.domain.user.domain.service.UserQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @UseCase
 @RequiredArgsConstructor
@@ -27,7 +30,10 @@ public class RecipeCreateUseCase {
     private final RecipeBookQueryService recipeBookQueryService;
     private final UserQueryService userQueryService;
     private final CookingProcessSaveService cookingProcessSaveService;
+
     private final IngredientGroupSaveService ingredientGroupSaveService;
+
+    private final S3UploadService s3UploadService;
 
     public void createRecipe(RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
         Long recipeBookId = recipeCreateRequest.getRecipeBookId();
@@ -40,15 +46,17 @@ public class RecipeCreateUseCase {
         recipeSaveService.saveRecipe(recipe);
 
         recipeCreateRequest.getCookingProcessCreateRequestList().forEach(cookingProcessCreateRequest -> {
-            CookingProcess cookingProcess = CookingProcessMapper.mapToCookingProcess(cookingProcessCreateRequest, recipe);
-            cookingProcessSaveService.saveCookingProcess(cookingProcess);
-            }
+                    MultipartFile image = cookingProcessCreateRequest.getImage();
+                    String uploadUrl = s3UploadService.upload(image);
+                    CookingProcess cookingProcess = CookingProcessMapper.mapToCookingProcess(cookingProcessCreateRequest, recipe, uploadUrl);
+                    cookingProcessSaveService.saveCookingProcess(cookingProcess);
+                }
         );
 
         recipeCreateRequest.getIngredientGroupCreateRequestList().forEach(ingredientCreateRequest -> {
-            IngredientGroup ingredientGroup = IngredientGroupMapper.mapToIngredientGroup(ingredientCreateRequest, recipe);
-            ingredientGroupSaveService.saveIngredientGroup(ingredientGroup);
-            }
+                    IngredientGroup ingredientGroup = IngredientGroupMapper.mapToIngredientGroup(ingredientCreateRequest, recipe);
+                    ingredientGroupSaveService.saveIngredientGroup(ingredientGroup);
+                }
         );
     }
 }

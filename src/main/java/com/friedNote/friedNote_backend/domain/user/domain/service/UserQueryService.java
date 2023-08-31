@@ -16,6 +16,6 @@ public class UserQueryService {
     public User findById(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
         return user;
-
     }
+
 }
