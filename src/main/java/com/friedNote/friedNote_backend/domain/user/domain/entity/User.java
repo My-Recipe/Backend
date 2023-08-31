@@ -34,7 +34,13 @@ public class User extends BaseTimeEntity {
         this.recipeBook = recipeBook;
     }
 
-    public void updateUser(String name) {
+    public void updateUserName(String name) {
         this.name = name;
+    }
+    public void updateUserEmail(String email) {
+        this.email = email;
+    }
+    public void updateUserProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
     }
 }
