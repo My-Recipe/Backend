@@ -6,9 +6,6 @@ import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
 import com.friedNote.friedNote_backend.domain.user.domain.service.UserQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-
-import java.util.Objects;
 
 @UseCase
 @RequiredArgsConstructor
@@ -25,21 +22,8 @@ public class UserUpdateUseCase {
         String profileUrl = userUpdateRequest.getProfileUrl();
 
         User user = userQueryService.findById(userId);
-
-        if(!Objects.equals(name, user.getName()) && StringUtils.hasText(name)) {
-            user.updateUserName(name);
-        } else {
-            user.updateUserName(user.getName());
-        }
-        if(!Objects.equals(email, user.getEmail()) && StringUtils.hasText(email)) {
-            user.updateUserEmail(email);
-        } else {
-            user.updateUserEmail(user.getEmail());
-        }
-        if(!Objects.equals(profileUrl, user.getProfileUrl()) && StringUtils.hasText(profileUrl)) {
-            user.updateUserProfileUrl(profileUrl);
-        } else {
-            user.updateUserProfileUrl(user.getProfileUrl());
-        }
+        user.updateUserName(name);
+        user.updateUserEmail(email);
+        user.updateUserProfileUrl(profileUrl);
     }
 }
