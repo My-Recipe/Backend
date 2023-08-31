@@ -18,8 +18,4 @@ public class UserQueryService {
         return user;
     }
 
-    public User findByEmail(String email) {
-        User user = userRepository.findByEmail(email);
-        return user;
-    }
 }
