@@ -22,8 +22,9 @@ public class InventoryCreateUseCase {
         String quantity = inventoryCreateRequest.getQuantity();
         LocalDate expirationDate = inventoryCreateRequest.getExpirationDate();
         LocalDate registrationDate = inventoryCreateRequest.getRegistrationDate();
+        String sequence = inventoryCreateRequest.getSequence();
 
-        Inventory inventory = InventoryMapper.mapToInventory(name, quantity, expirationDate, registrationDate);
+        Inventory inventory = InventoryMapper.mapToInventory(name, quantity, expirationDate, registrationDate, sequence);
         inventorySaveService.saveInventory(inventory);
     }
 }
