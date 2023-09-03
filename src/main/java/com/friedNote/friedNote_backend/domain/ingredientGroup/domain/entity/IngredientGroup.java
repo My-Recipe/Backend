@@ -17,6 +17,7 @@ public class IngredientGroup extends BaseTimeEntity {
     @Column(name = "ingredientGroup_id")
     private Long id;
 
+    private String groupName;
     private String ingredientName;
     private Long ingredientAmount;
     private String ingredientUnit;
@@ -26,7 +27,9 @@ public class IngredientGroup extends BaseTimeEntity {
     private Recipe recipe;
 
     @Builder
-    public IngredientGroup(String ingredientName, Long ingredientAmount, String ingredientUnit, Recipe recipe) {
+    public IngredientGroup(String groupName, String ingredientName, Long ingredientAmount,
+                           String ingredientUnit, Recipe recipe) {
+        this.groupName = groupName;
         this.ingredientName = ingredientName;
         this.ingredientAmount = ingredientAmount;
         this.ingredientUnit = ingredientUnit;

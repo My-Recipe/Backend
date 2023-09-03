@@ -12,6 +12,7 @@ public class IngredientGroupMapper {
     public static IngredientGroup mapToIngredientGroup(IngredientGroupRequest.IngredientGroupCreateRequest
                                                                ingredientGroupCreateRequest, Recipe recipe) {
         return IngredientGroup.builder()
+                .groupName(ingredientGroupCreateRequest.getGroupName())
                 .ingredientName(ingredientGroupCreateRequest.getIngredientName())
                 .ingredientAmount(ingredientGroupCreateRequest.getIngredientAmount())
                 .ingredientUnit(ingredientGroupCreateRequest.getIngredientUnit())

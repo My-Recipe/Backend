@@ -11,12 +11,16 @@ public class IngredientGroupRequest {
     @Setter
     @NoArgsConstructor
     public static class IngredientGroupCreateRequest {
+
+        private String groupName;
         private String ingredientName;
         private Long ingredientAmount;
         private String ingredientUnit;
 
         @Builder
-        public IngredientGroupCreateRequest(String ingredientName, Long ingredientAmount, String ingredientUnit) {
+        public IngredientGroupCreateRequest(String groupName, String ingredientName,
+                                            Long ingredientAmount, String ingredientUnit) {
+            this.groupName = groupName;
             this.ingredientName = ingredientName;
             this.ingredientAmount = ingredientAmount;
             this.ingredientUnit = ingredientUnit;
