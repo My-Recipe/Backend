@@ -13,13 +13,14 @@ public class RecipeBookRequest {
         private String title;
         private String subtitle;
         private Long userId;
-
+        private boolean publicityStatus;
 
         @Builder
-        public RecipeBookCreateRequest(String title, String subtitle, Long userId) {
+        public RecipeBookCreateRequest(String title, String subtitle, Long userId, boolean publicityStatus) {
             this.title = title;
             this.subtitle = subtitle;
             this.userId = userId;
+            this.publicityStatus = publicityStatus;
         }
     }
 

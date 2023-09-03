@@ -19,14 +19,17 @@ public class RecipeBook extends BaseTimeEntity {
 
     private String title;
     private String subtitle;
+    private boolean publicityStatus;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Builder
-    public RecipeBook(String title, String subtitle, User user) {
+    public RecipeBook(String title, String subtitle, boolean publicityStatus, User user) {
         this.title = title;
         this.subtitle = subtitle;
+        this.publicityStatus = publicityStatus;
         this.user = user;
     }
 }

@@ -23,8 +23,9 @@ public class RecipeBookCreateUseCase {
         String subtitle = recipeBookCreateRequest.getSubtitle();
         Long userId = recipeBookCreateRequest.getUserId();
         User user = userQueryService.findById(userId);
+        boolean publicityStatus = recipeBookCreateRequest.isPublicityStatus();
 
-        RecipeBook recipeBook = RecipeBookMapper.mapToRecipeBook(title, subtitle,user);
+        RecipeBook recipeBook = RecipeBookMapper.mapToRecipeBook(title, subtitle, user, publicityStatus);
         recipeBookSaveService.saveRecipeBook(recipeBook);
 
     }
