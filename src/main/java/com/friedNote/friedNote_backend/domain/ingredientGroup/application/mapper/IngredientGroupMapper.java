@@ -13,9 +13,6 @@ public class IngredientGroupMapper {
                                                                ingredientGroupCreateRequest, Recipe recipe) {
         return IngredientGroup.builder()
                 .groupName(ingredientGroupCreateRequest.getGroupName())
-                .ingredientName(ingredientGroupCreateRequest.getIngredientName())
-                .ingredientAmount(ingredientGroupCreateRequest.getIngredientAmount())
-                .ingredientUnit(ingredientGroupCreateRequest.getIngredientUnit())
                 .recipe(recipe)
                 .build();
     }
