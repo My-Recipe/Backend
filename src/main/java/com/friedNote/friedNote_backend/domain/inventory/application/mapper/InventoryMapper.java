@@ -8,12 +8,14 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class InventoryMapper {
 
-    public static Inventory mapToInventory(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate) {
+    public static Inventory mapToInventory(String name, String quantity, LocalDate expirationDate,
+                                           LocalDate registrationDate, String sequence) {
         return Inventory.builder()
                 .name(name)
                 .quantity(quantity)
                 .expirationDate(expirationDate)
                 .registrationDate(registrationDate)
+                .sequence(sequence)
                 .build();
     }
 }

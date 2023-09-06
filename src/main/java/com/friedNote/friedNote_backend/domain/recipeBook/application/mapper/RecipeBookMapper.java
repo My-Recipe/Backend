@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RecipeBookMapper {
-    public static RecipeBook mapToRecipeBook(String title, String subtitle, User user) {
+
+    public static RecipeBook mapToRecipeBook(String title, String subtitle, User user, boolean publicityStatus) {
         return RecipeBook.builder()
                 .title(title)
                 .subtitle(subtitle)
                 .user(user)
+                .publicityStatus(publicityStatus)
                 .build();
     }
 }

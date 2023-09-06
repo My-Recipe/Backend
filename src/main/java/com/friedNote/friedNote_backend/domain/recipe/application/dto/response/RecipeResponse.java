@@ -14,4 +14,28 @@ public class RecipeResponse {
             this.recipeName = recipeName;
         }
     }
+
+    @Getter
+    public static class RecipeListResponse {
+
+        private Long recipeId;
+        private String recipeName;
+        private String userName;
+        private String imageUrl;
+        private String description;
+        private boolean bookmark;
+
+        @Builder
+        public RecipeListResponse(Long recipeId, String recipeName, String userName, String imageUrl,
+                                     String description, boolean bookmark) {
+            this.recipeId = recipeId;
+            this.recipeName = recipeName;
+            this.userName = userName;
+            this.imageUrl = imageUrl;
+            this.description = description;
+            this.bookmark = bookmark;
+        }
+
+
+    }
 }

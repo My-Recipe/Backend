@@ -17,8 +17,9 @@ public class CookingProcess extends BaseTimeEntity {
     @Column(name = "cooking_process_id")
     private Long id;
 
+    private String cookingProcessSequence;
     private String description;
-    private String imageUrl;
+    private CookingProcessImage cookingProcessImage;
     private String tip;
     private Long time; //단위에 대한 고민?
 
@@ -27,9 +28,11 @@ public class CookingProcess extends BaseTimeEntity {
     private Recipe recipe;
 
     @Builder
-    public CookingProcess(String description, String imageUrl, String tip, Long time, Recipe recipe) {
+    public CookingProcess(String cookingProcessSequence, String description, CookingProcessImage cookingProcessImage,
+                          String tip, Long time, Recipe recipe) {
+        this.cookingProcessSequence = cookingProcessSequence;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.cookingProcessImage = cookingProcessImage;
         this.tip = tip;
         this.time = time;
         this.recipe = recipe;

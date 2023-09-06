@@ -14,17 +14,22 @@ public class InventoryRequest {
 
         private String name;
         private String quantity;
+
         @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate expirationDate;
         @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate registrationDate;
 
+        private String sequence;
+
         @Builder
-        public InventoryCreateRequest(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate) {
+        public InventoryCreateRequest(String name, String quantity, LocalDate expirationDate,
+                                      LocalDate registrationDate, String sequence) {
             this.name = name;
             this.quantity = quantity;
             this.expirationDate = expirationDate;
             this.registrationDate = registrationDate;
+            this.sequence = sequence;
         }
     }
 

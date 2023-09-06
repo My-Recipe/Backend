@@ -1,12 +1,16 @@
 package com.friedNote.friedNote_backend.domain.ingredientGroup.domain.entity;
 
 import com.friedNote.friedNote_backend.common.domain.BaseTimeEntity;
+import com.friedNote.friedNote_backend.domain.ingredient.domain.entity.Ingredient;
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,19 +21,18 @@ public class IngredientGroup extends BaseTimeEntity {
     @Column(name = "ingredientGroup_id")
     private Long id;
 
-    private String ingredientName;
-    private Long ingredientAmount;
-    private String ingredientUnit;
+    private String groupName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
+    @OneToMany(mappedBy = "ingredientGroup")
+    private List<Ingredient> ingredientList = new ArrayList<>();
+
     @Builder
-    public IngredientGroup(String ingredientName, Long ingredientAmount, String ingredientUnit, Recipe recipe) {
-        this.ingredientName = ingredientName;
-        this.ingredientAmount = ingredientAmount;
-        this.ingredientUnit = ingredientUnit;
+    public IngredientGroup(String groupName, Recipe recipe) {
+        this.groupName = groupName;
         this.recipe = recipe;
     }
 }

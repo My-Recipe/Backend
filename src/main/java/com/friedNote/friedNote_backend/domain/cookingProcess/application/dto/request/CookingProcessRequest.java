@@ -12,15 +12,21 @@ public class CookingProcessRequest {
     @Setter
     @NoArgsConstructor
     public static class CookingProcessCreateRequest {
+
+        private String cookingProcessSequence;
         private String description;
         private MultipartFile image;
+        private boolean representativeImageStatus;
         private String tip;
         private Long time;
 
         @Builder
-        public CookingProcessCreateRequest(String description, MultipartFile image, String tip, Long time) {
+        public CookingProcessCreateRequest(String cookingProcessSequence, String description, MultipartFile image,
+                                           boolean representativeImageStatus, String tip, Long time) {
+            this.cookingProcessSequence = cookingProcessSequence;
             this.description = description;
             this.image = image;
+            this.representativeImageStatus = representativeImageStatus;
             this.tip = tip;
             this.time = time;
         }

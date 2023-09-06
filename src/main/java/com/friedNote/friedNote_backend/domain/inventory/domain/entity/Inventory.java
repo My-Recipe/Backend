@@ -22,12 +22,14 @@ public class Inventory extends BaseTimeEntity {
     private String quantity;
     private LocalDate expirationDate;
     private LocalDate registrationDate;
+    private String sequence;
 
     @Builder
-    public Inventory(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate) {
+    public Inventory(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate, String sequence) {
         this.name = name;
         this.quantity = quantity;
         this.expirationDate = expirationDate;
         this.registrationDate = registrationDate;
+        this.sequence = sequence;
     }
 }
