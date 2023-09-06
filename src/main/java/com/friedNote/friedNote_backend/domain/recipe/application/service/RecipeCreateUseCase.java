@@ -48,11 +48,17 @@ public class RecipeCreateUseCase {
         recipeSaveService.saveRecipe(recipe);
 
         recipeCreateRequest.getCookingProcessCreateRequestList().forEach(cookingProcessCreateRequest -> {
+            if(cookingProcessCreateRequest.getImage() != null) {
                     MultipartFile image = cookingProcessCreateRequest.getImage();
                     String uploadUrl = s3UploadService.upload(image);
                     CookingProcess cookingProcess = CookingProcessMapper.mapToCookingProcess(cookingProcessCreateRequest, recipe, uploadUrl);
                     cookingProcessSaveService.saveCookingProcess(cookingProcess);
                 }
+            else{
+                    CookingProcess cookingProcess = CookingProcessMapper.mapToCookingProcess(cookingProcessCreateRequest, recipe, "");
+                    cookingProcessSaveService.saveCookingProcess(cookingProcess);
+                }
+            }
         );
 
         recipeCreateRequest.getIngredientGroupCreateRequestList().forEach(ingredientGroupCreateRequest -> {
