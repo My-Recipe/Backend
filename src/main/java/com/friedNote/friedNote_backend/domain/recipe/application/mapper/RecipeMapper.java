@@ -1,6 +1,7 @@
 package com.friedNote.friedNote_backend.domain.recipe.application.mapper;
 
 import com.friedNote.friedNote_backend.domain.recipe.application.dto.request.RecipeRequest;
+import com.friedNote.friedNote_backend.domain.recipe.application.dto.response.RecipeResponse;
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
 import com.friedNote.friedNote_backend.domain.recipeBook.domain.entity.RecipeBook;
 import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
@@ -16,6 +17,18 @@ public class RecipeMapper {
                 .publicityStatus(recipeCreateRequest.isPublicityStatus())
                 .recipeBook(recipeBook)
                 .user(user)
+                .build();
+    }
+
+    public static RecipeResponse.RecipeListResponse mapToRecipeAllResponse(Recipe recipe, String imageUrl,
+                                                                          String description, boolean bookmark) {
+        return RecipeResponse.RecipeListResponse.builder()
+                .recipeId(recipe.getId())
+                .recipeName(recipe.getRecipeName())
+                .userName(recipe.getUser().getName())
+                .imageUrl(imageUrl)
+                .description(description)
+                .bookmark(bookmark)
                 .build();
     }
 }

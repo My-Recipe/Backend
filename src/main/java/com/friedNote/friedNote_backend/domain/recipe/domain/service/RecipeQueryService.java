@@ -6,6 +6,8 @@ import com.friedNote.friedNote_backend.domain.recipe.domain.repository.RecipeRep
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @DomainService
 @RequiredArgsConstructor
 @Transactional
@@ -13,8 +15,16 @@ public class RecipeQueryService {
 
     private final RecipeRepository recipeRepository;
 
+    /**
+     * Todo: 예외처리
+     */
     public Recipe findById(Long recipeId) {
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow();
         return recipe;
+    }
+
+    public List<Recipe> findRecipeByUserId(Long userId) {
+        List<Recipe> recipeListByUserId = recipeRepository.findRecipeByUserIdOrderByCreatedDate(userId);
+        return recipeListByUserId;
     }
 }
