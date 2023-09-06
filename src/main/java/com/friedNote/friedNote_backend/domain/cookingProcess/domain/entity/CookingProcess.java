@@ -19,7 +19,7 @@ public class CookingProcess extends BaseTimeEntity {
 
     private String cookingProcessSequence;
     private String description;
-    private CookingProcessImage image;
+    private CookingProcessImage cookingProcessImage;
     private String tip;
     private Long time; //단위에 대한 고민?
 
@@ -28,11 +28,11 @@ public class CookingProcess extends BaseTimeEntity {
     private Recipe recipe;
 
     @Builder
-    public CookingProcess(String cookingProcessSequence, String description, CookingProcessImage image,
+    public CookingProcess(String cookingProcessSequence, String description, CookingProcessImage cookingProcessImage,
                           String tip, Long time, Recipe recipe) {
         this.cookingProcessSequence = cookingProcessSequence;
         this.description = description;
-        this.image = image;
+        this.cookingProcessImage = cookingProcessImage;
         this.tip = tip;
         this.time = time;
         this.recipe = recipe;

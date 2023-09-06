@@ -14,8 +14,9 @@ public class CookingProcessMapper {
         CookingProcessImage cookingProcessImage = new CookingProcessImage(imageUrl,
                 cookingProcessCreateRequest.isRepresentativeImageStatus());
         return CookingProcess.builder()
+                .cookingProcessSequence(cookingProcessCreateRequest.getCookingProcessSequence())
                 .description(cookingProcessCreateRequest.getDescription())
-                .image(cookingProcessImage)
+                .cookingProcessImage(cookingProcessImage)
                 .tip(cookingProcessCreateRequest.getTip())
                 .time(cookingProcessCreateRequest.getTime())
                 .recipe(recipe)
