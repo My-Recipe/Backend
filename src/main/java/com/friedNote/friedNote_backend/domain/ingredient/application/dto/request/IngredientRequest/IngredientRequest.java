@@ -2,10 +2,12 @@ package com.friedNote.friedNote_backend.domain.ingredient.application.dto.reques
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 public class IngredientRequest {
 
     @Getter
+    @Setter
     @NoArgsConstructor
     public static class IngredientCreateRequest {
 
