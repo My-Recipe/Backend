@@ -24,7 +24,7 @@ public class RecipeQueryService {
     }
 
     public List<Recipe> findRecipeByUserId(Long userId) {
-        List<Recipe> recipeListByUserId = recipeRepository.findRecipeByUserIdOrderByCreatedDate(userId);
+        List<Recipe> recipeListByUserId = recipeRepository.findRecipeByUserIdOrderByCreatedDateDesc(userId);
         return recipeListByUserId;
     }
 }

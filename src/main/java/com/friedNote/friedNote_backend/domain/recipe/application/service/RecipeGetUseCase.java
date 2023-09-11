@@ -1,7 +1,6 @@
 package com.friedNote.friedNote_backend.domain.recipe.application.service;
 
 import com.friedNote.friedNote_backend.common.annotation.UseCase;
-import com.friedNote.friedNote_backend.domain.bookmark.application.dto.response.BookmarkResponse;
 import com.friedNote.friedNote_backend.domain.bookmark.domain.entity.Bookmark;
 import com.friedNote.friedNote_backend.domain.bookmark.domain.service.BookmarkQueryService;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity.CookingProcess;
@@ -19,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.friedNote.friedNote_backend.domain.bookmark.application.mapper.BookmarkMapper.mapToBookmarkInfoResponse;
 
 @UseCase
 @RequiredArgsConstructor
@@ -40,7 +37,7 @@ public class RecipeGetUseCase {
 
         List<Recipe> recipeList = recipeQueryService.findRecipeByUserId(userId);
 
-        return recipeList.stream().map(recipe -> {
+        List<RecipeResponse.RecipeListResponse> recipeListResponses = recipeList.stream().map(recipe -> {
 
             imageUrl = "";
             fullDescription = "";
@@ -57,14 +54,9 @@ public class RecipeGetUseCase {
             }
             return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, true);
         }).collect(Collectors.toList());
+        recipeListResponses.sort((o1, o2) -> o2.getRecipeId().compareTo(o1.getRecipeId()));
+        return recipeListResponses;
     }
-
-//    public List<RecipeResponse.RecipeListResponse> getMyAllRecipeList(Long userId) {
-//        //레시피 테이블: userId로 쿼리 날려서 리스트 받아온다.
-//        //북마크 테이블: userId로 쿼리 날려서 리스트 받아온다.
-//        //둘을 합치고 정렬 - 사용자 정의 정렬
-//        return null;
-//    }
 
     private void setImageUrl(List<CookingProcess> cookingProcessList, List<String> cookingProcessImageUrlList) {
         imageUrl = imageUrl.concat(cookingProcessImageUrlList.get(0));
@@ -118,63 +110,62 @@ public class RecipeGetUseCase {
     //레시피 모두 보기
     public List<RecipeResponse.RecipeListResponse> getMyAllRecipeList(Long userId) {
 
-        imageUrl = "";
-        fullDescription = "";
+        //합치고 정렬하고 dto로 변환
+        List<Recipe> recipeByUserId = recipeQueryService.findRecipeByUserId(userId);
+        List<Bookmark> bookmarkByUserId = bookmarkQueryService.findByUserId(userId);
 
-        //레시피 테이블: userId로 쿼리 날려서 리스트 받아온다.
-        List<Recipe> recipeListByUserId = recipeQueryService.findRecipeByUserId(userId);
-        List<RecipeResponse.RecipeListResponse> recipeResponse1 = recipeListByUserId.stream().map(recipe -> {
-            imageUrl = "";
-            fullDescription = "";
+        List<Object> recipeAndBookmark = new ArrayList<>();
+        recipeAndBookmark.addAll(recipeByUserId);
+        recipeAndBookmark.addAll(bookmarkByUserId);
 
-            Long recipeId = recipe.getId();
-            List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
-            List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
-
-            if (cookingProcessImageUrlList!=null && cookingProcessImageUrlList.isEmpty()) {
-                addIngredientDescription(recipeId);
-                addCookingProcessDescription(recipeId);
+        //시간 순으로 정렬
+        recipeAndBookmark.sort((o1, o2) -> {
+            if (o1 instanceof Recipe && o2 instanceof Recipe) {
+                return ((Recipe) o2).getCreatedDate().compareTo(((Recipe) o1).getCreatedDate());
+            } else if (o1 instanceof Bookmark && o2 instanceof Bookmark) {
+                return ((Bookmark) o2).getCreatedDate().compareTo(((Bookmark) o1).getCreatedDate());
+            } else if (o1 instanceof Recipe && o2 instanceof Bookmark) {
+                return ((Bookmark) o2).getCreatedDate().compareTo(((Recipe) o1).getCreatedDate());
             } else {
-                setImageUrl(cookingProcessList, cookingProcessImageUrlList);
+                return ((Recipe) o2).getCreatedDate().compareTo(((Bookmark) o1).getCreatedDate());
             }
-            return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, true);
-        }).collect(Collectors.toList());
+        });
 
-        //북마크 테이블: userId로 쿼리 날려서 리스트 받아온다. -> 북마크 되어있는지 어떻게 확인?
-        List<Bookmark> bookmarkListByUserId = bookmarkQueryService.findByUserId(userId);
+        //Object -> recipeResponseDto로 변환
+        List<RecipeResponse.RecipeListResponse> recipeListResponses = recipeAndBookmark.stream().map(Object -> {
+           imageUrl = "";
+           fullDescription = "";
 
-        List<BookmarkResponse.BookmarkInfoResponse> bookmarkInfoResponses =
-                bookmarkListByUserId.stream()
-                        .map(bookmark -> mapToBookmarkInfoResponse(bookmark))
-                        .collect(Collectors.toList());
+           if(Object instanceof Recipe){
+               Recipe recipe = (Recipe) Object;
+               Long recipeId = recipe.getId();
+               List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
+               List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
 
-        //boolean == true 인 것들만 list 저장
-        List<BookmarkResponse.BookmarkInfoResponse> isBookmarktrue = bookmarkInfoResponses.stream()
-                .filter(bookmarkInfoResponse -> bookmarkInfoResponse.isBookMark() == true)
-                .collect(Collectors.toList());
+               if (cookingProcessImageUrlList.isEmpty()) {
+                   addIngredientDescription(recipeId);
+                   addCookingProcessDescription(recipeId);
+               } else {
+                   setImageUrl(cookingProcessList, cookingProcessImageUrlList);
+               }
+                return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, true);
+           }
+           else{
+               Bookmark bookmark = (Bookmark) Object;
+               Long recipeId = bookmark.getRecipe().getId();
+               Recipe recipe = recipeQueryService.findById(recipeId);
+               List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
+               List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
 
-        List<RecipeResponse.RecipeListResponse> recipeResponse2 = isBookmarktrue.stream().map(bookmarkInfoResponse -> {
-            imageUrl = "";
-            fullDescription = "";
-
-            Long recipeId = bookmarkInfoResponse.getRecipeId();
-            Recipe recipe = recipeQueryService.findById(recipeId);
-            List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
-            List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
-
-            if (cookingProcessImageUrlList.isEmpty()) {
-                addIngredientDescription(recipeId);
-                addCookingProcessDescription(recipeId);
-            } else {
-                setImageUrl(cookingProcessList, cookingProcessImageUrlList);
+               if (cookingProcessImageUrlList.isEmpty()) {
+                   addIngredientDescription(recipeId);
+                   addCookingProcessDescription(recipeId);
+               } else {
+                   setImageUrl(cookingProcessList, cookingProcessImageUrlList);
+               }
+               return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, true);
             }
-            return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, true);
         }).collect(Collectors.toList());
-
-        //둘을 합치고 정렬 - 사용자 정의 정렬
-        List<RecipeResponse.RecipeListResponse> recipeResponse = new ArrayList<>();
-        recipeResponse.addAll(recipeResponse1);
-        recipeResponse.addAll(recipeResponse2);
-        return recipeResponse;
+        return recipeListResponses;
     }
 }
