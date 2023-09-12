@@ -1,6 +1,8 @@
 package com.friedNote.friedNote_backend.domain.recipe.application.service;
 
 import com.friedNote.friedNote_backend.common.annotation.UseCase;
+import com.friedNote.friedNote_backend.domain.bookmark.domain.entity.Bookmark;
+import com.friedNote.friedNote_backend.domain.bookmark.domain.service.BookmarkQueryService;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity.CookingProcess;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.service.CookingProcessQueryService;
 import com.friedNote.friedNote_backend.domain.ingredient.domain.entity.Ingredient;
@@ -26,6 +28,8 @@ public class RecipeGetUseCase {
     private final CookingProcessQueryService cookingProcessQueryService;
     private final IngredientGroupQueryService ingredientGroupQueryService;
 
+    private final BookmarkQueryService bookmarkQueryService;
+
     private String imageUrl = "";
     private String fullDescription = "";
 
@@ -33,7 +37,7 @@ public class RecipeGetUseCase {
 
         List<Recipe> recipeList = recipeQueryService.findRecipeByUserId(userId);
 
-        return recipeList.stream().map(recipe -> {
+        List<RecipeResponse.RecipeListResponse> recipeListResponses = recipeList.stream().map(recipe -> {
 
             imageUrl = "";
             fullDescription = "";
@@ -42,22 +46,10 @@ public class RecipeGetUseCase {
             List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
             List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
 
-            if (cookingProcessImageUrlList.isEmpty()) {
-                addIngredientDescription(recipeId);
-                addCookingProcessDescription(recipeId);
-            } else {
-                setImageUrl(cookingProcessList, cookingProcessImageUrlList);
-            }
-            return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, true);
+            return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList);
         }).collect(Collectors.toList());
+        return recipeListResponses;
     }
-
-//    public List<RecipeResponse.RecipeListResponse> getMyAllRecipeList(Long userId) {
-//        //레시피 테이블: userId로 쿼리 날려서 리스트 받아온다.
-//        //북마크 테이블: userId로 쿼리 날려서 리스트 받아온다.
-//        //둘을 합치고 정렬 - 사용자 정의 정렬
-//        return null;
-//    }
 
     private void setImageUrl(List<CookingProcess> cookingProcessList, List<String> cookingProcessImageUrlList) {
         imageUrl = imageUrl.concat(cookingProcessImageUrlList.get(0));
@@ -106,5 +98,69 @@ public class RecipeGetUseCase {
             }
         });
         return cookingProcessImageUrlList;
+    }
+
+    //레시피 모두 보기
+    public List<RecipeResponse.RecipeListResponse> getMyAllRecipeList(Long userId) {
+
+        //합치고 정렬하고 dto로 변환
+        List<Recipe> recipeByUserId = recipeQueryService.findRecipeByUserId(userId);
+        List<Bookmark> bookmarkByUserId = bookmarkQueryService.findByUserId(userId);
+
+        List<Object> recipeAndBookmark = new ArrayList<>();
+        recipeAndBookmark.addAll(recipeByUserId);
+        recipeAndBookmark.addAll(bookmarkByUserId);
+
+        //시간 순으로 정렬
+        sortByTimeOrder(recipeAndBookmark);
+
+        //Object -> recipeResponseDto로 변환
+        List<RecipeResponse.RecipeListResponse> recipeListResponses = recipeAndBookmark.stream().map(Object -> {
+           imageUrl = "";
+           fullDescription = "";
+
+           if(Object instanceof Recipe){
+               Recipe recipe = (Recipe) Object;
+               Long recipeId = recipe.getId();
+               List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
+               List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
+
+               return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList);
+           }
+           else{
+               Bookmark bookmark = (Bookmark) Object;
+               Long recipeId = bookmark.getRecipe().getId();
+               Recipe recipe = recipeQueryService.findById(recipeId);
+               List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
+               List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
+
+               return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList);
+           }
+        }).collect(Collectors.toList());
+        return recipeListResponses;
+    }
+
+    private RecipeResponse.RecipeListResponse getRecipeListResponse(Long recipeId, Recipe recipe, List<CookingProcess> cookingProcessList, List<String> cookingProcessImageUrlList) {
+        if (cookingProcessImageUrlList.isEmpty()) {
+            addIngredientDescription(recipeId);
+            addCookingProcessDescription(recipeId);
+        } else {
+            setImageUrl(cookingProcessList, cookingProcessImageUrlList);
+        }
+        return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, true);
+    }
+
+    private static void sortByTimeOrder(List<Object> recipeAndBookmark) {
+        recipeAndBookmark.sort((o1, o2) -> {
+            if (o1 instanceof Recipe && o2 instanceof Recipe) {
+                return ((Recipe) o2).getCreatedDate().compareTo(((Recipe) o1).getCreatedDate());
+            } else if (o1 instanceof Bookmark && o2 instanceof Bookmark) {
+                return ((Bookmark) o2).getCreatedDate().compareTo(((Bookmark) o1).getCreatedDate());
+            } else if (o1 instanceof Recipe && o2 instanceof Bookmark) {
+                return ((Bookmark) o2).getCreatedDate().compareTo(((Recipe) o1).getCreatedDate());
+            } else {
+                return ((Recipe) o2).getCreatedDate().compareTo(((Bookmark) o1).getCreatedDate());
+            }
+        });
     }
 }

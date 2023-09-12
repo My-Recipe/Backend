@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
-    List<Recipe> findRecipeByUserIdOrderByCreatedDate(Long userId);
+    List<Recipe> findRecipeByUserIdOrderByCreatedDateDesc(Long userId);
 
 }

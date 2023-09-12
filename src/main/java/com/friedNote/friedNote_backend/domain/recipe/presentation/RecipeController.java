@@ -27,10 +27,10 @@ public class RecipeController {
         return recipeGetUseCase.getMyRecipeList(userId);
     }
 
-//    @GetMapping("/recipe/all/{userId}")
-//    public List<RecipeResponse.RecipeListResponse> getMyAllRecipeList(@PathVariable Long userId) {
-//        return recipeGetUseCase.getMyAllRecipeList(userId);
-//    }
+    @GetMapping("/recipe/all/{userId}")
+    public List<RecipeResponse.RecipeListResponse> getMyAllRecipeList(@PathVariable Long userId) {
+        return recipeGetUseCase.getMyAllRecipeList(userId);
+    }
 
 
 }
