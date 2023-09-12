@@ -46,15 +46,8 @@ public class RecipeGetUseCase {
             List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
             List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
 
-            if (cookingProcessImageUrlList.isEmpty()) {
-                addIngredientDescription(recipeId);
-                addCookingProcessDescription(recipeId);
-            } else {
-                setImageUrl(cookingProcessList, cookingProcessImageUrlList);
-            }
-            return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, true);
+            return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList);
         }).collect(Collectors.toList());
-        recipeListResponses.sort((o1, o2) -> o2.getRecipeId().compareTo(o1.getRecipeId()));
         return recipeListResponses;
     }
 
@@ -100,7 +93,7 @@ public class RecipeGetUseCase {
 
         cookingProcessList.forEach(cookingProcess -> {
             String imageUrl1 = cookingProcess.getCookingProcessImage().getImageUrl();
-            if(imageUrl1!=null && !imageUrl1.equals("")){
+            if(!imageUrl1.equals("")){
                 cookingProcessImageUrlList.add(imageUrl1);
             }
         });
@@ -119,17 +112,7 @@ public class RecipeGetUseCase {
         recipeAndBookmark.addAll(bookmarkByUserId);
 
         //시간 순으로 정렬
-        recipeAndBookmark.sort((o1, o2) -> {
-            if (o1 instanceof Recipe && o2 instanceof Recipe) {
-                return ((Recipe) o2).getCreatedDate().compareTo(((Recipe) o1).getCreatedDate());
-            } else if (o1 instanceof Bookmark && o2 instanceof Bookmark) {
-                return ((Bookmark) o2).getCreatedDate().compareTo(((Bookmark) o1).getCreatedDate());
-            } else if (o1 instanceof Recipe && o2 instanceof Bookmark) {
-                return ((Bookmark) o2).getCreatedDate().compareTo(((Recipe) o1).getCreatedDate());
-            } else {
-                return ((Recipe) o2).getCreatedDate().compareTo(((Bookmark) o1).getCreatedDate());
-            }
-        });
+        sortByTimeOrder(recipeAndBookmark);
 
         //Object -> recipeResponseDto로 변환
         List<RecipeResponse.RecipeListResponse> recipeListResponses = recipeAndBookmark.stream().map(Object -> {
@@ -142,13 +125,7 @@ public class RecipeGetUseCase {
                List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
                List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
 
-               if (cookingProcessImageUrlList.isEmpty()) {
-                   addIngredientDescription(recipeId);
-                   addCookingProcessDescription(recipeId);
-               } else {
-                   setImageUrl(cookingProcessList, cookingProcessImageUrlList);
-               }
-                return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, true);
+               return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList);
            }
            else{
                Bookmark bookmark = (Bookmark) Object;
@@ -157,15 +134,33 @@ public class RecipeGetUseCase {
                List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
                List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
 
-               if (cookingProcessImageUrlList.isEmpty()) {
-                   addIngredientDescription(recipeId);
-                   addCookingProcessDescription(recipeId);
-               } else {
-                   setImageUrl(cookingProcessList, cookingProcessImageUrlList);
-               }
-               return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, true);
-            }
+               return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList);
+           }
         }).collect(Collectors.toList());
         return recipeListResponses;
+    }
+
+    private RecipeResponse.RecipeListResponse getRecipeListResponse(Long recipeId, Recipe recipe, List<CookingProcess> cookingProcessList, List<String> cookingProcessImageUrlList) {
+        if (cookingProcessImageUrlList.isEmpty()) {
+            addIngredientDescription(recipeId);
+            addCookingProcessDescription(recipeId);
+        } else {
+            setImageUrl(cookingProcessList, cookingProcessImageUrlList);
+        }
+        return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, true);
+    }
+
+    private static void sortByTimeOrder(List<Object> recipeAndBookmark) {
+        recipeAndBookmark.sort((o1, o2) -> {
+            if (o1 instanceof Recipe && o2 instanceof Recipe) {
+                return ((Recipe) o2).getCreatedDate().compareTo(((Recipe) o1).getCreatedDate());
+            } else if (o1 instanceof Bookmark && o2 instanceof Bookmark) {
+                return ((Bookmark) o2).getCreatedDate().compareTo(((Bookmark) o1).getCreatedDate());
+            } else if (o1 instanceof Recipe && o2 instanceof Bookmark) {
+                return ((Bookmark) o2).getCreatedDate().compareTo(((Recipe) o1).getCreatedDate());
+            } else {
+                return ((Recipe) o2).getCreatedDate().compareTo(((Bookmark) o1).getCreatedDate());
+            }
+        });
     }
 }
