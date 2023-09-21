@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @ConfigurationPropertiesScan
 @SpringBootApplication
 @EnableJpaAuditing
-@ConfigurationPropertiesScan
 public class FriedNoteBackendApplication {
 
 	public static void main(String[] args) {
