@@ -1,6 +1,7 @@
 package com.friedNote.friedNote_backend.domain.bookmark.application.service;
 
 import com.friedNote.friedNote_backend.common.annotation.UseCase;
+import com.friedNote.friedNote_backend.common.util.UserUtils;
 import com.friedNote.friedNote_backend.domain.bookmark.application.dto.request.BookmarkRequest;
 import com.friedNote.friedNote_backend.domain.bookmark.application.mapper.BookmarkMapper;
 import com.friedNote.friedNote_backend.domain.bookmark.domain.entity.Bookmark;
@@ -10,7 +11,6 @@ import com.friedNote.friedNote_backend.domain.bookmark.domain.service.BookmarkSa
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
 import com.friedNote.friedNote_backend.domain.recipe.domain.service.RecipeQueryService;
 import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
-import com.friedNote.friedNote_backend.domain.user.domain.service.UserQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class BookmarkCreateUseCase {
 
+    private final UserUtils userUtils;
     private final BookmarkSaveService bookmarkSaveService;
-    private final UserQueryService userQueryService;
     private final RecipeQueryService recipeQueryService;
 
     private final BookmarkQueryService bookmarkQueryService;
@@ -28,7 +28,7 @@ public class BookmarkCreateUseCase {
 
     public void createBookmark(BookmarkRequest.BookmarkCreateRequest bookmarkCreateRequest) {
         Long userId = bookmarkCreateRequest.getUserId();
-        User user = userQueryService.findById(userId);
+        User user = userUtils.getUser();
 
         Long recipeId = bookmarkCreateRequest.getRecipeId();
         Recipe recipe = recipeQueryService.findById(recipeId);

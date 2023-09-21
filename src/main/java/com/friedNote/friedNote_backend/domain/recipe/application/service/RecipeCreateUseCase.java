@@ -1,6 +1,7 @@
 package com.friedNote.friedNote_backend.domain.recipe.application.service;
 
 import com.friedNote.friedNote_backend.common.annotation.UseCase;
+import com.friedNote.friedNote_backend.common.util.UserUtils;
 import com.friedNote.friedNote_backend.domain.cookingProcess.application.mapper.CookingProcessMapper;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity.CookingProcess;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.service.CookingProcessSaveService;
@@ -18,7 +19,6 @@ import com.friedNote.friedNote_backend.domain.recipeBook.domain.entity.RecipeBoo
 import com.friedNote.friedNote_backend.domain.recipeBook.domain.service.RecipeBookQueryService;
 import com.friedNote.friedNote_backend.domain.s3.S3UploadService;
 import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
-import com.friedNote.friedNote_backend.domain.user.domain.service.UserQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,9 +28,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Transactional
 public class RecipeCreateUseCase {
 
+    private final UserUtils userUtils;
     private final RecipeSaveService recipeSaveService;
     private final RecipeBookQueryService recipeBookQueryService;
-    private final UserQueryService userQueryService;
     private final CookingProcessSaveService cookingProcessSaveService;
 
     private final IngredientGroupSaveService ingredientGroupSaveService;
@@ -42,7 +42,7 @@ public class RecipeCreateUseCase {
         RecipeBook recipeBook = recipeBookQueryService.findById(recipeBookId);
 
         Long userId = recipeCreateRequest.getUserId();
-        User user = userQueryService.findById(userId);
+        User user = userUtils.getUser();
 
         Recipe recipe = RecipeMapper.mapToRecipe(recipeCreateRequest, recipeBook, user);
         recipeSaveService.saveRecipe(recipe);
