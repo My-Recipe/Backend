@@ -1,5 +1,6 @@
 package com.friedNote.friedNote_backend.domain.user.application.mapper;
 
+import com.friedNote.friedNote_backend.domain.user.application.dto.request.UserRequest;
 import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -7,11 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserMapper {
 
-    public static User mapToUser(String name, String email, String profileUrl) {
+    public static User mapToUser(UserRequest.UserSignUpRequest userSignUpRequest) {
         return User.builder()
-                .name(name)
-                .email(email)
-                .profileUrl(profileUrl)
+                .name(userSignUpRequest.getName())
+                .email(userSignUpRequest.getEmail())
                 .build();
     }
 }
