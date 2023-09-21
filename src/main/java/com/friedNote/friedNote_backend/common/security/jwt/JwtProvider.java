@@ -6,9 +6,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -23,28 +22,22 @@ import static com.friedNote.friedNote_backend.common.consts.ApplicationConst.*;
  */
 @Slf4j
 @Component
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class JwtProvider {
 
-    @Value("${auth.jwt.secret}")
-    private String key;
-
-    @Value("${auth.jwt.access-token-period}")
-    private String accessTokenPeriod;
-
-    @Value("${auth.jwt.refresh-token-period}")
-    private String refreshTokenPeriod;
+    private final JwtProperties jwtProperties;
 
     private Key getSecretKey() {
-        return Keys.hmacShaKeyFor(key.getBytes(StandardCharsets.UTF_8));
+        return Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8));
     }
+
 
     //유저정보(email)을 통해 Token 생성
     public String generateAccessToken(String email, Date now) {
         String accessToken = Jwts.builder()
                 .setIssuedAt(now)
                 .signWith(getSecretKey())
-                .setExpiration(new Date(now.getTime() + accessTokenPeriod))
+                .setExpiration(new Date(now.getTime() + jwtProperties.getAccessTokenPeriod()))
                 .setSubject(email)
                 .claim(TOKEN_TYPE, ACCESS_TOKEN)
                 .compact();
@@ -58,7 +51,7 @@ public class JwtProvider {
         String refreshToken = Jwts.builder()
                 .setIssuedAt(now)
                 .signWith(getSecretKey())
-                .setExpiration(new Date(now.getTime() + refreshTokenPeriod))
+                .setExpiration(new Date(now.getTime() + jwtProperties.getRefreshTokenPeriod()))
                 .setSubject(email)
                 .claim(TOKEN_TYPE, REFRESH_TOKEN) //key-value로 데이터 추가
                 .compact();

@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Getter
 @RequiredArgsConstructor
-@ConfigurationProperties(prefix = "auth.jwt") //?
+@ConfigurationProperties(prefix = "auth.jwt")
 public class JwtProperties {
 
     private final String secret;
