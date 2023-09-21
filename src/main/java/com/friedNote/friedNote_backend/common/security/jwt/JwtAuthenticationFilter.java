@@ -1,9 +1,9 @@
 package com.friedNote.friedNote_backend.common.security.jwt;
 
 import com.friedNote.friedNote_backend.common.consts.ApplicationConst;
-import com.friedNote.friedNote_backend.common.HeaderUtils;
+import com.friedNote.friedNote_backend.common.util.HeaderUtils;
 import com.friedNote.friedNote_backend.common.consts.IgnoredPathConst;
-import com.friedNote.friedNote_backend.common.SecurityUtils;
+import com.friedNote.friedNote_backend.common.util.SecurityUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

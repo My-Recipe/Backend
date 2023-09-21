@@ -1,4 +1,4 @@
-package com.friedNote.friedNote_backend.common;
+package com.friedNote.friedNote_backend.common.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

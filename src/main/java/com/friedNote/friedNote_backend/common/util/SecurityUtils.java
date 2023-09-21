@@ -1,4 +1,4 @@
-package com.friedNote.friedNote_backend.common;
+package com.friedNote.friedNote_backend.common.util;
 
 import com.friedNote.friedNote_backend.common.consts.ApplicationConst;
 import com.friedNote.friedNote_backend.common.security.jwt.JwtAuthenticationToken;
