@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 public class UserRequest {
+
     @Getter
     @NoArgsConstructor
     public static class UserCreateRequest{
@@ -34,6 +35,19 @@ public class UserRequest {
             this.email = email;
             this.userId = userId;
             this.profileUrl = profileUrl;
+        }
+    }
+
+    @Getter
+    public static class UserSignUpRequest{
+
+        private String name;
+        private String email;
+
+        @Builder
+        public UserSignUpRequest(String name, String email) {
+            this.name = name;
+            this.email = email;
         }
     }
 }

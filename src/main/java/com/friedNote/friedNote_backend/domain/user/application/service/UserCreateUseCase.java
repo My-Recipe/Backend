@@ -2,8 +2,6 @@ package com.friedNote.friedNote_backend.domain.user.application.service;
 
 import com.friedNote.friedNote_backend.common.annotation.UseCase;
 import com.friedNote.friedNote_backend.domain.user.application.dto.request.UserRequest;
-import com.friedNote.friedNote_backend.domain.user.application.mapper.UserMapper;
-import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
 import com.friedNote.friedNote_backend.domain.user.domain.service.UserSaveService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +18,7 @@ public class UserCreateUseCase {
         String email = userCreateRequest.getEmail();
         String profileUrl = userCreateRequest.getProfileUrl();
 
-        User user = UserMapper.mapToUser(name, email, profileUrl);
-        userSaveService.saveUser(user);
+        //User user = UserMapper.mapToUser(name, email, profileUrl);
+        //userSaveService.saveUser(user);
     }
 }

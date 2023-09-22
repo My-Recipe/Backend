@@ -18,4 +18,11 @@ public class UserQueryService {
         return user;
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
 }
