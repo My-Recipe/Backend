@@ -13,8 +13,8 @@ public class RecipeBookQueryService {
 
     private final RecipeBookRepository recipeBookRepository;
 
-    public RecipeBook findById(Long recipeBookId) {
-        RecipeBook recipeBook = recipeBookRepository.findById(recipeBookId).orElseThrow();
+    public RecipeBook findByUserId(Long userId) {
+        RecipeBook recipeBook = recipeBookRepository.findByUserId(userId);
         return recipeBook;
     }
 }
