@@ -7,6 +7,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
+
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -30,5 +33,21 @@ public class Ingredient extends BaseTimeEntity {
         this.ingredientAmount = ingredientAmount;
         this.ingredientUnit = ingredientUnit;
         this.ingredientGroup = ingredientGroup;
+    }
+
+    public void updateIngredientName(String ingredientName) {
+        if(!Objects.equals(this.ingredientName, ingredientName) && StringUtils.hasText(ingredientName)){
+            this.ingredientName = ingredientName;
+        }
+    }
+    public void updateIngredientAmount(Long ingredientAmount) {
+        if(!Objects.equals(this.ingredientAmount, ingredientAmount) && ingredientAmount != null){
+            this.ingredientAmount = ingredientAmount;
+        }
+    }
+    public void updateIngredientUnit(String ingredientUnit) {
+        if(!Objects.equals(this.ingredientUnit, ingredientUnit) && StringUtils.hasText(ingredientUnit)){
+            this.ingredientUnit = ingredientUnit;
+        }
     }
 }

@@ -18,8 +18,8 @@ public class RecipeQueryService {
     /**
      * Todo: 예외처리
      */
-    public Recipe findById(Long recipeId) {
-        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow();
+    public Recipe findRecipeById(Long recipeId) {
+        Recipe recipe = recipeRepository.findRecipeById(recipeId);
         return recipe;
     }
 

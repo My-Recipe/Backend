@@ -19,5 +19,7 @@ public class IngredientGroupQueryService {
         return ingredientGroupRepository.findIngredientGroupByRecipeId(recipeId);
     }
 
-
+    public IngredientGroup findIngredientGroupById(Long ingredientGroupId) {
+        return ingredientGroupRepository.findIngredientGroupById(ingredientGroupId);
+    }
 }

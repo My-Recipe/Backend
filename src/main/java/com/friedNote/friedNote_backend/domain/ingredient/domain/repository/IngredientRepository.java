@@ -4,4 +4,6 @@ import com.friedNote.friedNote_backend.domain.ingredient.domain.entity.Ingredien
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
+
+    Ingredient findIngredientById(Long ingredientId);
 }

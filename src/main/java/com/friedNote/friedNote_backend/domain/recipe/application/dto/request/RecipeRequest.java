@@ -32,4 +32,24 @@ public class RecipeRequest {
             this.ingredientGroupCreateRequestList = ingredientGroupCreateRequestList;
         }
     }
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class RecipeUpdateRequest {
+        private String recipeName;
+        private boolean publicityStatus;
+
+        private Long recipeId;
+        private List<CookingProcessRequest.CookingProcessUpdateRequest> CookingProcessUpdateRequestList;
+        private List<IngredientGroupRequest.IngredientGroupUpdateRequest> ingredientGroupUpdateRequestList;
+
+        @Builder
+        public RecipeUpdateRequest(String recipeName, boolean publicityStatus, Long recipeId, List<CookingProcessRequest.CookingProcessUpdateRequest> cookingProcessUpdateRequestList, List<IngredientGroupRequest.IngredientGroupUpdateRequest> ingredientGroupUpdateRequestList) {
+            this.recipeName = recipeName;
+            this.publicityStatus = publicityStatus;
+            this.recipeId = recipeId;
+            this.CookingProcessUpdateRequestList = cookingProcessUpdateRequestList;
+            this.ingredientGroupUpdateRequestList = ingredientGroupUpdateRequestList;
+        }
+    }
 }

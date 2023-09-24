@@ -31,7 +31,7 @@ public class BookmarkCreateUseCase {
         User user = userUtils.getUser();
 
         Long recipeId = bookmarkCreateRequest.getRecipeId();
-        Recipe recipe = recipeQueryService.findById(recipeId);
+        Recipe recipe = recipeQueryService.findRecipeById(recipeId);
 
         Bookmark bookmark = BookmarkMapper.mapToBookmark(user, recipe);
 

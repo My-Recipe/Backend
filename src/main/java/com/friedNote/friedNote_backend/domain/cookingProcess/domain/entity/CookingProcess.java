@@ -7,6 +7,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
+
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -36,5 +39,27 @@ public class CookingProcess extends BaseTimeEntity {
         this.tip = tip;
         this.time = time;
         this.recipe = recipe;
+    }
+
+    public void updateDescription(String description) {
+        if(!Objects.equals(this.description, description)&& StringUtils.hasText(description)) {
+            this.description = description;
+        }
+    }
+    public void updateCookingProcessImage(CookingProcessImage cookingProcessImage) {
+        cookingProcessImage.updateCookingProcessImage(cookingProcessImage.getImageUrl());
+    }
+    public void updateTip(String tip) {
+        if(!Objects.equals(this.tip, tip)&& StringUtils.hasText(tip)) {
+            this.tip = tip;
+        }
+    }
+    public void updateTime(Long time) {
+        this.time = time;
+    }
+    public void updateCookingProcessSequence(String cookingProcessSequence) {
+        if(!Objects.equals(this.cookingProcessSequence, cookingProcessSequence)&& StringUtils.hasText(cookingProcessSequence)){
+            this.cookingProcessSequence = cookingProcessSequence;
+        }
     }
 }
