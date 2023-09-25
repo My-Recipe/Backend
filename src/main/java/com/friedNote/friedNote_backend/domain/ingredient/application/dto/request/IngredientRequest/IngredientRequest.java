@@ -29,13 +29,13 @@ public class IngredientRequest {
         private String ingredientName;
         private Long ingredientAmount;
         private String ingredientUnit;
-        private Long ingredientId;
+        private Long ingredientGroupId;
         @Builder
-        public IngredientUpdateRequest(String ingredientName, Long ingredientAmount, String ingredientUnit, Long ingredientId) {
+        public IngredientUpdateRequest(String ingredientName, Long ingredientAmount, String ingredientUnit, Long ingredientGroupId) {
             this.ingredientName = ingredientName;
             this.ingredientAmount = ingredientAmount;
             this.ingredientUnit = ingredientUnit;
-            this.ingredientId = ingredientId;
+            this.ingredientGroupId = ingredientGroupId;
         }
     }
 }

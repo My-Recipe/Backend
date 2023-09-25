@@ -6,6 +6,8 @@ import com.friedNote.friedNote_backend.domain.ingredient.domain.repository.Ingre
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @DomainService
 @RequiredArgsConstructor
 @Transactional
@@ -15,5 +17,9 @@ public class IngredientQueryService {
 
     public Ingredient findIngredientById(Long ingredientId) {
         return ingredientRepository.findIngredientById(ingredientId);
+    }
+
+    public List<Ingredient> findByIngredientGroupId(Long ingredientGroupId) {
+        return ingredientRepository.findByIngredientGroupId(ingredientGroupId);
     }
 }

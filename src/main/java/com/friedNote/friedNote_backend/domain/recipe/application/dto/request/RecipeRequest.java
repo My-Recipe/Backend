@@ -38,7 +38,6 @@ public class RecipeRequest {
     public static class RecipeUpdateRequest {
         private String recipeName;
         private boolean publicityStatus;
-
         private Long recipeId;
         private List<CookingProcessRequest.CookingProcessUpdateRequest> CookingProcessUpdateRequestList;
         private List<IngredientGroupRequest.IngredientGroupUpdateRequest> ingredientGroupUpdateRequestList;

@@ -8,6 +8,5 @@ import java.util.List;
 public interface IngredientGroupRepository extends JpaRepository<IngredientGroup, Long> {
 
     List<IngredientGroup> findIngredientGroupByRecipeId(Long recipeId);
-
-    IngredientGroup findIngredientGroupById(Long ingredientGroupId);
+    List<IngredientGroup> findByRecipeId(Long recipeId);
 }
