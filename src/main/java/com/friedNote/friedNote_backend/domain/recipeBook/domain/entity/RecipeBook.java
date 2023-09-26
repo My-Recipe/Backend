@@ -49,4 +49,10 @@ public class RecipeBook extends BaseTimeEntity {
     public void updateRecipeBookPublicityStatus(boolean publicityStatus) {
         this.publicityStatus = publicityStatus;
     }
+
+    public void updateRecipeBookInfo(String title, String subtitle, boolean publicityStatus) {
+        updateRecipeBookTitle(title);
+        updateRecipeBookSubtitle(subtitle);
+        updateRecipeBookPublicityStatus(publicityStatus);
+    }
 }
