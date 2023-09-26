@@ -24,4 +24,19 @@ public class IngredientGroupRequest {
             this.ingredientList = ingredientList;
         }
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class IngredientGroupUpdateRequest {
+        private String groupName;
+        List<IngredientRequest.IngredientUpdateRequest> ingredientUpdateRequestList;
+        private Long recipeId;
+        @Builder
+        public IngredientGroupUpdateRequest(String groupName, List<IngredientRequest.IngredientUpdateRequest> ingredientUpdateRequestList, Long recipeId) {
+            this.groupName = groupName;
+            this.ingredientUpdateRequestList = ingredientUpdateRequestList;
+            this.recipeId = recipeId;
+        }
+    }
 }

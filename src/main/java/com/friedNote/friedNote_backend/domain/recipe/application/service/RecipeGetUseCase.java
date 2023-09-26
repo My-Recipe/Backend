@@ -130,7 +130,7 @@ public class RecipeGetUseCase {
            else{
                Bookmark bookmark = (Bookmark) Object;
                Long recipeId = bookmark.getRecipe().getId();
-               Recipe recipe = recipeQueryService.findById(recipeId);
+               Recipe recipe = recipeQueryService.findRecipeById(recipeId);
                List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
                List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
 

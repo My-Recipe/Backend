@@ -5,17 +5,21 @@ import com.friedNote.friedNote_backend.domain.recipe.application.dto.request.Rec
 import com.friedNote.friedNote_backend.domain.recipe.application.dto.response.RecipeResponse;
 import com.friedNote.friedNote_backend.domain.recipe.application.service.RecipeCreateUseCase;
 import com.friedNote.friedNote_backend.domain.recipe.application.service.RecipeGetUseCase;
+import com.friedNote.friedNote_backend.domain.recipe.application.service.RecipeUpdateUseCase;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class RecipeController {
 
     private final RecipeCreateUseCase recipeCreateUseCase;
     private final RecipeGetUseCase recipeGetUseCase;
+    private final RecipeUpdateUseCase recipeUpdateUseCase;
 
     @PostMapping("/recipe")
     public void createRecipe(@ModelAttribute RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
@@ -32,5 +36,10 @@ public class RecipeController {
         return recipeGetUseCase.getMyAllRecipeList(userId);
     }
 
+    @PostMapping("/recipe/update")
+    public void updateRecipe(@ModelAttribute RecipeRequest.RecipeUpdateRequest recipeUpdateRequest) {
+        log.info("recipeUpdateRequest: {}", recipeUpdateRequest);
+        recipeUpdateUseCase.updateRecipe(recipeUpdateRequest);
+    }
 
 }

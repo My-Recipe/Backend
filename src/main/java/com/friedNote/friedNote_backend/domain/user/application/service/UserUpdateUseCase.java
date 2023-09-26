@@ -15,15 +15,12 @@ public class UserUpdateUseCase {
 
     @Transactional
     public void userUpdate(UserRequest.UserUpdateRequest userUpdateRequest) {
-        //유저 정보를 업데이트 하는 로직
 
         String name = userUpdateRequest.getName();
         String email = userUpdateRequest.getEmail();
         String profileUrl = userUpdateRequest.getProfileUrl();
 
         User user = userUtils.getUser();
-        user.updateUserName(name);
-        user.updateUserEmail(email);
-        user.updateUserProfileUrl(profileUrl);
+        user.updateUserInfo(name, email, profileUrl);
     }
 }

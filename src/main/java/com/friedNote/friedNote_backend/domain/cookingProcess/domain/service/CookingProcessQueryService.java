@@ -23,4 +23,8 @@ public class CookingProcessQueryService {
     public List<CookingProcess> findCookingProcessByRecipeIdOrderByCookingProcessSequenceAsc(Long recipeId) {
         return cookingProcessRepository.findCookingProcessByRecipeIdOrderByCookingProcessSequenceAsc(recipeId);
     }
+
+    public List<CookingProcess> findByRecipeId(Long recipeId) {
+        return cookingProcessRepository.findByRecipeId(recipeId);
+    }
 }

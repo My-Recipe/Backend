@@ -39,7 +39,7 @@ public class RecipeCreateUseCase {
 
     public void createRecipe(RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
         Long recipeBookId = recipeCreateRequest.getRecipeBookId();
-        RecipeBook recipeBook = recipeBookQueryService.findById(recipeBookId);
+        RecipeBook recipeBook = recipeBookQueryService.findByUserId(recipeBookId);
 
         Long userId = recipeCreateRequest.getUserId();
         User user = userUtils.getUser();

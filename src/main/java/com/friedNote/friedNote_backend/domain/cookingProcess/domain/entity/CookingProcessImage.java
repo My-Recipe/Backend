@@ -6,6 +6,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
+
+import java.util.Objects;
 
 @Embeddable
 @Getter
@@ -19,5 +22,18 @@ public class CookingProcessImage {
     public CookingProcessImage(String imageUrl, boolean representativeImageStatus) {
         this.imageUrl = imageUrl;
         this.representativeImageStatus = representativeImageStatus;
+    }
+
+    public void updateImageUrl(String imageUrl) {
+        if(!Objects.equals(this.imageUrl, imageUrl) && StringUtils.hasText(imageUrl)){
+            this.imageUrl = imageUrl;
+        }
+    }
+    public void updateRepresentativeImageStatus(boolean representativeImageStatus) {
+        this.representativeImageStatus = representativeImageStatus;
+    }
+    public void updateCookingProcessImageInfo(String imageUrl, boolean representativeImageStatus) {
+        updateImageUrl(imageUrl);
+        updateRepresentativeImageStatus(representativeImageStatus);
     }
 }

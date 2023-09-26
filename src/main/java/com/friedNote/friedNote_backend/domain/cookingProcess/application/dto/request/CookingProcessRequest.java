@@ -31,4 +31,29 @@ public class CookingProcessRequest {
             this.time = time;
         }
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class CookingProcessUpdateRequest {
+
+        private String cookingProcessSequence;
+        private String description;
+        private MultipartFile image;
+        private boolean representativeImageStatus;
+        private String tip;
+        private Long time;
+        private Long recipeId;
+
+        @Builder
+        public CookingProcessUpdateRequest(String cookingProcessSequence, String description, MultipartFile image, boolean representativeImageStatus, String tip, Long time, Long recipeId) {
+            this.cookingProcessSequence = cookingProcessSequence;
+            this.description = description;
+            this.image = image;
+            this.representativeImageStatus = representativeImageStatus;
+            this.tip = tip;
+            this.time = time;
+            this.recipeId = recipeId;
+        }
+    }
 }

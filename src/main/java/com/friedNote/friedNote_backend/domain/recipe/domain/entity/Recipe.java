@@ -8,6 +8,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
+
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -35,5 +38,19 @@ public class Recipe extends BaseTimeEntity {
         this.publicityStatus = publicityStatus;
         this.recipeBook = recipeBook;
         this.user = user;
+    }
+
+    public void updateRecipeName(String recipeName) {
+        if(recipeName!=null&&!Objects.equals(this.recipeName, recipeName) && StringUtils.hasText(recipeName)) {
+            this.recipeName = recipeName;
+        }
+    }
+    public void updatePublicityStatus(boolean publicityStatus) {
+        this.publicityStatus = publicityStatus;
+    }
+
+    public void updateRecipeInfo(String recipeName, boolean publicityStatus) {
+        updateRecipeName(recipeName);
+        updatePublicityStatus(publicityStatus);
     }
 }

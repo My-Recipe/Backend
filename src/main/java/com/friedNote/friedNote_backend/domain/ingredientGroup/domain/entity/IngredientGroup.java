@@ -8,9 +8,11 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -34,5 +36,11 @@ public class IngredientGroup extends BaseTimeEntity {
     public IngredientGroup(String groupName, Recipe recipe) {
         this.groupName = groupName;
         this.recipe = recipe;
+    }
+
+    public void updateIngredientGroupName(String groupName) {
+        if(!Objects.equals(this.groupName, groupName) && StringUtils.hasText(groupName)){
+            this.groupName = groupName;
+        }
     }
 }

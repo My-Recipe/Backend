@@ -12,6 +12,7 @@ public interface CookingProcessRepository extends JpaRepository<CookingProcess, 
 
     List<CookingProcess> findCookingProcessByRecipeIdOrderByCookingProcessSequenceAsc(Long recipeId);
 
+    List<CookingProcess> findByRecipeId(Long recipeId);
     //Querydsl 사용
     //boolean findRepresentativeImageStatusByImageUrl(String imageUrl);
 }
