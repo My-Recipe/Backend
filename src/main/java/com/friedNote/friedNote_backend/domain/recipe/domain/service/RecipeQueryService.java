@@ -28,4 +28,11 @@ public class RecipeQueryService {
         return recipeListByUserId;
     }
 
+    public Long countRecipeByUserId(Long userId) {
+        return recipeRepository.countRecipeByUserId(userId);
+    }
+
+    public boolean existsByUserIdAndId(Long userId, Long recipeId) {
+        return recipeRepository.existsByUserIdAndId(userId, recipeId);
+    }
 }

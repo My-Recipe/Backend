@@ -5,6 +5,7 @@ import com.friedNote.friedNote_backend.domain.recipe.application.dto.request.Rec
 import com.friedNote.friedNote_backend.domain.recipe.application.dto.response.RecipeResponse;
 import com.friedNote.friedNote_backend.domain.recipe.application.service.RecipeCreateUseCase;
 import com.friedNote.friedNote_backend.domain.recipe.application.service.RecipeGetUseCase;
+import com.friedNote.friedNote_backend.domain.recipe.application.service.RecipeMainGetUseCase;
 import com.friedNote.friedNote_backend.domain.recipe.application.service.RecipeUpdateUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ public class RecipeController {
 
     private final RecipeCreateUseCase recipeCreateUseCase;
     private final RecipeGetUseCase recipeGetUseCase;
+    private final RecipeMainGetUseCase recipeMainGetUseCase;
     private final RecipeUpdateUseCase recipeUpdateUseCase;
 
     @PostMapping("/recipe")
@@ -34,6 +36,11 @@ public class RecipeController {
     @GetMapping("/recipe/all/{userId}")
     public List<RecipeResponse.RecipeListResponse> getMyAllRecipeList(@PathVariable Long userId) {
         return recipeGetUseCase.getMyAllRecipeList(userId);
+    }
+
+    @GetMapping("/main/recommend")
+    public List<RecipeResponse.RecipeMainResponse> getRecommendRecipeList() {
+        return recipeMainGetUseCase.getRecommendRecipeList();
     }
 
     @PostMapping("/recipe/update")

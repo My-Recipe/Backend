@@ -11,5 +11,9 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     List<Recipe> findRecipeByUserIdOrderByCreatedDateDesc(Long userId);
 
+    Long countRecipeByUserId(Long userId);
+
+    boolean existsByUserIdAndId(Long userId, Long recipeId);
+
     Recipe findRecipeById(Long recipeId);
 }
