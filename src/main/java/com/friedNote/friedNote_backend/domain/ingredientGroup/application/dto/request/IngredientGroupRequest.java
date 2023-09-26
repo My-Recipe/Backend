@@ -30,13 +30,13 @@ public class IngredientGroupRequest {
     @NoArgsConstructor
     public static class IngredientGroupUpdateRequest {
         private String groupName;
-        private Long ingredientGroupId;
-        List<IngredientRequest.IngredientUpdateRequest> ingredientList;
+        List<IngredientRequest.IngredientUpdateRequest> ingredientUpdateRequestList;
+        private Long recipeId;
         @Builder
-        public IngredientGroupUpdateRequest(String groupName, Long ingredientGroupId, List<IngredientRequest.IngredientUpdateRequest> ingredientList) {
+        public IngredientGroupUpdateRequest(String groupName, List<IngredientRequest.IngredientUpdateRequest> ingredientUpdateRequestList, Long recipeId) {
             this.groupName = groupName;
-            this.ingredientGroupId = ingredientGroupId;
-            this.ingredientList = ingredientList;
+            this.ingredientUpdateRequestList = ingredientUpdateRequestList;
+            this.recipeId = recipeId;
         }
     }
 }

@@ -42,7 +42,7 @@ public class CookingProcess extends BaseTimeEntity {
     }
 
     public void updateDescription(String description) {
-        if(!Objects.equals(this.description, description)&& StringUtils.hasText(description)) {
+        if(description!=null&&!Objects.equals(this.description, description)&& StringUtils.hasText(description)) {
             this.description = description;
         }
     }
@@ -50,7 +50,7 @@ public class CookingProcess extends BaseTimeEntity {
         cookingProcessImage.updateCookingProcessImage(cookingProcessImage.getImageUrl());
     }
     public void updateTip(String tip) {
-        if(!Objects.equals(this.tip, tip)&& StringUtils.hasText(tip)) {
+        if(tip!=null&&!Objects.equals(this.tip, tip)&& StringUtils.hasText(tip)) {
             this.tip = tip;
         }
     }
@@ -58,7 +58,7 @@ public class CookingProcess extends BaseTimeEntity {
         this.time = time;
     }
     public void updateCookingProcessSequence(String cookingProcessSequence) {
-        if(!Objects.equals(this.cookingProcessSequence, cookingProcessSequence)&& StringUtils.hasText(cookingProcessSequence)){
+        if(cookingProcessSequence!=null&&!Objects.equals(this.cookingProcessSequence, cookingProcessSequence)&& StringUtils.hasText(cookingProcessSequence)){
             this.cookingProcessSequence = cookingProcessSequence;
         }
     }
