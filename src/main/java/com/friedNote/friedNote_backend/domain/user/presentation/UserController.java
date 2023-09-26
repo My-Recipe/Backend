@@ -16,7 +16,7 @@ public class UserController {
     private final UserCreateUseCase userCreateUseCase;
 
     /**
-     * OAuth2로 사용하지 않는 API
+     *  OAuth2로 사용하지 않는 API
      */
     @PostMapping("/user")
     public void createUser(@RequestBody UserRequest.UserCreateRequest userCreateRequest) {
