@@ -5,7 +5,6 @@ import com.friedNote.friedNote_backend.domain.ingredient.application.dto.request
 import com.friedNote.friedNote_backend.domain.ingredient.domain.entity.Ingredient;
 import com.friedNote.friedNote_backend.domain.ingredient.domain.service.IngredientQueryService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 @DomainService
 @RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class IngredientUpdateUseCase {
 
     private final IngredientQueryService ingredientQueryService;
@@ -26,10 +24,7 @@ public class IngredientUpdateUseCase {
 
         List<Ingredient> ingredientList = ingredientQueryService.findByIngredientGroupId(ingredientGroupId);
         ingredientList.forEach(ingredient -> {
-            log.info("ingredient.getGroupId : {}", ingredientGroupId);
-            ingredient.updateIngredientName(ingredientName);
-            ingredient.updateIngredientAmount(ingredientAmount);
-            ingredient.updateIngredientUnit(ingredientUnit);
+            ingredient.updateIngredientInfo(ingredientName, ingredientAmount, ingredientUnit);
         });
     }
 }

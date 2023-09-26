@@ -1,8 +1,6 @@
 package com.friedNote.friedNote_backend.domain.recipe.domain.entity;
 
 import com.friedNote.friedNote_backend.common.domain.BaseTimeEntity;
-import com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity.CookingProcess;
-import com.friedNote.friedNote_backend.domain.ingredientGroup.domain.entity.IngredientGroup;
 import com.friedNote.friedNote_backend.domain.recipeBook.domain.entity.RecipeBook;
 import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
 import jakarta.persistence.*;
@@ -12,8 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -36,12 +32,6 @@ public class Recipe extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-    private List<IngredientGroup> ingredientGroupList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "recipe",cascade = CascadeType.ALL)
-    private List<CookingProcess> cookingProcessList = new ArrayList<>();
-
     @Builder
     public Recipe(String recipeName, boolean publicityStatus, RecipeBook recipeBook, User user) {
         this.recipeName = recipeName;
@@ -53,11 +43,14 @@ public class Recipe extends BaseTimeEntity {
     public void updateRecipeName(String recipeName) {
         if(recipeName!=null&&!Objects.equals(this.recipeName, recipeName) && StringUtils.hasText(recipeName)) {
             this.recipeName = recipeName;
-        } else {
-            this.recipeName = this.recipeName;
         }
     }
     public void updatePublicityStatus(boolean publicityStatus) {
         this.publicityStatus = publicityStatus;
+    }
+
+    public void updateRecipeInfo(String recipeName, boolean publicityStatus) {
+        updateRecipeName(recipeName);
+        updatePublicityStatus(publicityStatus);
     }
 }

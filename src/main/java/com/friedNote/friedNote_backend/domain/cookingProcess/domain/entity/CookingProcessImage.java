@@ -24,12 +24,16 @@ public class CookingProcessImage {
         this.representativeImageStatus = representativeImageStatus;
     }
 
-    public void updateCookingProcessImage(String imageUrl) {
+    public void updateImageUrl(String imageUrl) {
         if(!Objects.equals(this.imageUrl, imageUrl) && StringUtils.hasText(imageUrl)){
             this.imageUrl = imageUrl;
         }
     }
     public void updateRepresentativeImageStatus(boolean representativeImageStatus) {
         this.representativeImageStatus = representativeImageStatus;
+    }
+    public void updateCookingProcessImageInfo(String imageUrl, boolean representativeImageStatus) {
+        updateImageUrl(imageUrl);
+        updateRepresentativeImageStatus(representativeImageStatus);
     }
 }

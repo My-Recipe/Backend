@@ -50,4 +50,9 @@ public class Ingredient extends BaseTimeEntity {
             this.ingredientUnit = ingredientUnit;
         }
     }
+    public void updateIngredientInfo(String ingredientName, Long ingredientAmount, String ingredientUnit) {
+        updateIngredientName(ingredientName);
+        updateIngredientAmount(ingredientAmount);
+        updateIngredientUnit(ingredientUnit);
+    }
 }

@@ -47,7 +47,9 @@ public class CookingProcess extends BaseTimeEntity {
         }
     }
     public void updateCookingProcessImage(CookingProcessImage cookingProcessImage) {
-        cookingProcessImage.updateCookingProcessImage(cookingProcessImage.getImageUrl());
+        if (cookingProcessImage!=null&&!Objects.equals(this.cookingProcessImage, cookingProcessImage)){
+            this.cookingProcessImage = cookingProcessImage;
+        }
     }
     public void updateTip(String tip) {
         if(tip!=null&&!Objects.equals(this.tip, tip)&& StringUtils.hasText(tip)) {
@@ -55,11 +57,21 @@ public class CookingProcess extends BaseTimeEntity {
         }
     }
     public void updateTime(Long time) {
-        this.time = time;
+        if(time!=null&&!Objects.equals(this.time, time)) {
+            this.time = time;
+        }
     }
     public void updateCookingProcessSequence(String cookingProcessSequence) {
         if(cookingProcessSequence!=null&&!Objects.equals(this.cookingProcessSequence, cookingProcessSequence)&& StringUtils.hasText(cookingProcessSequence)){
             this.cookingProcessSequence = cookingProcessSequence;
         }
+    }
+    public void updateCookingProcessInfo(String cookingProcessSequence, String description, CookingProcessImage cookingProcessImage,
+                                         String tip, Long time) {
+        updateCookingProcessSequence(cookingProcessSequence);
+        updateDescription(description);
+        updateCookingProcessImage(cookingProcessImage);
+        updateTip(tip);
+        updateTime(time);
     }
 }

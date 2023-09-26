@@ -1,6 +1,5 @@
 package com.friedNote.friedNote_backend.domain.cookingProcess.application.dto.request;
 
-import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,13 +43,10 @@ public class CookingProcessRequest {
         private boolean representativeImageStatus;
         private String tip;
         private Long time;
-//        private Long cookingProcessId;
         private Long recipeId;
 
-        private Recipe recipe;
-
         @Builder
-        public CookingProcessUpdateRequest(String cookingProcessSequence, String description, MultipartFile image, boolean representativeImageStatus, String tip, Long time, Long recipeId, Recipe recipe) {
+        public CookingProcessUpdateRequest(String cookingProcessSequence, String description, MultipartFile image, boolean representativeImageStatus, String tip, Long time, Long recipeId) {
             this.cookingProcessSequence = cookingProcessSequence;
             this.description = description;
             this.image = image;
@@ -58,7 +54,6 @@ public class CookingProcessRequest {
             this.tip = tip;
             this.time = time;
             this.recipeId = recipeId;
-            this.recipe = recipe;
         }
     }
 }
