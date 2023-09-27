@@ -4,6 +4,7 @@ import com.friedNote.friedNote_backend.common.annotation.DomainService;
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
 import com.friedNote.friedNote_backend.domain.recipe.domain.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -34,5 +35,9 @@ public class RecipeQueryService {
 
     public boolean existsByUserIdAndId(Long userId, Long recipeId) {
         return recipeRepository.existsByUserIdAndId(userId, recipeId);
+    }
+
+    public List<Recipe> findAll() {
+        return recipeRepository.findAll(Sort.by(Sort.Direction.DESC, "CreatedDate"));
     }
 }
