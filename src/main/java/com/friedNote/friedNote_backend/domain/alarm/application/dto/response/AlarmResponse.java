@@ -9,17 +9,14 @@ public class AlarmResponse {
     @Getter
     @NoArgsConstructor
     public static class AlarmInfoResponse {
-        private Long alarmId;
         private Long deadline;
         private String email;
-        private Long inventoryId;
 
         @Builder
-        public AlarmInfoResponse(Long alarmId, Long deadline, String email, Long inventoryId) {
-            this.alarmId = alarmId;
+
+        public AlarmInfoResponse(Long deadline, String email) {
             this.deadline = deadline;
             this.email = email;
-            this.inventoryId = inventoryId;
         }
     }
 }

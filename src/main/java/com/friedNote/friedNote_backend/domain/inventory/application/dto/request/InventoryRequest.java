@@ -1,7 +1,6 @@
 package com.friedNote.friedNote_backend.domain.inventory.application.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.friedNote.friedNote_backend.domain.alarm.application.dto.request.AlarmRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,16 +43,14 @@ public class InventoryRequest {
         @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate registrationDate;
         private String sequence;
-        private AlarmRequest.AlarmUpdateRequest alarmUpdateRequest;
         private Long inventoryId;
         @Builder
-        public InventoryUpdateRequest(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate, String sequence, AlarmRequest.AlarmUpdateRequest alarmUpdateRequest, Long inventoryId) {
+        public InventoryUpdateRequest(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate, String sequence, Long inventoryId) {
             this.name = name;
             this.quantity = quantity;
             this.expirationDate = expirationDate;
             this.registrationDate = registrationDate;
             this.sequence = sequence;
-            this.alarmUpdateRequest = alarmUpdateRequest;
             this.inventoryId = inventoryId;
         }
     }

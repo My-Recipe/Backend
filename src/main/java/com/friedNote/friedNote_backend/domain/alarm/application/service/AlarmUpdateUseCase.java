@@ -8,6 +8,7 @@ import com.friedNote.friedNote_backend.domain.alarm.domain.service.AlarmQuerySer
 import com.friedNote.friedNote_backend.domain.inventory.domain.entity.Inventory;
 import com.friedNote.friedNote_backend.domain.inventory.domain.service.InventoryQueryService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -15,19 +16,20 @@ import java.time.temporal.ChronoUnit;
 
 @UseCase
 @RequiredArgsConstructor
+@Transactional
 public class AlarmUpdateUseCase {
 
     private final AlarmQueryService alarmQueryService;
     private final InventoryQueryService inventoryQueryService;
     private final EmailSendService emailSendService;
 
-    @Transactional
+
     public void updateAlarm(AlarmRequest.AlarmUpdateRequest alarmUpdateRequest){
         Long deadline = alarmUpdateRequest.getDeadline();
         String email = alarmUpdateRequest.getEmail();
-        Long inventoryId = alarmUpdateRequest.getInventoryId();
+        Long alarmId = alarmUpdateRequest.getAlarmId();
 
-        Alarm alarm = alarmQueryService.findByInventoryId(inventoryId);
+        Alarm alarm = alarmQueryService.findAlarmById(alarmId);
         checkConditionSendEmail(alarmUpdateRequest);
         alarm.updateAlarm(deadline, email);
     }

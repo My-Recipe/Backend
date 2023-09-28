@@ -15,4 +15,8 @@ public class AlarmQueryService {
         Alarm alarm = alarmRepository.findByInventoryId(inventoryId);
         return alarm;
     }
+    public Alarm findAlarmById(Long alarmId) {
+        Alarm alarm = alarmRepository.findAlarmById(alarmId);
+        return alarm;
+    }
 }
