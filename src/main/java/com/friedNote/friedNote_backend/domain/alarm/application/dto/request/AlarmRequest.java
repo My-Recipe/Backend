@@ -19,4 +19,21 @@ public class AlarmRequest {
             this.inventoryId = inventoryId;
         }
     }
+
+    @Getter
+    @NoArgsConstructor
+    public static class AlarmUpdateRequest {
+        private Long deadline;
+        private String email;
+        private Long inventoryId;
+        private Long alarmId;
+
+        @Builder
+        public AlarmUpdateRequest(Long deadline, String email, Long inventoryId, Long alarmId) {
+            this.deadline = deadline;
+            this.email = email;
+            this.inventoryId = inventoryId;
+            this.alarmId = alarmId;
+        }
+    }
 }

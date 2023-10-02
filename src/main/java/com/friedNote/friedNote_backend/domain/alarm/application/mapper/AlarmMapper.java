@@ -1,5 +1,6 @@
 package com.friedNote.friedNote_backend.domain.alarm.application.mapper;
 
+import com.friedNote.friedNote_backend.domain.alarm.application.dto.response.AlarmResponse;
 import com.friedNote.friedNote_backend.domain.alarm.domain.entity.Alarm;
 import com.friedNote.friedNote_backend.domain.inventory.domain.entity.Inventory;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,12 @@ public class AlarmMapper {
                 .deadline(deadline)
                 .email(email)
                 .inventory(inventory)
+                .build();
+    }
+    public static AlarmResponse.AlarmInfoResponse mapToAlarmInfo(Alarm alarm) {
+        return AlarmResponse.AlarmInfoResponse.builder()
+                .deadline(alarm.getDeadline())
+                .email(alarm.getEmail())
                 .build();
     }
 }
