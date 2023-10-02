@@ -32,4 +32,23 @@ public class EmailSendService {
             e.printStackTrace();
         }
     }
+    @Async
+    public void sendEmail(AlarmRequest.AlarmUpdateRequest alarmUpdateRequest) {
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setTo(alarmUpdateRequest.getEmail());
+        message.setSubject("FriedNote 알림");
+        message.setFrom("FriedNote@gmail.com");
+        message.setText("안녕하세요. FriedNote 입니다. \n" +
+                "해당 재료의 유통기한이 얼마 남지 않았습니다. \n" +
+                "기한 : " + alarmUpdateRequest.getDeadline() + "\n" +
+                "기한이 지난 물품은 폐기해주시길 바랍니다. \n" +
+                "감사합니다. \n" +
+                "FriedNote 드림.");
+        try {
+            javaMailSender.send(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

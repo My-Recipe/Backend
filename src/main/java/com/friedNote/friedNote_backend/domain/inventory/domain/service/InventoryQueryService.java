@@ -6,6 +6,8 @@ import com.friedNote.friedNote_backend.domain.inventory.domain.repository.Invent
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @DomainService
 @RequiredArgsConstructor
 @Transactional
@@ -20,5 +22,9 @@ public class InventoryQueryService {
         Inventory inventory = inventoryRepository.findById(inventoryId)
                 .orElseThrow();
         return inventory;
+    }
+    public List<Inventory> findByUserId(Long userId) {
+        List<Inventory> inventoryList = inventoryRepository.findByUserId(userId);
+        return inventoryList;
     }
 }
