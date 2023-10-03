@@ -6,7 +6,6 @@ import com.friedNote.friedNote_backend.domain.inventory.application.mapper.Inven
 import com.friedNote.friedNote_backend.domain.inventory.domain.entity.Inventory;
 import com.friedNote.friedNote_backend.domain.inventory.domain.service.InventoryQueryService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -20,7 +19,6 @@ import static java.util.stream.Collectors.toList;
 @UseCase
 @RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class InventoryGetUseCase {
 
     private final InventoryQueryService inventoryQueryService;
@@ -49,13 +47,13 @@ public class InventoryGetUseCase {
         });
         return inventoryInfoResponseList;
     }
-    //태그 뿌려주기
+
     public List<InventoryResponse.InventoryTagInfoResponse> getTagInfo(Long userId) {
         List<Inventory> inventoryList = inventoryQueryService.findByUserId(userId);
         if(inventoryList.isEmpty()){
             return null;
         }
-        //유통기한 임박한 상위 6개 꺼내기
+
         List<InventoryResponse.InventoryTagInfoResponse> inventoryTagInfoResponseList = inventoryList.stream()
                 .filter(inventory -> ChronoUnit.DAYS.between(LocalDate.now(), inventory.getExpirationDate()) >= 0)
                 .sorted(Comparator.comparing(inventory ->
