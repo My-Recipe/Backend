@@ -14,14 +14,21 @@ public class InventoryResponse {
         private String quantity;
         private LocalDate expirationDate;
         private LocalDate registrationDate;
-        private String sequence;
         @Builder
-        public InventoryInfoResponse(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate, String sequence) {
+        public InventoryInfoResponse(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate) {
             this.name = name;
             this.quantity = quantity;
             this.expirationDate = expirationDate;
             this.registrationDate = registrationDate;
-            this.sequence = sequence;
+        }
+    }
+    @Getter
+    @NoArgsConstructor
+    public static class InventoryTagInfoResponse {
+        private String name;
+        @Builder
+        public InventoryTagInfoResponse(String name) {
+            this.name = name;
         }
     }
 }

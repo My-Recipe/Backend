@@ -21,10 +21,9 @@ public class InventoryUpdateUseCase {
         LocalDate registrationDate = inventoryUpdateRequest.getRegistrationDate();
         String name = inventoryUpdateRequest.getName();
         String quantity = inventoryUpdateRequest.getQuantity();
-        String sequence = inventoryUpdateRequest.getSequence();
         Long inventoryId = inventoryUpdateRequest.getInventoryId();
 
         Inventory inventory = inventoryQueryService.findById(inventoryId);
-        inventory.updateInventoryInfo(name, quantity, expirationDate, registrationDate, sequence);
+        inventory.updateInventoryInfo(name, quantity, expirationDate, registrationDate);
     }
 }

@@ -19,16 +19,14 @@ public class InventoryRequest {
         private LocalDate expirationDate;
         @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate registrationDate;
-        private String sequence;
         private Long userId;
 
         @Builder
-        public InventoryCreateRequest(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate, String sequence, Long userId) {
+        public InventoryCreateRequest(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate, Long userId) {
             this.name = name;
             this.quantity = quantity;
             this.expirationDate = expirationDate;
             this.registrationDate = registrationDate;
-            this.sequence = sequence;
             this.userId = userId;
         }
     }
@@ -42,15 +40,13 @@ public class InventoryRequest {
         private LocalDate expirationDate;
         @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate registrationDate;
-        private String sequence;
         private Long inventoryId;
         @Builder
-        public InventoryUpdateRequest(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate, String sequence, Long inventoryId) {
+        public InventoryUpdateRequest(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate, Long inventoryId) {
             this.name = name;
             this.quantity = quantity;
             this.expirationDate = expirationDate;
             this.registrationDate = registrationDate;
-            this.sequence = sequence;
             this.inventoryId = inventoryId;
         }
     }

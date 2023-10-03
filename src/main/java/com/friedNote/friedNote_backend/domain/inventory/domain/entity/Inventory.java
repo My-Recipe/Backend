@@ -26,7 +26,6 @@ public class Inventory extends BaseTimeEntity {
     private String quantity;
     private LocalDate expirationDate;
     private LocalDate registrationDate;
-    private String sequence;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -41,7 +40,6 @@ public class Inventory extends BaseTimeEntity {
         this.quantity = quantity;
         this.expirationDate = expirationDate;
         this.registrationDate = registrationDate;
-        this.sequence = sequence;
         this.user = user;
     }
 
@@ -65,16 +63,11 @@ public class Inventory extends BaseTimeEntity {
             this.registrationDate = registrationDate;
         }
     }
-    public void updateSequence(String sequence) {
-        if(sequence != null&&!Objects.equals(this.sequence, sequence)&& StringUtils.hasText(sequence)) {
-            this.sequence = sequence;
-        }
-    }
-    public void updateInventoryInfo(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate, String sequence) {
+
+    public void updateInventoryInfo(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate) {
         updateName(name);
         updateQuantity(quantity);
         updateExpirationDate(expirationDate);
         updateRegistrationDate(registrationDate);
-        updateSequence(sequence);
     }
 }

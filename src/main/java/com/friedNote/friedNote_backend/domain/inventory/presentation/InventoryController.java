@@ -6,10 +6,7 @@ import com.friedNote.friedNote_backend.domain.inventory.application.service.Inve
 import com.friedNote.friedNote_backend.domain.inventory.application.service.InventoryGetUseCase;
 import com.friedNote.friedNote_backend.domain.inventory.application.service.InventoryUpdateUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,12 +23,19 @@ public class InventoryController {
         inventoryCreateUseCase.createInventory(inventoryCreateRequest);
     }
     @GetMapping("/inventory")
-    public List<InventoryResponse.InventoryInfoResponse> getInventoryList(Long userId) {
-        return inventoryGetUseCase.getInventoryList(userId);
+    public List<InventoryResponse.InventoryInfoResponse> getInventoryList() {
+        return inventoryGetUseCase.getInventoryList();
     }
     @PostMapping("/inventory/update")
     public void updateInventory(@RequestBody InventoryRequest.InventoryUpdateRequest inventoryUpdateRequest) {
         inventoryUpdateUseCase.updateInventory(inventoryUpdateRequest);
     }
-
+    @GetMapping("/inventory/expirationDate")
+    public List<InventoryResponse.InventoryInfoResponse> getInventoryListByExpirationDate() {
+        return inventoryGetUseCase.getInventoryListByExpirationDate();
+    }
+    @GetMapping("/inventory/tag")
+    public List<InventoryResponse.InventoryTagInfoResponse> getTagInfo() {
+        return inventoryGetUseCase.getTagInfo();
+    }
 }
