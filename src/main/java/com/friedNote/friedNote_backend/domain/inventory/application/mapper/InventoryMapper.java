@@ -15,7 +15,6 @@ public class InventoryMapper {
                 .quantity(inventoryCreateRequest.getQuantity())
                 .expirationDate(inventoryCreateRequest.getExpirationDate())
                 .registrationDate(inventoryCreateRequest.getRegistrationDate())
-                .sequence(inventoryCreateRequest.getSequence())
                 .user(user)
                 .build();
     }
@@ -26,7 +25,11 @@ public class InventoryMapper {
                 .quantity(inventory.getQuantity())
                 .expirationDate(inventory.getExpirationDate())
                 .registrationDate(inventory.getRegistrationDate())
-                .sequence(inventory.getSequence())
+                .build();
+    }
+    public static InventoryResponse.InventoryTagInfoResponse mapToInventoryTagInfo(Inventory inventory) {
+        return InventoryResponse.InventoryTagInfoResponse.builder()
+                .name(inventory.getName())
                 .build();
     }
 }

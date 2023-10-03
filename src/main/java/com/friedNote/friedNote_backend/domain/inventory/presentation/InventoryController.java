@@ -6,10 +6,7 @@ import com.friedNote.friedNote_backend.domain.inventory.application.service.Inve
 import com.friedNote.friedNote_backend.domain.inventory.application.service.InventoryGetUseCase;
 import com.friedNote.friedNote_backend.domain.inventory.application.service.InventoryUpdateUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,13 +22,20 @@ public class InventoryController {
     public void createInventory(@RequestBody InventoryRequest.InventoryCreateRequest inventoryCreateRequest) {
         inventoryCreateUseCase.createInventory(inventoryCreateRequest);
     }
-    @GetMapping("/inventory")
-    public List<InventoryResponse.InventoryInfoResponse> getInventoryList(Long userId) {
+    @GetMapping("/inventory/{userId}")
+    public List<InventoryResponse.InventoryInfoResponse> getInventoryList(@PathVariable Long userId) {
         return inventoryGetUseCase.getInventoryList(userId);
     }
     @PostMapping("/inventory/update")
     public void updateInventory(@RequestBody InventoryRequest.InventoryUpdateRequest inventoryUpdateRequest) {
         inventoryUpdateUseCase.updateInventory(inventoryUpdateRequest);
     }
-
+    @GetMapping("/inventory/{userId}/expirationDate")
+    public List<InventoryResponse.InventoryInfoResponse> getInventoryListByExpirationDate(@PathVariable Long userId) {
+        return inventoryGetUseCase.getInventoryListByExpirationDate(userId);
+    }
+    @GetMapping("/inventory/{userId}/tag")
+    public List<InventoryResponse.InventoryTagInfoResponse> getTagInfo(@PathVariable Long userId) {
+        return inventoryGetUseCase.getTagInfo(userId);
+    }
 }
