@@ -22,20 +22,20 @@ public class InventoryController {
     public void createInventory(@RequestBody InventoryRequest.InventoryCreateRequest inventoryCreateRequest) {
         inventoryCreateUseCase.createInventory(inventoryCreateRequest);
     }
-    @GetMapping("/inventory/{userId}")
-    public List<InventoryResponse.InventoryInfoResponse> getInventoryList(@PathVariable Long userId) {
-        return inventoryGetUseCase.getInventoryList(userId);
+    @GetMapping("/inventory")
+    public List<InventoryResponse.InventoryInfoResponse> getInventoryList() {
+        return inventoryGetUseCase.getInventoryList();
     }
     @PostMapping("/inventory/update")
     public void updateInventory(@RequestBody InventoryRequest.InventoryUpdateRequest inventoryUpdateRequest) {
         inventoryUpdateUseCase.updateInventory(inventoryUpdateRequest);
     }
-    @GetMapping("/inventory/{userId}/expirationDate")
-    public List<InventoryResponse.InventoryInfoResponse> getInventoryListByExpirationDate(@PathVariable Long userId) {
-        return inventoryGetUseCase.getInventoryListByExpirationDate(userId);
+    @GetMapping("/inventory/expirationDate")
+    public List<InventoryResponse.InventoryInfoResponse> getInventoryListByExpirationDate() {
+        return inventoryGetUseCase.getInventoryListByExpirationDate();
     }
-    @GetMapping("/inventory/{userId}/tag")
-    public List<InventoryResponse.InventoryTagInfoResponse> getTagInfo(@PathVariable Long userId) {
-        return inventoryGetUseCase.getTagInfo(userId);
+    @GetMapping("/inventory/tag")
+    public List<InventoryResponse.InventoryTagInfoResponse> getTagInfo() {
+        return inventoryGetUseCase.getTagInfo();
     }
 }

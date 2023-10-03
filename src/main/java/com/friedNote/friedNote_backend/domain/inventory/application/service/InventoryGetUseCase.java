@@ -1,10 +1,12 @@
 package com.friedNote.friedNote_backend.domain.inventory.application.service;
 
 import com.friedNote.friedNote_backend.common.annotation.UseCase;
+import com.friedNote.friedNote_backend.common.util.UserUtils;
 import com.friedNote.friedNote_backend.domain.inventory.application.dto.response.InventoryResponse;
 import com.friedNote.friedNote_backend.domain.inventory.application.mapper.InventoryMapper;
 import com.friedNote.friedNote_backend.domain.inventory.domain.entity.Inventory;
 import com.friedNote.friedNote_backend.domain.inventory.domain.service.InventoryQueryService;
+import com.friedNote.friedNote_backend.domain.user.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +25,13 @@ public class InventoryGetUseCase {
 
     private final InventoryQueryService inventoryQueryService;
 
-    public List<InventoryResponse.InventoryInfoResponse> getInventoryList(Long userId) {
+    private final UserUtils userUtils;
+
+    public List<InventoryResponse.InventoryInfoResponse> getInventoryList() {
+        User user = userUtils.getUser();
+        Long userId = user.getId();
         List<Inventory> inventoryList = inventoryQueryService.findByUserId(userId);
+
         List<InventoryResponse.InventoryInfoResponse> inventoryInfoResponseList
                 = inventoryList.stream()
                 .map(inventory -> {
@@ -34,7 +41,9 @@ public class InventoryGetUseCase {
                 }).collect(toList());
         return inventoryInfoResponseList;
     }
-    public List<InventoryResponse.InventoryInfoResponse> getInventoryListByExpirationDate(Long userId) {
+    public List<InventoryResponse.InventoryInfoResponse> getInventoryListByExpirationDate() {
+        User user = userUtils.getUser();
+        Long userId = user.getId();
         List<Inventory> inventoryList = inventoryQueryService.findByUserId(userId);
         List<InventoryResponse.InventoryInfoResponse> inventoryInfoResponseList = new ArrayList<>();
         inventoryList.forEach(inventory -> {
@@ -48,8 +57,11 @@ public class InventoryGetUseCase {
         return inventoryInfoResponseList;
     }
 
-    public List<InventoryResponse.InventoryTagInfoResponse> getTagInfo(Long userId) {
+    public List<InventoryResponse.InventoryTagInfoResponse> getTagInfo() {
+        User user = userUtils.getUser();
+        Long userId = user.getId();
         List<Inventory> inventoryList = inventoryQueryService.findByUserId(userId);
+
         if(inventoryList.isEmpty()){
             return null;
         }
