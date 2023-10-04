@@ -27,14 +27,14 @@ public class RecipeController {
         recipeCreateUseCase.createRecipe(recipeCreateRequest);
     }
 
-    @GetMapping("/recipe/my/{userId}")
-    public List<RecipeResponse.RecipeListResponse> getMyRecipeList(@PathVariable Long userId) {
-        return recipeListGetUseCase.getMyRecipeList(userId);
+    @GetMapping("/myPage/recipe/my")
+    public List<RecipeResponse.RecipeListResponse> getMyRecipeList() {
+        return recipeListGetUseCase.getMyRecipeList();
     }
 
-    @GetMapping("/recipe/all/{userId}")
-    public List<RecipeResponse.RecipeListResponse> getMyAllRecipeList(@PathVariable Long userId) {
-        return recipeListGetUseCase.getMyAllRecipeList(userId);
+    @GetMapping("/myPage/recipe/all")
+    public List<RecipeResponse.RecipeListResponse> getMyAllRecipeList() {
+        return recipeListGetUseCase.getMyAllRecipeList();
     }
 
     @GetMapping("/home/recommend")
@@ -67,5 +67,6 @@ public class RecipeController {
     public RecipeResponse.RecipeInfoResponse getRecipeByRecipeName(@RequestParam String recipeName){
         return recipeGetUseCase.getRecipeByRecipeName(recipeName);
     }
+
 
 }

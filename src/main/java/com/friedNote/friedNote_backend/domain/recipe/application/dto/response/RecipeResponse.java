@@ -24,16 +24,18 @@ public class RecipeResponse {
 
         private Long recipeId;
         private String recipeName;
+        private Long userId;
         private String userName;
         private String imageUrl;
         private String description;
         private boolean bookmark;
 
         @Builder
-        public RecipeListResponse(Long recipeId, String recipeName, String userName, String imageUrl,
+        public RecipeListResponse(Long recipeId, String recipeName, Long userId, String userName, String imageUrl,
                                      String description, boolean bookmark) {
             this.recipeId = recipeId;
             this.recipeName = recipeName;
+            this.userId = userId;
             this.userName = userName;
             this.imageUrl = imageUrl;
             this.description = description;
