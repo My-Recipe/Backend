@@ -68,5 +68,8 @@ public class RecipeController {
         return recipeGetUseCase.getRecipeByRecipeName(recipeName);
     }
 
-
+    @GetMapping("/recipe/list")
+    public List<RecipeResponse.RecipeListResponse> getRecipeListByUserId(@RequestParam Long userId) {
+        return recipeListGetUseCase.getRecipeListByUserId(userId);
+    }
 }

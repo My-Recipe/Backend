@@ -123,6 +123,25 @@ public class RecipeListGetUseCase {
         return recipeListResponses;
     }
 
+    public List<RecipeResponse.RecipeListResponse> getRecipeListByUserId(Long userId) {
+
+        List<Recipe> recipeList = recipeQueryService.findRecipeByUserId(userId);
+
+        List<RecipeResponse.RecipeListResponse> recipeListResponses = recipeList.stream().map(recipe -> {
+
+            imageUrl = "";
+            fullDescription = "";
+
+            Long recipeId = recipe.getId();
+            List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
+            List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
+            isBookmarked = true;
+
+            return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList, isBookmarked);
+        }).collect(Collectors.toList());
+        return recipeListResponses;
+    }
+
     private void setImageUrl(List<CookingProcess> cookingProcessList, List<String> cookingProcessImageUrlList) {
         imageUrl = imageUrl.concat(cookingProcessImageUrlList.get(0));
         cookingProcessList.forEach(cookingProcess -> {
