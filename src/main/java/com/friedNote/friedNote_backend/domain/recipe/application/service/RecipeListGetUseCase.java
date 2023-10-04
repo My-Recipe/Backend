@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @UseCase
 @RequiredArgsConstructor
 @Transactional
@@ -39,8 +38,8 @@ public class RecipeListGetUseCase {
     /**
      * 레시피북 -> 내가 작성한 레시피만 보기
      */
-    public List<RecipeResponse.RecipeListResponse> getMyRecipeList(Long userId) {
-
+    public List<RecipeResponse.RecipeListResponse> getMyRecipeList() {
+        Long userId = userUtils.getUser().getId();
         List<Recipe> recipeList = recipeQueryService.findRecipeByUserId(userId);
 
         List<RecipeResponse.RecipeListResponse> recipeListResponses = recipeList.stream().map(recipe -> {
@@ -61,7 +60,8 @@ public class RecipeListGetUseCase {
     /**
      * 레시피북 -> 내가 북마크한 레시피 + 내가 작성한 레시피 보기
      */
-    public List<RecipeResponse.RecipeListResponse> getMyAllRecipeList(Long userId) {
+    public List<RecipeResponse.RecipeListResponse> getMyAllRecipeList() {
+        Long userId = userUtils.getUser().getId();
 
         //합치고 정렬하고 dto로 변환
         List<Recipe> recipeByUserId = recipeQueryService.findRecipeByUserId(userId);
@@ -118,6 +118,25 @@ public class RecipeListGetUseCase {
             List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
             List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
             isBookmarked = checkBookmark(recipeId);
+            return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList, isBookmarked);
+        }).collect(Collectors.toList());
+        return recipeListResponses;
+    }
+
+    public List<RecipeResponse.RecipeListResponse> getRecipeListByUserId(Long userId) {
+
+        List<Recipe> recipeList = recipeQueryService.findRecipeByUserId(userId);
+
+        List<RecipeResponse.RecipeListResponse> recipeListResponses = recipeList.stream().map(recipe -> {
+
+            imageUrl = "";
+            fullDescription = "";
+
+            Long recipeId = recipe.getId();
+            List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
+            List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
+            isBookmarked = true;
+
             return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList, isBookmarked);
         }).collect(Collectors.toList());
         return recipeListResponses;
@@ -180,7 +199,7 @@ public class RecipeListGetUseCase {
         } else {
             setImageUrl(cookingProcessList, cookingProcessImageUrlList);
         }
-        return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, isBookmarked);
+        return RecipeMapper.mapToRecipeListResponse(recipe, imageUrl, fullDescription, isBookmarked);
     }
 
     private boolean checkBookmark(Long recipeId) {

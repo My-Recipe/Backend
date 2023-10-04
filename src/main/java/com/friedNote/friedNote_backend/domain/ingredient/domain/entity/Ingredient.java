@@ -20,7 +20,7 @@ public class Ingredient extends BaseTimeEntity {
     @Column(name = "ingredient_id")
     private Long id;
     private String ingredientName;
-    private Long ingredientAmount;
+    private String ingredientAmount;
     private String ingredientUnit;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,7 +28,7 @@ public class Ingredient extends BaseTimeEntity {
     private IngredientGroup ingredientGroup;
 
     @Builder
-    public Ingredient(String ingredientName, Long ingredientAmount, String ingredientUnit, IngredientGroup ingredientGroup) {
+    public Ingredient(String ingredientName, String ingredientAmount, String ingredientUnit, IngredientGroup ingredientGroup) {
         this.ingredientName = ingredientName;
         this.ingredientAmount = ingredientAmount;
         this.ingredientUnit = ingredientUnit;
@@ -40,7 +40,7 @@ public class Ingredient extends BaseTimeEntity {
             this.ingredientName = ingredientName;
         }
     }
-    public void updateIngredientAmount(Long ingredientAmount) {
+    public void updateIngredientAmount(String ingredientAmount) {
         if(!Objects.equals(this.ingredientAmount, ingredientAmount) && ingredientAmount != null){
             this.ingredientAmount = ingredientAmount;
         }
@@ -50,7 +50,7 @@ public class Ingredient extends BaseTimeEntity {
             this.ingredientUnit = ingredientUnit;
         }
     }
-    public void updateIngredientInfo(String ingredientName, Long ingredientAmount, String ingredientUnit) {
+    public void updateIngredientInfo(String ingredientName, String ingredientAmount, String ingredientUnit) {
         updateIngredientName(ingredientName);
         updateIngredientAmount(ingredientAmount);
         updateIngredientUnit(ingredientUnit);

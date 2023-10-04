@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RecipeRepository extends JpaRepository<Recipe, Long> {
+public interface RecipeRepository extends JpaRepository<Recipe, Long>, RecipeRepositoryCustom {
 
     List<Recipe> findRecipeByUserIdOrderByCreatedDateDesc(Long userId);
 
@@ -18,4 +18,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     Recipe findRecipeById(Long recipeId);
 
     List<Recipe> findAll();
+
+    Recipe findByRecipeName(String recipeName);
 }

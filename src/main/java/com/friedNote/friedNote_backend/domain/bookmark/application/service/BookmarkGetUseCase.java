@@ -23,4 +23,9 @@ public class BookmarkGetUseCase {
                 .stream().map(bookmark -> BookmarkMapper.mapToBookmarkInfoResponse(bookmark))
                 .collect(toList());
     }
+
+    public BookmarkResponse.BookmarkCountResponse getBookmarkCount(Long recipeId) {
+        Long count = bookmarkQueryService.countByRecipeId(recipeId);
+        return BookmarkMapper.mapToBookMarkCountResponse(count);
+    }
 }

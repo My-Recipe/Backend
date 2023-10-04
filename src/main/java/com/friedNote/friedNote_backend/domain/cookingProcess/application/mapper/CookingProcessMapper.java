@@ -1,6 +1,7 @@
 package com.friedNote.friedNote_backend.domain.cookingProcess.application.mapper;
 
 import com.friedNote.friedNote_backend.domain.cookingProcess.application.dto.request.CookingProcessRequest;
+import com.friedNote.friedNote_backend.domain.cookingProcess.application.dto.response.CookingProcessResponse;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity.CookingProcess;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity.CookingProcessImage;
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
@@ -20,6 +21,15 @@ public class CookingProcessMapper {
                 .tip(cookingProcessCreateRequest.getTip())
                 .time(cookingProcessCreateRequest.getTime())
                 .recipe(recipe)
+                .build();
+    }
+
+    public static CookingProcessResponse.CookingProcessInfoResponse mapToCookingProcessInfoResponse(CookingProcess cookingProcess) {
+        return CookingProcessResponse.CookingProcessInfoResponse.builder()
+                .description(cookingProcess.getDescription())
+                .imageUrl(cookingProcess.getCookingProcessImage().getImageUrl())
+                .tip(cookingProcess.getTip())
+                .time(cookingProcess.getTime())
                 .build();
     }
 }
