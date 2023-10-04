@@ -15,13 +15,14 @@ public class IngredientGroupQueryService {
 
     private final IngredientGroupRepository ingredientGroupRepository;
 
+
+    /**
+     * 같은 기능을 하는 메서드 2개라 정리 필요
+     */
+
     public List<IngredientGroup> findIngredientGroupByRecipeId(Long recipeId) {
         return ingredientGroupRepository.findIngredientGroupByRecipeId(recipeId);
     }
-
-//    public IngredientGroup findIngredientGroupById(Long ingredientGroupId) {
-//        return ingredientGroupRepository.findIngredientGroupById(ingredientGroupId);
-//    }
 
     public List<IngredientGroup> findByRecipeId(Long recipeId) {
         return ingredientGroupRepository.findByRecipeId(recipeId);

@@ -1,6 +1,7 @@
 package com.friedNote.friedNote_backend.domain.ingredient.application.mapper;
 
-import com.friedNote.friedNote_backend.domain.ingredient.application.dto.request.IngredientRequest.IngredientRequest;
+import com.friedNote.friedNote_backend.domain.ingredient.application.dto.request.IngredientRequest;
+import com.friedNote.friedNote_backend.domain.ingredient.application.dto.response.IngredientResponse;
 import com.friedNote.friedNote_backend.domain.ingredient.domain.entity.Ingredient;
 import com.friedNote.friedNote_backend.domain.ingredientGroup.domain.entity.IngredientGroup;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,14 @@ public class IngredientMapper {
                 .ingredientGroup(ingredientGroup)
                 .build();
     }
+
+    public static IngredientResponse.IngredientInfoResponse mapToIngredientInfoResponse(Ingredient ingredient) {
+        String amount = ingredient.getIngredientAmount().concat(ingredient.getIngredientUnit());
+        return IngredientResponse.IngredientInfoResponse.builder()
+                .ingredientName(ingredient.getIngredientName())
+                .ingredientAmount(amount)
+                .build();
+    }
+
 
 }

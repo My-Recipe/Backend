@@ -40,4 +40,8 @@ public class RecipeQueryService {
     public List<Recipe> findAll() {
         return recipeRepository.findAll(Sort.by(Sort.Direction.DESC, "CreatedDate"));
     }
+
+    public Recipe findByRecipeName(String recipeName) {
+        return recipeRepository.findByRecipeName(recipeName);
+    }
 }

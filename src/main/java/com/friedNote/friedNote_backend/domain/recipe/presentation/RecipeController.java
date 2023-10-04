@@ -3,10 +3,7 @@ package com.friedNote.friedNote_backend.domain.recipe.presentation;
 
 import com.friedNote.friedNote_backend.domain.recipe.application.dto.request.RecipeRequest;
 import com.friedNote.friedNote_backend.domain.recipe.application.dto.response.RecipeResponse;
-import com.friedNote.friedNote_backend.domain.recipe.application.service.RecipeCreateUseCase;
-import com.friedNote.friedNote_backend.domain.recipe.application.service.RecipeListGetUseCase;
-import com.friedNote.friedNote_backend.domain.recipe.application.service.RecipeMainGetUseCase;
-import com.friedNote.friedNote_backend.domain.recipe.application.service.RecipeUpdateUseCase;
+import com.friedNote.friedNote_backend.domain.recipe.application.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +19,15 @@ public class RecipeController {
     private final RecipeListGetUseCase recipeListGetUseCase;
     private final RecipeMainGetUseCase recipeMainGetUseCase;
     private final RecipeUpdateUseCase recipeUpdateUseCase;
+    private final RecipeNameListGetUseCase recipeNameListGetUseCase;
+    private final RecipeGetUseCase recipeGetUseCase;
 
     @PostMapping("/recipe")
     public void createRecipe(@ModelAttribute RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
         recipeCreateUseCase.createRecipe(recipeCreateRequest);
     }
 
-    @GetMapping("/recipe/{userId}")
+    @GetMapping("/recipe/my/{userId}")
     public List<RecipeResponse.RecipeListResponse> getMyRecipeList(@PathVariable Long userId) {
         return recipeListGetUseCase.getMyRecipeList(userId);
     }
@@ -52,6 +51,21 @@ public class RecipeController {
     public void updateRecipe(@ModelAttribute RecipeRequest.RecipeUpdateRequest recipeUpdateRequest) {
         log.info("recipeUpdateRequest: {}", recipeUpdateRequest);
         recipeUpdateUseCase.updateRecipe(recipeUpdateRequest);
+    }
+
+    @GetMapping("/recipe/name")
+    public List<String> getRecipeNameList() {
+        return recipeNameListGetUseCase.getRecipeNameList();
+    }
+
+    @GetMapping("/recipe/{recipeId}")
+    public RecipeResponse.RecipeInfoResponse getRecipe(@PathVariable Long recipeId){
+        return recipeGetUseCase.getRecipe(recipeId);
+    }
+
+    @GetMapping("/search/recipe/name")
+    public RecipeResponse.RecipeInfoResponse getRecipeByRecipeName(@RequestParam String recipeName){
+        return recipeGetUseCase.getRecipeByRecipeName(recipeName);
     }
 
 }

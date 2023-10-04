@@ -1,16 +1,20 @@
 package com.friedNote.friedNote_backend.domain.recipe.application.dto.response;
 
+import com.friedNote.friedNote_backend.domain.cookingProcess.application.dto.response.CookingProcessResponse;
+import com.friedNote.friedNote_backend.domain.ingredientGroup.application.dto.response.IngredientGroupResponse;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.util.List;
 
 public class RecipeResponse {
 
     @Getter
-    public static class RecipeInfoResponse{
+    public static class RecipeNameResponse{
         private String recipeName;
 
         @Builder
-        public RecipeInfoResponse(String recipeName) {
+        public RecipeNameResponse(String recipeName) {
             this.recipeName = recipeName;
         }
     }
@@ -54,6 +58,25 @@ public class RecipeResponse {
             this.description = description;
             this.bookmark = bookmark;
             this.totalRecipeCount = totalRecipeCount;
+        }
+    }
+
+    @Getter
+    public static class RecipeInfoResponse {
+
+        private String bookTitle;
+        private String userName;
+        private String recipeName;
+        private List<IngredientGroupResponse.IngredientGroupInfoResponse> ingredientGroupList;
+        private List<CookingProcessResponse.CookingProcessInfoResponse> cookingProcessList;
+
+        @Builder
+        public RecipeInfoResponse(String bookTitle, String userName, String recipeName, List<IngredientGroupResponse.IngredientGroupInfoResponse> ingredientGroupList, List<CookingProcessResponse.CookingProcessInfoResponse> cookingProcessList) {
+            this.bookTitle = bookTitle;
+            this.userName = userName;
+            this.recipeName = recipeName;
+            this.ingredientGroupList = ingredientGroupList;
+            this.cookingProcessList = cookingProcessList;
         }
     }
 }

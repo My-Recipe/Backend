@@ -1,6 +1,6 @@
 package com.friedNote.friedNote_backend.domain.ingredientGroup.application.dto.request;
 
-import com.friedNote.friedNote_backend.domain.ingredient.application.dto.request.IngredientRequest.IngredientRequest;
+import com.friedNote.friedNote_backend.domain.ingredient.application.dto.request.IngredientRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ public class IngredientGroupRequest {
     public static class IngredientGroupCreateRequest {
 
         private String groupName;
-        List<IngredientRequest.IngredientCreateRequest> ingredientList;
+        private List<IngredientRequest.IngredientCreateRequest> ingredientList;
 
         @Builder
         public IngredientGroupCreateRequest(String groupName, List<IngredientRequest.IngredientCreateRequest> ingredientList) {
@@ -29,9 +29,11 @@ public class IngredientGroupRequest {
     @Setter
     @NoArgsConstructor
     public static class IngredientGroupUpdateRequest {
+
         private String groupName;
-        List<IngredientRequest.IngredientUpdateRequest> ingredientUpdateRequestList;
+        private List<IngredientRequest.IngredientUpdateRequest> ingredientUpdateRequestList;
         private Long recipeId;
+
         @Builder
         public IngredientGroupUpdateRequest(String groupName, List<IngredientRequest.IngredientUpdateRequest> ingredientUpdateRequestList, Long recipeId) {
             this.groupName = groupName;
