@@ -180,7 +180,7 @@ public class RecipeListGetUseCase {
         } else {
             setImageUrl(cookingProcessList, cookingProcessImageUrlList);
         }
-        return RecipeMapper.mapToRecipeAllResponse(recipe, imageUrl, fullDescription, isBookmarked);
+        return RecipeMapper.mapToRecipeListResponse(recipe, imageUrl, fullDescription, isBookmarked);
     }
 
     private boolean checkBookmark(Long recipeId) {

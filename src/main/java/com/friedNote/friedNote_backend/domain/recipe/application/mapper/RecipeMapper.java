@@ -24,11 +24,12 @@ public class RecipeMapper {
                 .build();
     }
 
-    public static RecipeResponse.RecipeListResponse mapToRecipeAllResponse(Recipe recipe, String imageUrl,
+    public static RecipeResponse.RecipeListResponse mapToRecipeListResponse(Recipe recipe, String imageUrl,
                                                                           String description, boolean bookmark) {
         return RecipeResponse.RecipeListResponse.builder()
                 .recipeId(recipe.getId())
                 .recipeName(recipe.getRecipeName())
+                .userId(recipe.getUser().getId())
                 .userName(recipe.getUser().getName())
                 .imageUrl(imageUrl)
                 .description(description)
