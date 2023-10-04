@@ -27,4 +27,10 @@ public class BookmarkMapper {
                 .isBookMark(true)
                 .build();
     }
+
+    public static BookmarkResponse.BookmarkCountResponse mapToBookMarkCountResponse(Long count) {
+        return BookmarkResponse.BookmarkCountResponse.builder()
+                .count(count)
+                .build();
+    }
 }

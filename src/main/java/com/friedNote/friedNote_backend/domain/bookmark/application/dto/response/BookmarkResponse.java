@@ -14,11 +14,8 @@ public class BookmarkResponse {
     public static class BookmarkInfoResponse{
 
             private Long recipeId;
-
             private boolean isBookMark;
-
             private LocalDateTime createdDate;
-
             private MultipartFile image;
 
             @Builder
@@ -28,5 +25,17 @@ public class BookmarkResponse {
                 this.createdDate = createdDate;
                 this.image = image;
             }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    public static class BookmarkCountResponse {
+
+        private Long count;
+
+        @Builder
+        public BookmarkCountResponse(Long count) {
+            this.count = count;
+        }
     }
 }
