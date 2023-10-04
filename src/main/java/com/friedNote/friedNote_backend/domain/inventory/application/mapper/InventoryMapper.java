@@ -1,6 +1,5 @@
 package com.friedNote.friedNote_backend.domain.inventory.application.mapper;
 
-import com.friedNote.friedNote_backend.domain.alarm.domain.entity.Alarm;
 import com.friedNote.friedNote_backend.domain.inventory.application.dto.request.InventoryRequest;
 import com.friedNote.friedNote_backend.domain.inventory.application.dto.response.InventoryResponse;
 import com.friedNote.friedNote_backend.domain.inventory.domain.entity.Inventory;
@@ -16,19 +15,21 @@ public class InventoryMapper {
                 .quantity(inventoryCreateRequest.getQuantity())
                 .expirationDate(inventoryCreateRequest.getExpirationDate())
                 .registrationDate(inventoryCreateRequest.getRegistrationDate())
-                .sequence(inventoryCreateRequest.getSequence())
                 .user(user)
                 .build();
     }
 
-    public static InventoryResponse.InventoryInfoResponse mapToInventoryInfo(Inventory inventory, Alarm alarm) {
+    public static InventoryResponse.InventoryInfoResponse mapToInventoryInfo(Inventory inventory) {
         return InventoryResponse.InventoryInfoResponse.builder()
                 .name(inventory.getName())
                 .quantity(inventory.getQuantity())
                 .expirationDate(inventory.getExpirationDate())
                 .registrationDate(inventory.getRegistrationDate())
-                .sequence(inventory.getSequence())
-                .alarm(alarm)
+                .build();
+    }
+    public static InventoryResponse.InventoryTagInfoResponse mapToInventoryTagInfo(Inventory inventory) {
+        return InventoryResponse.InventoryTagInfoResponse.builder()
+                .name(inventory.getName())
                 .build();
     }
 }

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface AlarmRepository extends JpaRepository<Alarm, Long> {
 
     Alarm findByInventoryId(Long inventoryId);
+    Alarm findAlarmById(Long alarmId);
 }

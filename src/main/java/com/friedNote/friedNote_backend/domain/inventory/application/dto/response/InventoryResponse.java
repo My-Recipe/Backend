@@ -1,6 +1,5 @@
 package com.friedNote.friedNote_backend.domain.inventory.application.dto.response;
 
-import com.friedNote.friedNote_backend.domain.alarm.domain.entity.Alarm;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,16 +14,21 @@ public class InventoryResponse {
         private String quantity;
         private LocalDate expirationDate;
         private LocalDate registrationDate;
-        private String sequence;
-        private Alarm alarm;
         @Builder
-        public InventoryInfoResponse(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate, String sequence, Alarm alarm) {
+        public InventoryInfoResponse(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate) {
             this.name = name;
             this.quantity = quantity;
             this.expirationDate = expirationDate;
             this.registrationDate = registrationDate;
-            this.sequence = sequence;
-            this.alarm = alarm;
+        }
+    }
+    @Getter
+    @NoArgsConstructor
+    public static class InventoryTagInfoResponse {
+        private String name;
+        @Builder
+        public InventoryTagInfoResponse(String name) {
+            this.name = name;
         }
     }
 }
