@@ -46,4 +46,10 @@ public class RecipeMapper {
                 .cookingProcessList(cookingProcessList)
                 .build();
     }
+
+    public static RecipeResponse.RecipeNameResponse mapToRecipeNameResponse(Recipe recipe) {
+        return RecipeResponse.RecipeNameResponse.builder()
+                .recipeName(recipe.getRecipeName())
+                .build();
+    }
 }

@@ -54,7 +54,7 @@ public class RecipeController {
     }
 
     @GetMapping("/recipe/name")
-    public List<String> getRecipeNameList() {
+    public List<RecipeResponse.RecipeNameResponse> getRecipeNameList() {
         return recipeNameListGetUseCase.getRecipeNameList();
     }
 

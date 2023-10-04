@@ -1,6 +1,8 @@
 package com.friedNote.friedNote_backend.domain.recipe.application.service;
 
 import com.friedNote.friedNote_backend.common.annotation.UseCase;
+import com.friedNote.friedNote_backend.domain.recipe.application.dto.response.RecipeResponse;
+import com.friedNote.friedNote_backend.domain.recipe.application.mapper.RecipeMapper;
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
 import com.friedNote.friedNote_backend.domain.recipe.domain.service.RecipeQueryService;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +16,13 @@ public class RecipeNameListGetUseCase {
 
     private final RecipeQueryService recipeQueryService;
 
-    public List<String> getRecipeNameList() {
+    public List<RecipeResponse.RecipeNameResponse> getRecipeNameList() {
 
         List<Recipe> recipeList = recipeQueryService.findAll();
-        List<String> recipeNameList = recipeList.stream()
-                        .map(recipe -> recipe.getRecipeName()).collect(Collectors.toList());
+        List<RecipeResponse.RecipeNameResponse> recipeNameList = recipeList.stream()
+                .map(recipe -> {
+                    return RecipeMapper.mapToRecipeNameResponse(recipe);
+                }).collect(Collectors.toList());
         return recipeNameList;
     }
 }
