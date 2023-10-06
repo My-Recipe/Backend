@@ -27,4 +27,8 @@ public class IngredientGroupQueryService {
     public List<IngredientGroup> findByRecipeId(Long recipeId) {
         return ingredientGroupRepository.findByRecipeId(recipeId);
     }
+
+    public IngredientGroup findIngredientGroupById(Long ingredientGroupId) {
+        return ingredientGroupRepository.findIngredientGroupById(ingredientGroupId);
+    }
 }

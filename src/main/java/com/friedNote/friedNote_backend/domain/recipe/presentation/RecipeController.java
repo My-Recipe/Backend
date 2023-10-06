@@ -49,7 +49,6 @@ public class RecipeController {
 
     @PostMapping("/recipe/update")
     public void updateRecipe(@ModelAttribute RecipeRequest.RecipeUpdateRequest recipeUpdateRequest) {
-        log.info("recipeUpdateRequest: {}", recipeUpdateRequest);
         recipeUpdateUseCase.updateRecipe(recipeUpdateRequest);
     }
 
@@ -66,6 +65,13 @@ public class RecipeController {
     @GetMapping("/search/recipe/name")
     public RecipeResponse.RecipeInfoResponse getRecipeByRecipeName(@RequestParam String recipeName){
         return recipeGetUseCase.getRecipeByRecipeName(recipeName);
+    }
+
+    @GetMapping("/search/recipe/tag")
+    public List<RecipeResponse.RecipeListResponse> getRecipeByTag(@RequestParam(required = false) String tag1, @RequestParam(required = false) String tag2,
+                                                                  @RequestParam(required = false) String tag3, @RequestParam(required = false) String tag4) {
+        log.info("호출");
+        return recipeListGetUseCase.getRecipeByTag(tag1, tag2, tag3, tag4);
     }
 
     @GetMapping("/recipe/list")
