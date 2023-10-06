@@ -1,12 +1,14 @@
 package com.friedNote.friedNote_backend.domain.recipe.application.service;
 
 import com.friedNote.friedNote_backend.common.annotation.UseCase;
+import com.friedNote.friedNote_backend.common.util.DeduplicationUtils;
 import com.friedNote.friedNote_backend.common.util.UserUtils;
 import com.friedNote.friedNote_backend.domain.bookmark.domain.entity.Bookmark;
 import com.friedNote.friedNote_backend.domain.bookmark.domain.service.BookmarkQueryService;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.entity.CookingProcess;
 import com.friedNote.friedNote_backend.domain.cookingProcess.domain.service.CookingProcessQueryService;
 import com.friedNote.friedNote_backend.domain.ingredient.domain.entity.Ingredient;
+import com.friedNote.friedNote_backend.domain.ingredient.domain.service.IngredientQueryService;
 import com.friedNote.friedNote_backend.domain.ingredientGroup.domain.entity.IngredientGroup;
 import com.friedNote.friedNote_backend.domain.ingredientGroup.domain.service.IngredientGroupQueryService;
 import com.friedNote.friedNote_backend.domain.recipe.application.dto.response.RecipeResponse;
@@ -14,6 +16,7 @@ import com.friedNote.friedNote_backend.domain.recipe.application.mapper.RecipeMa
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
 import com.friedNote.friedNote_backend.domain.recipe.domain.service.RecipeQueryService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ import java.util.stream.Collectors;
 @UseCase
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class RecipeListGetUseCase {
 
     private final RecipeQueryService recipeQueryService;
@@ -30,6 +34,8 @@ public class RecipeListGetUseCase {
     private final IngredientGroupQueryService ingredientGroupQueryService;
     private final BookmarkQueryService bookmarkQueryService;
     private final UserUtils userUtils;
+    private final IngredientQueryService ingredientQueryService;
+    private final DeduplicationUtils deduplicationUtils;
 
     private String imageUrl = "";
     private String fullDescription = "";
@@ -42,19 +48,7 @@ public class RecipeListGetUseCase {
         Long userId = userUtils.getUser().getId();
         List<Recipe> recipeList = recipeQueryService.findRecipeByUserId(userId);
 
-        List<RecipeResponse.RecipeListResponse> recipeListResponses = recipeList.stream().map(recipe -> {
-
-            imageUrl = "";
-            fullDescription = "";
-
-            Long recipeId = recipe.getId();
-            List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
-            List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
-            isBookmarked = true;
-
-            return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList, isBookmarked);
-        }).collect(Collectors.toList());
-        return recipeListResponses;
+        return getRecipeListResponses(recipeList);
     }
 
     /**
@@ -84,7 +78,7 @@ public class RecipeListGetUseCase {
                 Long recipeId = recipe.getId();
                 List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
                 List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
-                isBookmarked = true;
+                isBookmarked = checkBookmark(recipeId);
 
                 return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList, isBookmarked);
             }
@@ -94,7 +88,7 @@ public class RecipeListGetUseCase {
                 Recipe recipe = recipeQueryService.findRecipeById(recipeId);
                 List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
                 List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
-                isBookmarked = true;
+                isBookmarked = checkBookmark(recipeId);
 
                 return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList, isBookmarked);
             }
@@ -103,12 +97,37 @@ public class RecipeListGetUseCase {
     }
 
     /**
-     * 홈화면 -> 레시피 최신순으로
+     * 홈화면 -> 레시피 최신순으로 모두 보여주기
      */
     public List<RecipeResponse.RecipeListResponse> getHomeRecipeList() {
 
         List<Recipe> recipeList = recipeQueryService.findAll();
 
+        return getRecipeListResponses(recipeList);
+    }
+
+    /**
+     * 레시피 조회 화면 -> 작성자의 다른 레시피 보기
+     */
+    public List<RecipeResponse.RecipeListResponse> getRecipeListByUserId(Long userId) {
+
+        List<Recipe> recipeList = recipeQueryService.findRecipeByUserId(userId);
+
+        return getRecipeListResponses(recipeList);
+    }
+
+    /**
+     * 태그로 레시피 검색
+     * todo: 효율적인 방법 고민
+     */
+    public List<RecipeResponse.RecipeListResponse> getRecipeByTag(String tag1, String tag2, String tag3, String tag4) {
+
+        List<Recipe> recipeListDeduplication = getRecipeListByTag(tag1, tag2, tag3, tag4);
+
+        return getRecipeListResponses(recipeListDeduplication);
+    }
+
+    private List<RecipeResponse.RecipeListResponse> getRecipeListResponses(List<Recipe> recipeList) {
         List<RecipeResponse.RecipeListResponse> recipeListResponses = recipeList.stream().map(recipe -> {
 
             imageUrl = "";
@@ -118,28 +137,34 @@ public class RecipeListGetUseCase {
             List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
             List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
             isBookmarked = checkBookmark(recipeId);
+
             return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList, isBookmarked);
         }).collect(Collectors.toList());
         return recipeListResponses;
     }
 
-    public List<RecipeResponse.RecipeListResponse> getRecipeListByUserId(Long userId) {
+    private List<Recipe> getRecipeListByTag(String tag1, String tag2, String tag3, String tag4) {
+        List<Ingredient> ingredientList = new ArrayList<>();
+        List<Ingredient> ingredientList1 = ingredientQueryService.findByIngredientName(tag1);
+        List<Ingredient> ingredientList2 = ingredientQueryService.findByIngredientName(tag2);
+        List<Ingredient> ingredientList3 = ingredientQueryService.findByIngredientName(tag3);
+        List<Ingredient> ingredientList4 = ingredientQueryService.findByIngredientName(tag4);
 
-        List<Recipe> recipeList = recipeQueryService.findRecipeByUserId(userId);
+        ingredientList.addAll(ingredientList1);
+        ingredientList.addAll(ingredientList2);
+        ingredientList.addAll(ingredientList3);
+        ingredientList.addAll(ingredientList4);
 
-        List<RecipeResponse.RecipeListResponse> recipeListResponses = recipeList.stream().map(recipe -> {
-
-            imageUrl = "";
-            fullDescription = "";
-
-            Long recipeId = recipe.getId();
-            List<CookingProcess> cookingProcessList = cookingProcessQueryService.findByRecipe(recipe);
-            List<String> cookingProcessImageUrlList = getCookingProcessImageUrlList(cookingProcessList);
-            isBookmarked = true;
-
-            return getRecipeListResponse(recipeId, recipe, cookingProcessList, cookingProcessImageUrlList, isBookmarked);
+        List<Recipe> recipeList = ingredientList.stream().map(ingredient -> {
+            Long groupId = ingredient.getIngredientGroup().getId();
+            IngredientGroup ingredientGroup = ingredientGroupQueryService.findIngredientGroupById(groupId);
+            Long recipeId = ingredientGroup.getRecipe().getId();
+            Recipe recipe = recipeQueryService.findRecipeById(recipeId);
+            return recipe;
         }).collect(Collectors.toList());
-        return recipeListResponses;
+
+        List<Recipe> recipeListDeduplication = deduplicationUtils.deduplication(recipeList, Recipe::getId);
+        return recipeListDeduplication;
     }
 
     private void setImageUrl(List<CookingProcess> cookingProcessList, List<String> cookingProcessImageUrlList) {

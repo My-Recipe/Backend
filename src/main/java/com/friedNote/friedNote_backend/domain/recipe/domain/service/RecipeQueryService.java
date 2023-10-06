@@ -44,4 +44,6 @@ public class RecipeQueryService {
     public Recipe findByRecipeName(String recipeName) {
         return recipeRepository.findByRecipeName(recipeName);
     }
+
+
 }

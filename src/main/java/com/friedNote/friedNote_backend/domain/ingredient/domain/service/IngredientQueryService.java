@@ -22,4 +22,8 @@ public class IngredientQueryService {
     public List<Ingredient> findByIngredientGroupId(Long ingredientGroupId) {
         return ingredientRepository.findByIngredientGroupId(ingredientGroupId);
     }
+
+    public List<Ingredient> findByIngredientName(String ingredientName) {
+        return ingredientRepository.findByIngredientName(ingredientName);
+    }
 }
