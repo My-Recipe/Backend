@@ -21,6 +21,7 @@ public class RecipeController {
     private final RecipeUpdateUseCase recipeUpdateUseCase;
     private final RecipeNameListGetUseCase recipeNameListGetUseCase;
     private final RecipeGetUseCase recipeGetUseCase;
+    private final RecipeRecommendGetUseCase recipeRecommendGetUseCase;
 
     @PostMapping("/recipe")
     public void createRecipe(@ModelAttribute RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
@@ -77,5 +78,9 @@ public class RecipeController {
     @GetMapping("/recipe/list")
     public List<RecipeResponse.RecipeListResponse> getRecipeListByUserId(@RequestParam Long userId) {
         return recipeListGetUseCase.getRecipeListByUserId(userId);
+    }
+    @GetMapping("/recipe/list/ingredient")
+    public List<RecipeResponse.RecipeListResponse> getRecommendRecipeListByShortIngredient() {
+        return recipeRecommendGetUseCase.getRecommendRecipeListByShortIngredient();
     }
 }
