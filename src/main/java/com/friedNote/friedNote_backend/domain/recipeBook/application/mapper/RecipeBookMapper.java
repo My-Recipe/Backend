@@ -18,10 +18,12 @@ public class RecipeBookMapper {
                 .build();
     }
 
-    public static RecipeBookResponse.RecipeBookInfoResponse mapToRecipeBookInfo(RecipeBook recipeBook) {
+    public static RecipeBookResponse.RecipeBookInfoResponse mapToRecipeBookInfo(RecipeBook recipeBook, Long recipeCount) {
         return RecipeBookResponse.RecipeBookInfoResponse.builder()
                 .title(recipeBook.getTitle())
                 .subtitle(recipeBook.getSubtitle())
+                .recipeCount(recipeCount)
+                .publicityStatus(recipeBook.isPublicityStatus())
                 .build();
     }
 }

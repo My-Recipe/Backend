@@ -29,7 +29,7 @@ public class RecipeBookController {
     public RecipeBookResponse.RecipeBookInfoResponse getRecipeBookInfo() {
         return recipeBookGetUseCase.getRecipeBookInfo();
     }
-    @GetMapping("/recipeBook/{userId}/otherRecipeBook")
+    @GetMapping("/recipeBook/otherRecipeBook/{userId}")
     public RecipeBookResponse.RecipeBookInfoResponse getOtherRecipeBookInfo(@PathVariable Long userId) {
         return recipeBookGetUseCase.getOtherRecipeBookInfo(userId);
     }
