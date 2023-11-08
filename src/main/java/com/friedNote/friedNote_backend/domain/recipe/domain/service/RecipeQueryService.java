@@ -1,7 +1,9 @@
 package com.friedNote.friedNote_backend.domain.recipe.domain.service;
 
 import com.friedNote.friedNote_backend.common.annotation.DomainService;
+import com.friedNote.friedNote_backend.common.exception.Error;
 import com.friedNote.friedNote_backend.domain.recipe.domain.entity.Recipe;
+import com.friedNote.friedNote_backend.domain.recipe.domain.exception.RecipeNotFoundException;
 import com.friedNote.friedNote_backend.domain.recipe.domain.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -42,7 +44,8 @@ public class RecipeQueryService {
     }
 
     public Recipe findByRecipeName(String recipeName) {
-        return recipeRepository.findByRecipeName(recipeName);
+        return recipeRepository.findByRecipeName(recipeName)
+                .orElseThrow(() -> new RecipeNotFoundException(Error.RECIPE_NOT_FOUND));
     }
 
 

@@ -4,7 +4,9 @@ import com.friedNote.friedNote_backend.domain.recipeBook.domain.entity.RecipeBoo
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface RecipeBookRepository extends JpaRepository<RecipeBook, Long> {
-    RecipeBook findByUserId(Long userId);
+    Optional<RecipeBook> findByUserId(Long userId);
 }
