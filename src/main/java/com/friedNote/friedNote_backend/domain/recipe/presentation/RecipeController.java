@@ -1,9 +1,16 @@
 package com.friedNote.friedNote_backend.domain.recipe.presentation;
 
 
+import com.friedNote.friedNote_backend.common.exception.dto.ErrorResponse;
 import com.friedNote.friedNote_backend.domain.recipe.application.dto.request.RecipeRequest;
 import com.friedNote.friedNote_backend.domain.recipe.application.dto.response.RecipeResponse;
 import com.friedNote.friedNote_backend.domain.recipe.application.service.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +30,17 @@ public class RecipeController {
     private final RecipeGetUseCase recipeGetUseCase;
     private final RecipeRecommendGetUseCase recipeRecommendGetUseCase;
 
+
+    @Operation(summary = "레시피 등록", tags = {"RecipeController"})
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "레시피 등록 성공"),
+            @ApiResponse(responseCode = "404", description = "레시피 등록 실패",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
     @PostMapping("/recipe")
-    public void createRecipe(@ModelAttribute RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
+    public void createRecipe(
+            @Parameter( description = "레시피 등록 요청", schema = @Schema(implementation = RecipeRequest.RecipeCreateRequest.class)
+    ) @ModelAttribute RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
         recipeCreateUseCase.createRecipe(recipeCreateRequest);
     }
 
