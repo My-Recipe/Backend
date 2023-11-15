@@ -12,6 +12,9 @@ public final class IgnoredPathConst {
             "/info",
             "/login/oauth2/**",
             "/reissue",
-            "/favicon.ico"
+            "/favicon.ico",
+            "/swagger-ui/index.html",
+            "/swagger-ui.html",
+            "/swagger-ui/**"
             };
 }

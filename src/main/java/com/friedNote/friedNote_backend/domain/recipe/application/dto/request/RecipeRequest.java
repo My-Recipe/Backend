@@ -2,6 +2,7 @@ package com.friedNote.friedNote_backend.domain.recipe.application.dto.request;
 
 import com.friedNote.friedNote_backend.domain.cookingProcess.application.dto.request.CookingProcessRequest;
 import com.friedNote.friedNote_backend.domain.ingredientGroup.application.dto.request.IngredientGroupRequest;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +16,20 @@ public class RecipeRequest {
     @NoArgsConstructor
     public static class RecipeCreateRequest {
 
+        /**
+         * 리스트 변수명 리팩토링 필요
+         */
+        @Schema(description = "레시피 이름", defaultValue = "name")
         private String recipeName;
+        @Schema(description = "레시피 공개여부", defaultValue = "publicityStatus")
         private boolean publicityStatus;
+        @Schema(description = "레시피북 식별자", defaultValue = "recipeBookId")
         private Long recipeBookId;
+        @Schema(description = "사용자 식별자", defaultValue = "userId")
         private Long userId;
+        @Schema(description = "조리과정 리스트", defaultValue = "cookingProcessCreateRequestList")
         private List<CookingProcessRequest.CookingProcessCreateRequest> cookingProcessCreateRequestList;
+        @Schema(description = "재료그룹 리스트", defaultValue = "ingredientGroupCreateRequestList")
         private List<IngredientGroupRequest.IngredientGroupCreateRequest> ingredientGroupCreateRequestList;
 
         @Builder
