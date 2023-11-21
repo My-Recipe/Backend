@@ -15,13 +15,14 @@ public class RecipeBookUpdateUseCase {
     private final RecipeBookQueryService recipeBookQueryService;
 
     @Transactional
-    public void updateRecipeBook(RecipeBookRequest.RecipeBookCreateRequest recipeBookCreateRequest) {
+    public void updateRecipeBook(RecipeBookRequest.RecipeBookUpdateRequest
+                                             recipeBookUpdateRequest) {
 
-        String title = recipeBookCreateRequest.getTitle();
-        String subtitle = recipeBookCreateRequest.getSubtitle();
-        boolean publicityStatus = recipeBookCreateRequest.isPublicityStatus();
+        String title = recipeBookUpdateRequest.getTitle();
+        String subtitle = recipeBookUpdateRequest.getSubtitle();
+        boolean publicityStatus = recipeBookUpdateRequest.isPublicityStatus();
 
-        RecipeBook recipeBook = recipeBookQueryService.findByUserId(recipeBookCreateRequest.getUserId());
+        RecipeBook recipeBook = recipeBookQueryService.findByUserId(recipeBookUpdateRequest.getUserId());
         recipeBook.updateRecipeBookInfo(title, subtitle, publicityStatus);
     }
 
