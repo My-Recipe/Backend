@@ -1,5 +1,6 @@
 package com.friedNote.friedNote_backend.domain.ingredient.application.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +13,11 @@ public class IngredientRequest {
     @NoArgsConstructor
     public static class IngredientCreateRequest {
 
+        @Schema(description = "재료 이름", defaultValue = "ingredientName")
         private String ingredientName;
+        @Schema(description = "재료 양", defaultValue = "ingredientAmount")
         private String ingredientAmount;
+        @Schema(description = "재료 단위", defaultValue = "ingredientUnit")
         private String ingredientUnit;
 
         @Builder
@@ -27,9 +31,13 @@ public class IngredientRequest {
     @Setter
     @NoArgsConstructor
     public static class IngredientUpdateRequest {
+        @Schema(description = "재료 이름", defaultValue = "ingredientName")
         private String ingredientName;
+        @Schema(description = "재료 양", defaultValue = "ingredientAmount")
         private String ingredientAmount;
+        @Schema(description = "재료 단위", defaultValue = "ingredientUnit")
         private String ingredientUnit;
+        @Schema(description = "재료 그룹 식별자", defaultValue = "ingredientGroupId")
         private Long ingredientGroupId;
 
         @Builder
