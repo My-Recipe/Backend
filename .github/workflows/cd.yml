@@ -36,6 +36,13 @@ jobs:
           touch ./application-prod.yml
           echo "${{ secrets.APPLICATION_PROD }}" > ./application-prod.yml
         shell: bash
+
+      - name: Make application-auth.yml
+        run: |
+          cd ./src/main/resources
+          touch ./application-auth.yml
+          echo "${{ secrets.APPLICATION_AUTH }}" > ./application-auth.yml
+        shell: bash
         
       - name: Grant Execute Permission For Gradlew
         run: chmod +x gradlew
