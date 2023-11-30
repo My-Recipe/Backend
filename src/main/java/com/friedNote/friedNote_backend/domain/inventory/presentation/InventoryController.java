@@ -7,6 +7,7 @@ import com.friedNote.friedNote_backend.domain.inventory.application.service.Inve
 import com.friedNote.friedNote_backend.domain.inventory.application.service.InventoryGetUseCase;
 import com.friedNote.friedNote_backend.domain.inventory.application.service.InventoryUpdateUseCase;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -34,7 +35,9 @@ public class InventoryController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping("/inventory")
-    public void createInventory(@RequestBody InventoryRequest.InventoryCreateRequest inventoryCreateRequest) {
+    public void createInventory(@Parameter(description = "냉장고 속 재료 생성"
+            ,schema = @Schema(implementation = InventoryRequest.InventoryCreateRequest.class))
+                                    @RequestBody InventoryRequest.InventoryCreateRequest inventoryCreateRequest) {
         inventoryCreateUseCase.createInventory(inventoryCreateRequest);
     }
 
@@ -56,7 +59,9 @@ public class InventoryController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping("/inventory/update")
-    public void updateInventory(@RequestBody InventoryRequest.InventoryUpdateRequest inventoryUpdateRequest) {
+    public void updateInventory(@Parameter(description = "냉장고 속 재료 수정"
+            ,schema = @Schema(implementation = InventoryRequest.InventoryUpdateRequest.class))
+            @RequestBody InventoryRequest.InventoryUpdateRequest inventoryUpdateRequest) {
         inventoryUpdateUseCase.updateInventory(inventoryUpdateRequest);
     }
 

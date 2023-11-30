@@ -6,6 +6,7 @@ import com.friedNote.friedNote_backend.domain.bookmark.application.dto.response.
 import com.friedNote.friedNote_backend.domain.bookmark.application.service.BookmarkCreateUseCase;
 import com.friedNote.friedNote_backend.domain.bookmark.application.service.BookmarkGetUseCase;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,7 +29,9 @@ public class BookmarkController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping("/bookmark")
-    public void createBookmark(@RequestBody BookmarkRequest.BookmarkCreateRequest bookmarkCreateRequest) {
+    public void createBookmark(@Parameter(description = "북마크 생성 요청"
+            ,schema = @Schema(implementation = BookmarkRequest.BookmarkCreateRequest.class))
+            @RequestBody BookmarkRequest.BookmarkCreateRequest bookmarkCreateRequest) {
         bookmarkCreateUseCase.createBookmark(bookmarkCreateRequest);
     }
 

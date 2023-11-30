@@ -5,6 +5,7 @@ import com.friedNote.friedNote_backend.domain.user.application.dto.request.UserR
 import com.friedNote.friedNote_backend.domain.user.application.service.UserCreateUseCase;
 import com.friedNote.friedNote_backend.domain.user.application.service.UserUpdateUseCase;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -35,7 +36,9 @@ public class UserController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping("/user/update")
-    public void updateUser(@RequestBody UserRequest.UserUpdateRequest userUpdateRequest) {
+    public void updateUser(@Parameter(description = "유저 정보 수정 요청"
+            , schema = @Schema(implementation = UserRequest.UserUpdateRequest.class))
+                               @RequestBody UserRequest.UserUpdateRequest userUpdateRequest) {
         userUpdateUseCase.userUpdate(userUpdateRequest);
     }
 }

@@ -7,6 +7,7 @@ import com.friedNote.friedNote_backend.domain.alarm.application.service.AlarmCre
 import com.friedNote.friedNote_backend.domain.alarm.application.service.AlarmGetUseCase;
 import com.friedNote.friedNote_backend.domain.alarm.application.service.AlarmUpdateUseCase;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,7 +29,9 @@ public class AlarmController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping("/alarm")
-    public void createAlarm(@RequestBody AlarmRequest.AlarmCreateRequest alarmCreateRequest) {
+    public void createAlarm(@Parameter(description = "알람 생성 요청"
+            ,schema = @Schema(implementation = AlarmRequest.AlarmCreateRequest.class))
+            @RequestBody AlarmRequest.AlarmCreateRequest alarmCreateRequest) {
         alarmCreateUseCase.createAlarm(alarmCreateRequest);
     }
     @Operation(summary = "알람 조회", tags = {"AlarmController"})
@@ -48,7 +51,9 @@ public class AlarmController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping("/alarm/update")
-    public void updateAlarm(@RequestBody AlarmRequest.AlarmUpdateRequest alarmUpdateRequest) {
+    public void updateAlarm(@Parameter(description = "알람 수정 요청"
+            ,schema = @Schema(implementation = AlarmRequest.AlarmUpdateRequest.class))
+            @RequestBody AlarmRequest.AlarmUpdateRequest alarmUpdateRequest) {
         alarmUpdateUseCase.updateAlarm(alarmUpdateRequest);
     }
 
