@@ -32,4 +32,45 @@ public class SwaggerConfig {
                 .build();
     }
 
+    @Bean
+    public GroupedOpenApi userOpenApi() {
+        String[] paths = {"/user/**"};
+        return GroupedOpenApi.builder()
+                .group("User API")
+                .pathsToMatch(paths)
+                .build();
+    }
+    @Bean
+    public GroupedOpenApi recipeBookOpenApi() {
+        String[] paths = {"/recipeBook/**"};
+        return GroupedOpenApi.builder()
+                .group("RecipeBook API")
+                .pathsToMatch(paths)
+                .build();
+    }
+    @Bean
+    public GroupedOpenApi inventoryOpenApi() {
+        String[] paths = {"/inventory/**"};
+        return GroupedOpenApi.builder()
+                .group("Inventory API")
+                .pathsToMatch(paths)
+                .build();
+    }
+    @Bean
+    public GroupedOpenApi bookmarkOpenApi() {
+        String[] paths = {"/bookmark/**"};
+        return GroupedOpenApi.builder()
+                .group("Bookmark API")
+                .pathsToMatch(paths)
+                .build();
+    }
+    @Bean
+    public GroupedOpenApi alarmOpenApi() {
+        String[] paths = {"/alarm/**"};
+        return GroupedOpenApi.builder()
+                .group("Alarm API")
+                .pathsToMatch(paths)
+                .build();
+    }
+
 }
