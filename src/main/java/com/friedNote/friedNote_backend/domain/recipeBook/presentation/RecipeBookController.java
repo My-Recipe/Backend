@@ -7,6 +7,7 @@ import com.friedNote.friedNote_backend.domain.recipeBook.application.service.Rec
 import com.friedNote.friedNote_backend.domain.recipeBook.application.service.RecipeBookGetUseCase;
 import com.friedNote.friedNote_backend.domain.recipeBook.application.service.RecipeBookUpdateUseCase;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,7 +30,9 @@ public class RecipeBookController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping("/recipeBook")
-    public void createRecipeBook(@RequestBody RecipeBookRequest.RecipeBookCreateRequest recipeBookCreateRequest) {
+    public void createRecipeBook(@Parameter(description = "레시피북 생성 요청"
+            ,schema = @Schema(implementation = RecipeBookRequest.RecipeBookCreateRequest.class))
+            @RequestBody RecipeBookRequest.RecipeBookCreateRequest recipeBookCreateRequest) {
         recipeBookCreateUseCase.createRecipeBook(recipeBookCreateRequest);
     }
 
@@ -40,7 +43,9 @@ public class RecipeBookController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping("/recipeBook/update")
-    public void updateRecipeBook(@RequestBody RecipeBookRequest.RecipeBookUpdateRequest recipeBookUpdateRequest) {
+    public void updateRecipeBook(@Parameter(description = "레시피북 수정 요청"
+            ,schema = @Schema(implementation = RecipeBookRequest.RecipeBookUpdateRequest.class))
+            @RequestBody RecipeBookRequest.RecipeBookUpdateRequest recipeBookUpdateRequest) {
         recipeBookUpdateUseCase.updateRecipeBook(recipeBookUpdateRequest);
     }
     @Operation(summary = "본인 레시피북 조회", tags = {"RecipeBookController"})
