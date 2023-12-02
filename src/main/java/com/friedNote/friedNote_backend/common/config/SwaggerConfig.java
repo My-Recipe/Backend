@@ -3,7 +3,10 @@ package com.friedNote.friedNote_backend.common.config;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.servers.Server;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +32,7 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("Recipe API")
                 .pathsToMatch(paths)
+                .addOpenApiCustomizer(buildSecurityOpenApi())
                 .build();
     }
 
@@ -38,6 +42,7 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("User API")
                 .pathsToMatch(paths)
+                .addOpenApiCustomizer(buildSecurityOpenApi())
                 .build();
     }
 
@@ -47,6 +52,7 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("RecipeBook API")
                 .pathsToMatch(paths)
+                .addOpenApiCustomizer(buildSecurityOpenApi())
                 .build();
     }
 
@@ -56,6 +62,7 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("Inventory API")
                 .pathsToMatch(paths)
+                .addOpenApiCustomizer(buildSecurityOpenApi())
                 .build();
     }
 
@@ -65,6 +72,7 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("Bookmark API")
                 .pathsToMatch(paths)
+                .addOpenApiCustomizer(buildSecurityOpenApi())
                 .build();
     }
 
@@ -77,4 +85,14 @@ public class SwaggerConfig {
                 .build();
     }
 
+    public OpenApiCustomizer buildSecurityOpenApi() {
+        return OpenApi -> OpenApi.addSecurityItem(new SecurityRequirement().addList("jwt token"))
+                .getComponents()
+                .addSecuritySchemes("jwt token", new SecurityScheme()
+                        .name("Authorization")
+                        .type(SecurityScheme.Type.HTTP)
+                        .in(SecurityScheme.In.HEADER)
+                        .bearerFormat("JWT")
+                        .scheme("bearer"));
+    }
 }
