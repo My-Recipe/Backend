@@ -40,6 +40,7 @@ public class SwaggerConfig {
                 .pathsToMatch(paths)
                 .build();
     }
+
     @Bean
     public GroupedOpenApi recipeBookOpenApi() {
         String[] paths = {"/recipeBook/**"};
@@ -48,6 +49,7 @@ public class SwaggerConfig {
                 .pathsToMatch(paths)
                 .build();
     }
+
     @Bean
     public GroupedOpenApi inventoryOpenApi() {
         String[] paths = {"/inventory/**"};
@@ -56,6 +58,7 @@ public class SwaggerConfig {
                 .pathsToMatch(paths)
                 .build();
     }
+
     @Bean
     public GroupedOpenApi bookmarkOpenApi() {
         String[] paths = {"/bookmark/**"};
@@ -64,7 +67,8 @@ public class SwaggerConfig {
                 .pathsToMatch(paths)
                 .build();
     }
-    @Bean
+
+    //@Bean
     public GroupedOpenApi alarmOpenApi() {
         String[] paths = {"/alarm/**"};
         return GroupedOpenApi.builder()

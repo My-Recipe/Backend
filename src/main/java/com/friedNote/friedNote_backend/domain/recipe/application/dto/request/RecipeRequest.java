@@ -46,10 +46,16 @@ public class RecipeRequest {
     @Setter
     @NoArgsConstructor
     public static class RecipeUpdateRequest {
+
+        @Schema(description = "레시피 이름", defaultValue = "name")
         private String recipeName;
+        @Schema(description = "레시피 공개여부", defaultValue = "publicityStatus")
         private boolean publicityStatus;
+        @Schema(description = "레시피 식별자", defaultValue = "recipeId")
         private Long recipeId;
+        @Schema(description = "조리과정 리스트", defaultValue = "cookingProcessList")
         private List<CookingProcessRequest.CookingProcessUpdateRequest> CookingProcessUpdateRequestList;
+        @Schema(description = "재료그룹 리스트", defaultValue = "ingredientGroupList")
         private List<IngredientGroupRequest.IngredientGroupUpdateRequest> ingredientGroupUpdateRequestList;
 
         @Builder

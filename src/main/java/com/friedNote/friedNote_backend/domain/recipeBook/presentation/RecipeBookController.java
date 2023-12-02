@@ -15,6 +15,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
+
 @RestController
 @RequiredArgsConstructor
 public class RecipeBookController {
@@ -48,6 +50,7 @@ public class RecipeBookController {
             @RequestBody RecipeBookRequest.RecipeBookUpdateRequest recipeBookUpdateRequest) {
         recipeBookUpdateUseCase.updateRecipeBook(recipeBookUpdateRequest);
     }
+
     @Operation(summary = "본인 레시피북 조회", tags = {"RecipeBookController"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "레시피북 조회 성공"),
@@ -58,6 +61,7 @@ public class RecipeBookController {
     public RecipeBookResponse.RecipeBookInfoResponse getRecipeBookInfo() {
         return recipeBookGetUseCase.getRecipeBookInfo();
     }
+
     @Operation(summary = "다른 사람 레시피북 조회", tags = {"RecipeBookController"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "다른 사람 레시피북 조회 성공"),
@@ -65,7 +69,8 @@ public class RecipeBookController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/recipeBook/otherRecipeBook/{userId}")
-    public RecipeBookResponse.RecipeBookInfoResponse getOtherRecipeBookInfo(@PathVariable Long userId) {
+    public RecipeBookResponse.RecipeBookInfoResponse getOtherRecipeBookInfo(@Parameter(name = "userId", description = "사용자 id", in = PATH)
+                                                                                @PathVariable Long userId) {
         return recipeBookGetUseCase.getOtherRecipeBookInfo(userId);
     }
 }
