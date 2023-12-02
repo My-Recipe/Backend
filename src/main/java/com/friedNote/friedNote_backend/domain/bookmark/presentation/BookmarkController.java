@@ -14,6 +14,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -29,8 +31,8 @@ public class BookmarkController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping("/bookmark")
-    public void createBookmark(@Parameter(description = "북마크 생성 요청"
-            ,schema = @Schema(implementation = BookmarkRequest.BookmarkCreateRequest.class))
+    public void createBookmark(@Parameter(description = "북마크 생성 요청",
+            schema = @Schema(implementation = BookmarkRequest.BookmarkCreateRequest.class))
             @RequestBody BookmarkRequest.BookmarkCreateRequest bookmarkCreateRequest) {
         bookmarkCreateUseCase.createBookmark(bookmarkCreateRequest);
     }
@@ -43,7 +45,8 @@ public class BookmarkController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/bookmark/count")
-    public BookmarkResponse.BookmarkCountResponse getBookmarkCount(@RequestParam Long recipeId) {
+    public BookmarkResponse.BookmarkCountResponse getBookmarkCount(@Parameter(name = "recipeId", description = "레시피 id", in = QUERY)
+                                                                       @RequestParam Long recipeId) {
          return bookmarkGetUseCase.getBookmarkCount(recipeId);
     }
 

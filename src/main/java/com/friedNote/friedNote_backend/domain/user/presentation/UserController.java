@@ -4,6 +4,7 @@ import com.friedNote.friedNote_backend.common.exception.dto.ErrorResponse;
 import com.friedNote.friedNote_backend.domain.user.application.dto.request.UserRequest;
 import com.friedNote.friedNote_backend.domain.user.application.service.UserCreateUseCase;
 import com.friedNote.friedNote_backend.domain.user.application.service.UserUpdateUseCase;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -25,6 +26,7 @@ public class UserController {
     /**
      *  OAuth2로 사용하지 않는 API
      */
+    @Hidden
     @PostMapping("/user")
     public void createUser(@RequestBody UserRequest.UserCreateRequest userCreateRequest) {
         userCreateUseCase.createUser(userCreateRequest);
