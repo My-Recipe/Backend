@@ -13,4 +13,5 @@ public class FriedNoteBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FriedNoteBackendApplication.class, args);
 	}
+
 }
