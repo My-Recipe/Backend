@@ -42,7 +42,7 @@ public class RecipeController {
     @PostMapping("/recipe")
     public void createRecipe(
             @Parameter(description = "레시피 등록 요청", schema = @Schema(implementation = RecipeRequest.RecipeCreateRequest.class)
-    ) @ModelAttribute RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
+    ) @RequestBody RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
         recipeCreateUseCase.createRecipe(recipeCreateRequest);
     }
 

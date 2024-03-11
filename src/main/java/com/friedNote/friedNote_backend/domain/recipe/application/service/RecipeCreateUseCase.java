@@ -38,12 +38,8 @@ public class RecipeCreateUseCase {
     private final S3UploadService s3UploadService;
 
     public void createRecipe(RecipeRequest.RecipeCreateRequest recipeCreateRequest) {
-        Long recipeBookId = recipeCreateRequest.getRecipeBookId();
-        RecipeBook recipeBook = recipeBookQueryService.findByUserId(recipeBookId);
-
-        Long userId = recipeCreateRequest.getUserId();
         User user = userUtils.getUser();
-
+        RecipeBook recipeBook = recipeBookQueryService.findByUserId(user.getId());
         Recipe recipe = RecipeMapper.mapToRecipe(recipeCreateRequest, recipeBook, user);
         recipeSaveService.saveRecipe(recipe);
 
@@ -62,11 +58,9 @@ public class RecipeCreateUseCase {
         );
 
         recipeCreateRequest.getIngredientGroupCreateRequestList().forEach(ingredientGroupCreateRequest -> {
-                    //재료그룹저장
                     IngredientGroup ingredientGroup = IngredientGroupMapper.mapToIngredientGroup(ingredientGroupCreateRequest, recipe);
                     ingredientGroupSaveService.saveIngredientGroup(ingredientGroup);
 
-                    //재료저장
                     ingredientGroupCreateRequest.getIngredientList().forEach(ingredientCreateRequest -> {
                         Ingredient ingredient = IngredientMapper.mapToIngredient(ingredientCreateRequest, ingredientGroup);
                         ingredientSaveService.saveIngredient(ingredient);
