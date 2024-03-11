@@ -21,6 +21,7 @@ public class InventoryMapper {
 
     public static InventoryResponse.InventoryInfoResponse mapToInventoryInfo(Inventory inventory) {
         return InventoryResponse.InventoryInfoResponse.builder()
+                .inventoryId(inventory.getId())
                 .name(inventory.getName())
                 .quantity(inventory.getQuantity())
                 .expirationDate(inventory.getExpirationDate())

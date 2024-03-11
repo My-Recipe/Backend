@@ -11,6 +11,9 @@ public class InventoryResponse {
     @Getter
     @NoArgsConstructor
     public static class InventoryInfoResponse {
+
+        @Schema(description = "인벤토리 식별자", defaultValue = "inventoryId")
+        private Long inventoryId;
         @Schema(description = "재료 이름", defaultValue = "name")
         private String name;
         @Schema(description = "재료 수량", defaultValue = "quantity")
@@ -20,7 +23,8 @@ public class InventoryResponse {
         @Schema(description = "등록일자", defaultValue = "registrationDate")
         private LocalDate registrationDate;
         @Builder
-        public InventoryInfoResponse(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate) {
+        public InventoryInfoResponse(Long inventoryId, String name, String quantity, LocalDate expirationDate, LocalDate registrationDate) {
+            this.inventoryId = inventoryId;
             this.name = name;
             this.quantity = quantity;
             this.expirationDate = expirationDate;
