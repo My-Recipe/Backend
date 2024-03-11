@@ -5,12 +5,14 @@ import com.friedNote.friedNote_backend.domain.ingredientGroup.application.dto.re
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 public class RecipeResponse {
 
     @Getter
+    @NoArgsConstructor
     public static class RecipeNameResponse{
 
         @Schema(description = "레시피 이름", defaultValue = "recipeName")
@@ -23,6 +25,7 @@ public class RecipeResponse {
     }
 
     @Getter
+    @NoArgsConstructor
     public static class RecipeListResponse {
 
         @Schema(description = "레시피 식별자", defaultValue = "recipeId")
@@ -54,6 +57,7 @@ public class RecipeResponse {
     }
 
     @Getter
+    @NoArgsConstructor
     public static class RecipeMainResponse {
 
         @Schema(description = "레시피 식별자", defaultValue = "recipeId")
@@ -81,6 +85,7 @@ public class RecipeResponse {
     }
 
     @Getter
+    @NoArgsConstructor
     public static class RecipeInfoResponse {
 
         @Schema(description = "레시피북 제목", defaultValue = "bookTitle")
