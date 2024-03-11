@@ -22,16 +22,13 @@ public class InventoryRequest {
         @Schema(description = "등록일자", defaultValue = "registrationDate")
         @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate registrationDate;
-        @Schema(description = "사용자 식별자", defaultValue = "userId")
-        private Long userId;
 
         @Builder
-        public InventoryCreateRequest(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate, Long userId) {
+        public InventoryCreateRequest(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate) {
             this.name = name;
             this.quantity = quantity;
             this.expirationDate = expirationDate;
             this.registrationDate = registrationDate;
-            this.userId = userId;
         }
     }
 
@@ -50,6 +47,7 @@ public class InventoryRequest {
         private LocalDate registrationDate;
         @Schema(description = "인벤토리 식별자", defaultValue = "inventoryId")
         private Long inventoryId;
+
         @Builder
         public InventoryUpdateRequest(String name, String quantity, LocalDate expirationDate, LocalDate registrationDate, Long inventoryId) {
             this.name = name;
