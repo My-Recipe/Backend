@@ -21,7 +21,6 @@ public class RecipeBookCreateUseCase {
     public void createRecipeBook(RecipeBookRequest.RecipeBookCreateRequest recipeBookCreateRequest) {
         String title = recipeBookCreateRequest.getTitle();
         String subtitle = recipeBookCreateRequest.getSubtitle();
-        Long userId = recipeBookCreateRequest.getUserId();
         User user = userUtils.getUser();
         boolean publicityStatus = recipeBookCreateRequest.isPublicityStatus();
 
