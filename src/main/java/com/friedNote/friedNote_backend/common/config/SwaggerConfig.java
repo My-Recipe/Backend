@@ -2,7 +2,6 @@ package com.friedNote.friedNote_backend.common.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
@@ -10,18 +9,15 @@ import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 
 @OpenAPIDefinition(
         info = @Info(
                 title = "FRIED NOTE API",
                 description = "FRIED NOTE API 문서입니다.",
-                version = "v1"),
-        servers = {
-                @Server(url = "3.39.220.111", description = "운영서버"),
-                @Server(url = "http://localhost:8080", description = "로컬서버")
-        }
-
+                version = "v1")
 )
+
 @Configuration
 @RequiredArgsConstructor
 public class SwaggerConfig {
@@ -30,6 +26,7 @@ public class SwaggerConfig {
     public GroupedOpenApi recipeOpenApi() {
         String[] paths = {"/recipe/**"};
         return GroupedOpenApi.builder()
+                .headersToMatch()
                 .group("Recipe API")
                 .pathsToMatch(paths)
                 .addOpenApiCustomizer(buildSecurityOpenApi())
@@ -94,5 +91,11 @@ public class SwaggerConfig {
                         .in(SecurityScheme.In.HEADER)
                         .bearerFormat("JWT")
                         .scheme("bearer"));
+    }
+
+
+    @Bean
+    ForwardedHeaderFilter forwardedHeaderFilter() {
+        return new ForwardedHeaderFilter();
     }
 }
