@@ -76,8 +76,11 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           envs: GITHUB_SHA
           script: |
-           sudo docker rm -f $(docker ps -qa)
-           sudo docker pull ${{ secrets.DOCKER_REPO }}/my_recipe
-           docker-compose up -d
-           docker image prune -f
+            touch ./docker-compose.yml
+            echo "${{ secrets.DOCKER_COMPOSE }}" > ./docker-compose.yml
+            docker stop ${{ secrets.DOCKER_REPO }}
+            docker rm ${{ secrets.DOCKER_REPO }}
+            docker pull ${{ secrets.DOCKER_ID }}/${{ secrets.DOCKER_REPO }}
+            docker-compose up -d
+            docker image prune
 
