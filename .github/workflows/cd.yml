@@ -67,15 +67,6 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           envs: GITHUB_SHA
           script: |
-      - name: Deploy to Prob
-        uses: appleboy/ssh-action@master
-        id: deploy-prob
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          envs: GITHUB_SHA
-          script: |
             touch ./docker-compose.yml
             echo "${{ secrets.DOCKER_COMPOSE }}" > ./docker-compose.yml
             docker stop ${{ secrets.DOCKER_REPO }}
@@ -83,4 +74,5 @@ jobs:
             docker pull ${{ secrets.DOCKER_ID }}/${{ secrets.DOCKER_REPO }}
             docker-compose up -d
             docker image prune
+
 
